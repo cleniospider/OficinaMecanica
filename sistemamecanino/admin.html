@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair - Painel</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <button class="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="header-logo-text">AUTO REPAIR</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="profile-area">
+            <img src="img/download.png" alt="Avatar" class="avatar"> 
+            <div class="mobile-profile-text">
+                AUTO REPAIR<br>
+                <span class="role-text">ADMINISTRADOR</span>
+            </div>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="admin.html" class="active">Painel de Gestão</a></li>
+            <li><a href="ordens.html">Ordens de Serviços</a></li>
+            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
+            <li><a href="clientes.html">Cadastro Cliente</a></li>
+            <li><a href="#">Estoque de Peças</a></li>
+            <li><a href="#">Histórico de Veículos</a></li>
+            <li><a href="#">Financeiro</a></li>
+            <li><a href="#">Relatórios</a></li>
+            <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
+            <li><a href="index.html" class="logout-link">Sair</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content" id="main-content">
+        <div class="banner-area">
+            <img src="img/CARRO.jpg" alt="Carro Banner" class="banner-image">
+        </div>
+
+        <div class="header-titles">
+            <h1>Painel de Gestão</h1>
+            <p>Controle total da sua oficina.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <a href="ordens.html" class="grid-card">ORDENS DE SERVIÇOS</a>
+            <a href="cadastroveiculo.html" class="grid-card">CADASTRO VEÍCULO</a>
+            <a href="#" class="grid-card">CADASTRO CLIENTE</a>
+            <a href="#" class="grid-card">ESTOQUE DE PEÇAS</a>
+            <a href="#" class="grid-card">HISTÓRICO DE VEÍCULOS</a>
+            <a href="#" class="grid-card">FINANCEIRO</a>
+            <a href="#" class="grid-cardRel">RELATÓRIOS</a>
+        </div>
+    </main>
+
+    <div id="modal-conta" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Minha Conta</h2>
+            <div class="conta-dados">
+                <p><strong>Nome:</strong> <span id="info-nome">Carregando...</span></p>
+                <p><strong>Email:</strong> <span id="info-email">Carregando...</span></p>
+                <p><strong>Cargo:</strong> <span id="info-cargo">Carregando...</span></p>
+                <p><strong>Status:</strong> <span style="color: #00cc44;">Ativo ✔️</span></p>
+            </div>
+            <button class="btn-fechar-modal">Fechar</button>
+        </div>
+    </div>
+
+</body>
+</html>

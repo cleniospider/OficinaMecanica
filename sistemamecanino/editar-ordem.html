@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair - Editar Ordem</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/ordens.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <button class="hamburger-btn">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="header-logo-text">AUTO REPAIR</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="profile-area">
+            <img src="img/download.png" alt="Avatar" class="avatar"> 
+            <div class="mobile-profile-text">
+                AUTO REPAIR<br>
+                <span class="role-text">ADMINISTRADOR</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin.html">Painel de Gestão</a></li>
+            <li><a href="ordens.html" class="active">Ordens de Serviços</a></li>
+            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
+            <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
+            <li><a href="#">Estoque de Peças</a></li>
+            <li><a href="#">Histórico de Veículos</a></li>
+            <li><a href="#">Financeiro</a></li>
+            <li><a href="#">Relatórios</a></li>
+            <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
+            <li><a href="index.html" class="logout-link">Sair</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="orders-container">
+            <div class="orders-header">
+                <h2>Editar Ordem de Serviço</h2>
+            </div>
+
+            <div class="caixa-edicao">
+                <form action="ordens.html" class="form-edicao">
+                    <div class="grupo-input">
+                        <label>Veículo</label>
+                        <input type="text" value="CBR 600RR" required>
+                    </div>
+
+                    <div class="grupo-input">
+                        <label>Placa</label>
+                        <input type="text" value="ABC-1234" required>
+                    </div>
+
+                    <div class="grupo-input">
+                        <label>Nome do Cliente</label>
+                        <input type="text" value="Marcos Silva" required>
+                    </div>
+
+                    <div class="grupo-input">
+                        <label>Status</label>
+                        <select>
+                            <option value="ativo">Ativo</option>
+                            <option value="pronto" selected>Pronto</option>
+                            <option value="parado">Parado</option>
+                        </select>
+                    </div>
+                    
+                    <div class="botoes-acao">
+                        <button type="submit" class="btn-salvar">Atualizar Ordem</button>
+                        <a href="ordens.html" class="btn-voltar">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

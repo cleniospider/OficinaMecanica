@@ -1,0 +1,160 @@
+/* --- FUNDO PRETO E RESET --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #080808; 
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* === ALINHAMENTO PRINCIPAL LADO A LADO === */
+.container-central {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px; 
+    width: 100%;
+    /* AUMENTEI AQUI: de 1000px para 1300px para a logo poder crescer mais */
+    max-width: 1300px; 
+    padding: 20px;
+}
+
+/* === ÁREA DA LOGO === */
+.logo-area {
+    flex: 1.2; /* Dá um pouco mais de espaço de tela pra logo do que pro formulário */
+    display: flex;
+    justify-content: flex-end; 
+}
+
+.logo-area img {
+    max-width: 100%;
+    /* AUMENTEI AQUI: Coloquei 700px. Pode aumentar mais se quiser! */
+    width: 700px; 
+}
+
+/* === ÁREA DO FORMULÁRIO === */
+.forms-area {
+    flex: 1;
+    /* Deixei um pouquinho mais largo (500px) para acomodar as colunas do cadastro */
+    max-width: 500px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+/* === CAMPOS (QUADRADOS DE DIGITAR) === */
+.form-group {
+    /* Diminui a margem inferior para o formulário não ficar tão comprido */
+    margin-bottom: 15px; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* COLUNAS PARA O CADASTRO (Deixa o form mais quadrado) */
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.half-width {
+    flex: 1;
+}
+
+.form-group label {
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #cccccc;
+}
+
+.form-group input {
+    background-color: #2a2a2a; 
+    border: none;
+    border-radius: 20px; 
+    padding: 14px 20px; /* Diminui um pouco o padding interno pra compactar */
+    color: #ffffff;
+    outline: none;
+    font-size: 14px;
+}
+
+.form-group input::placeholder {
+    color: #888888;
+}
+
+/* === BOTÕES DE CARGO === */
+.roles-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 15px 0 30px;
+}
+
+.roles-container input[type="radio"] {
+    display: none;
+}
+
+.roles-container label {
+    flex: 1;
+    text-align: center;
+    background-color: #2a2a2a; 
+    padding: 8px 0;
+    border-radius: 20px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+    color: #aaaaaa;
+}
+
+.roles-container input[type="radio"]:checked + label {
+    background-color: #ff0000; 
+    color: white;
+}
+
+/* === LINKS E BOTÃO DE ENTRAR === */
+.link-container {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #aaaaaa;
+}
+
+.link-container a {
+    color: #ff0000; 
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.btn-submit {
+    background-color: #ff0000; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 150px;
+    transition: background 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #cc0000;
+}

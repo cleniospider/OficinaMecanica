@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair - Veículos Cadastrados</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/ordens.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <button class="hamburger-btn">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="header-logo-text">AUTO REPAIR</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="profile-area">
+            <img src="img/download.png" alt="Avatar" class="avatar"> 
+            <div class="mobile-profile-text">
+                AUTO REPAIR<br>
+                <span class="role-text">ADMINISTRADOR</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin.html">Painel de Gestão</a></li>
+            <li><a href="ordens.html">Ordens de Serviços</a></li>
+            <li><a href="cadastroveiculo.html" class="active">Cadastro Veículo</a></li>
+            <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
+            <li><a href="#">Estoque de Peças</a></li>
+            <li><a href="#">Histórico de Veículos</a></li>
+            <li><a href="#">Financeiro</a></li>
+            <li><a href="#">Relatórios</a></li>
+            <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
+            <li><a href="index.html" class="logout-link">Sair</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="orders-container">
+            <div class="orders-header">
+                <h2>Veículos Cadastrados</h2>
+                <div class="search-box">
+                    <input type="text" id="searchVeiculo" placeholder="Pesquisar por placa ou modelo...">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>MARCA / MODELO</th>
+                            <th>PLACA</th>
+                            <th>ANO / COR</th>
+                            <th>PROPRIETÁRIO</th>
+                            <th>AÇÕES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>CBR 600RR</strong></td>
+                            <td class="placa-texto">ABC-1234</td>
+                            <td>2020 / Vermelho</td>
+                            <td>Marcos Silva</td>
+                            <td>
+                                <div class="acoes-flex">
+                                    <a href="editar-veiculo.html" class="btn-editar">EDITAR</a>
+                                    <a href="excluir-veiculo.html" class="btn-excluir">EXCLUIR</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>TOYOTA COROLLA</strong></td>
+                            <td class="placa-texto">DEF-5678</td>
+                            <td>2019 / Prata</td>
+                            <td>José Costa</td>
+                            <td>
+                                <div class="acoes-flex">
+                                    <a href="editar-veiculo.html" class="btn-editar">EDITAR</a>
+                                    <a href="excluir-veiculo.html" class="btn-excluir">EXCLUIR</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>VW GOLF GTI</strong></td>
+                            <td class="placa-texto">GTI-2004</td>
+                            <td>2024 / Preto</td>
+                            <td>Arthur Mendes</td>
+                            <td>
+                                <div class="acoes-flex">
+                                    <a href="editar-veiculo.html" class="btn-editar">EDITAR</a>
+                                    <a href="excluir-veiculo.html" class="btn-excluir">EXCLUIR</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="area-botao-novo">
+                <a href="novo-veiculo.html" class="btn-nova-ordem btn-espacado">+ NOVO VEÍCULO</a>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

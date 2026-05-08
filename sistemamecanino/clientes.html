@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair - Ordens de Serviço</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/ordens.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <button class="hamburger-btn">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="header-logo-text">AUTO REPAIR</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="profile-area">
+            <img src="img/download.png" alt="Avatar" class="avatar"> 
+            <div class="mobile-profile-text">
+                AUTO REPAIR<br>
+                <span class="role-text">ADMINISTRADOR</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin.html">Painel de Gestão</a></li>
+            <li><a href="ordens.html" class="active">Ordens de Serviços</a></li>
+            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
+            <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
+            <li><a href="#">Estoque de Peças</a></li>
+            <li><a href="#">Histórico de Veículos</a></li>
+            <li><a href="#">Financeiro</a></li>
+            <li><a href="#">Relatórios</a></li>
+            <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
+            <li><a href="index.html" class="logout-link">Sair</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="orders-container">
+            <div class="orders-header">
+                <h2>Ordens de Serviço</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Pesquisar veículo ou cliente...">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>COD</th>
+                            <th>NOME</th>
+                            <th>TELEFONE</th>
+                            <th>EMAIL</th>
+                            <th>AÇÕES</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+
+            <div class="legend-area">
+                <span class="dot pronto"></span> Pronto
+                <span class="dot ativo"></span> Ativo
+                <span class="dot parado"></span> Parado
+            </div>
+
+            <a href="cadastrocliente.html" class="btn-nova-ordem">+ NOVO CLIENTE</a>
+        </div>
+    </main>
+
+    <div id="modal-ordem" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Nova Ordem</h2>
+            <form id="formOrdem">
+                <input type="text" id="veiculo" placeholder="Veículo" required>
+                <input type="text" id="placa" placeholder="Placa" required>
+                <input type="text" id="proprietario" placeholder="Nome do Cliente" required>
+                <select id="status">
+                    <option value="ativo">Ativo</option>
+                    <option value="pronto">Pronto</option>
+                    <option value="parado">Parado</option>
+                </select>
+                <button type="submit" class="btn-fechar-modal">Salvar Ordem</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-editar" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Editar Ordem</h2>
+            <form id="formEditar">
+                <input type="hidden" id="edit-id">
+                <input type="text" id="edit-veiculo" placeholder="Veículo" required>
+                <input type="text" id="edit-placa" placeholder="Placa" required>
+                <input type="text" id="edit-proprietario" placeholder="Nome do Cliente" required>
+                <select id="edit-status">
+                    <option value="ativo">Ativo</option>
+                    <option value="pronto">Pronto</option>
+                    <option value="parado">Parado</option>
+                </select>
+                <button type="submit" class="btn-fechar-modal" style="background: #00cc44;">Atualizar Ordem</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

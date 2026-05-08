@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair - Ordens de Serviço</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/ordens.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <button class="hamburger-btn">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="header-logo-text">AUTO REPAIR</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="profile-area">
+            <img src="img/download.png" alt="Avatar" class="avatar"> 
+            <div class="mobile-profile-text">
+                AUTO REPAIR<br>
+                <span class="role-text">ADMINISTRADOR</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin.html">Painel de Gestão</a></li>
+            <li><a href="ordens.html" class="active">Ordens de Serviços</a></li>
+            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
+            <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
+            <li><a href="#">Estoque de Peças</a></li>
+            <li><a href="#">Histórico de Veículos</a></li>
+            <li><a href="#">Financeiro</a></li>
+            <li><a href="#">Relatórios</a></li>
+            <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
+            <li><a href="index.html" class="logout-link">Sair</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="orders-container">
+            <div class="orders-header">
+                <h2>Ordens de Serviço</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Pesquisar veículo ou cliente...">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>STATUS</th>
+                            <th>VEÍCULO</th>
+                            <th>PROPRIETÁRIO</th>
+                            <th>ENTRADA</th>
+                            <th>AÇÕES</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td><span class="status-dot dot-pronto"></span></td>
+                            <td><strong>CBR 600RR</strong><br><small class="placa-texto">ABC-1234</small></td>
+                            <td>Marcos Silva</td>
+                            <td>27/03</td>
+                            <td>
+                                <div class="acoes-flex">
+                                    <a href="editar-ordem.html" class="btn-editar">EDITAR</a>
+                                    <a href="excluir-ordem.html" class="btn-excluir">EXCLUIR</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-dot dot-ativo"></span></td>
+                            <td><strong>TOYOTA COROLLA</strong><br><small class="placa-texto">DEF-5678</small></td>
+                            <td>José Costa</td>
+                            <td>28/03</td>
+                            <td>
+                                <div class="acoes-flex">
+                                    <a href="editar-ordem.html" class="btn-editar">EDITAR</a>
+                                    <a href="excluir-ordem.html" class="btn-excluir">EXCLUIR</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-dot dot-parado"></span></td>
+                            <td><strong>VW GOLF GTI</strong><br><small class="placa-texto">GTI-2004</small></td>
+                            <td>Arthur Mendes</td>
+                            <td>30/03</td>
+                            <td>
+                                <div class="acoes-flex">
+                                    <a href="editar-ordem.html" class="btn-editar">EDITAR</a>
+                                    <a href="excluir-ordem.html" class="btn-excluir">EXCLUIR</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="legend-area">
+                <span class="dot pronto"></span> Pronto
+                <span class="dot ativo"></span> Ativo
+                <span class="dot parado"></span> Parado
+            </div>
+
+            <a href="nova-ordem.html" class="btn-nova-ordem">NOVA ORDEM DE SERVIÇO</a>
+    </main>
+
+    <div id="modal-ordem" class="modal-overlay">
+        </div>
+</body>
+</html>

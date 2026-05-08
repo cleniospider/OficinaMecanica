@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair - Cadastro de Cliente</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/cadastrocliente.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <button class="hamburger-btn" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="header-logo-text">AUTO REPAIR</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="profile-area">
+            <img src="img/download.png" alt="Avatar" class="avatar"> 
+            <div class="mobile-profile-text">
+                AUTO REPAIR<br>
+                <span class="role-text" style="color: #00cc44; font-weight: bold;">ADMINISTRADOR</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin.html">Painel de Gestão</a></li>
+            <li><a href="ordens.html">Ordens de Serviços</a></li>
+            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
+            <li><a href="cadastrocliente.html" class="active">Cadastro Cliente</a></li>
+            <li><a href="#">Estoque de Peças</a></li>
+            <li><a href="#">Histórico de Veículos</a></li>
+            <li><a href="#">Financeiro</a></li>
+            <li><a href="#">Relatórios</a></li>
+            <li><a onclick="abrirConta()" style="cursor:pointer;">👤 Minha Conta</a></li>
+            <li><a href="index.html" class="logout-link">Sair</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="cadastro-container">
+            
+            <div class="cadastro-card">
+                <div class="logo-area-form">
+                    <img src="img/download.png" alt="Logo Auto Repair">
+                </div>
+                <h2>CADASTRO DE CLIENTES</h2>
+
+                <form id="formCliente" class="form-grid" action="clientes.html">
+                    
+                    <div class="input-group full-width">
+                        <label>Nome Completo</label>
+                        <input type="text" id="nome" placeholder="Digite o nome completo" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>CPF</label>
+                        <input type="text" id="cpf" placeholder="000.000.000-00" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Telefone</label>
+                        <input type="tel" id="telefone" placeholder="(00) 00000-0000" required>
+                    </div>
+
+                    <div class="input-group full-width">
+                        <label>E-mail</label>
+                        <input type="email" id="email" placeholder="exemplo@email.com" required>
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="submit" class="btn-salvar">SALVAR CLIENTE</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair - Sistema</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <main class="container-central">
+        
+        <div class="logo-area">
+            <img src="img/download.png" alt="Logo Auto Repair">
+        </div>
+
+        <div class="forms-area">
+            
+            <div id="login-screen">
+                <h1 class="title">LOGIN</h1>
+
+                <form id="form-login" action="admin.html">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" placeholder="email@gmail.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-senha">Senha</label>
+                        <input type="password" id="login-senha" placeholder="******" minlength="6" required>
+                    </div>
+
+                    <div class="roles-container">
+                        <input type="radio" id="login-admin" name="login-cargo" value="admin" required>
+                        <label for="login-admin">ADMIN</label>
+
+                        <input type="radio" id="login-recep" name="login-cargo" value="recep">
+                        <label for="login-recep">RECEP.</label>
+
+                        <input type="radio" id="login-mecan" name="login-cargo" value="mecan">
+                        <label for="login-mecan">MECÂN.</label>
+                    </div>
+
+                    <div class="link-container">
+                        não possui uma conta? <a id="link-ir-cadastro" style="cursor: pointer;">Cadastrar - se</a>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Entrar</button>
+                </form>
+            </div>
+
+            <div id="register-screen" class="hidden">
+                <h1 class="title" style="font-size: 22px;">CADASTRO PROFISSIONAL</h1>
+
+                <form id="form-register">
+                    <div class="form-row">
+                        <div class="form-group half-width">
+                            <label for="reg-nome">Nome Completo</label>
+                            <input type="text" id="reg-nome" placeholder="Tássio" required>
+                        </div>
+                        <div class="form-group half-width">
+                            <label for="reg-email">Email</label>
+                            <input type="email" id="reg-email" placeholder="email@gmail.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half-width">
+                            <label for="reg-cpf">CPF</label>
+                            <input type="text" id="reg-cpf" placeholder="000.000.000-00" maxlength="14" required>
+                        </div>
+                        <div class="form-group half-width">
+                            <label for="reg-tel">Telefone</label>
+                            <input type="text" id="reg-tel" placeholder="(00) 00000-0000" maxlength="15" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half-width">
+                            <label for="reg-senha">Senha</label>
+                            <input type="password" id="reg-senha" placeholder="******" minlength="6" required>
+                        </div>
+                        <div class="form-group half-width">
+                            <label for="reg-confirma-senha">Confirmação de senha</label>
+                            <input type="password" id="reg-confirma-senha" placeholder="******" minlength="6" required>
+                        </div>
+                    </div>
+
+                    <label style="font-size: 13px; color: #ffffff; display: block;">Cargo</label>
+                    <div class="roles-container" style="margin: 10px 0 20px;">
+                        <input type="radio" id="reg-admin" name="reg-cargo" value="admin" required>
+                        <label for="reg-admin">ADMIN</label>
+
+                        <input type="radio" id="reg-recep" name="reg-cargo" value="recep">
+                        <label for="reg-recep">RECEP.</label>
+
+                        <input type="radio" id="reg-mecan" name="reg-cargo" value="mecan">
+                        <label for="reg-mecan">MECÂN.</label>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Cadastrar</button>
+
+                    <div class="link-container" style="margin-top: 15px;">
+                        <a id="link-ir-login" style="color: #ffffff; cursor: pointer;">← Voltar para o Login</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
