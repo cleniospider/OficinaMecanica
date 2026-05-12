@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Repair - Cadastro de Cliente</title>
+    <title>Auto Repair - Cadastro de Clientes</title>
     <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/cadastrocliente.css">
+    <link rel="stylesheet" href="css/ordens.css">
 </head>
 <body>
 
     <header class="top-header">
-        <button class="hamburger-btn" onclick="toggleMenu()">
+        <button class="hamburger-btn">
             <span></span><span></span><span></span>
         </button>
         <div class="header-logo-text">AUTO REPAIR</div>
@@ -21,7 +21,7 @@
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text" style="color: #00cc44; font-weight: bold;">ADMINISTRADOR</span>
+                <span class="role-text">ADMINISTRADOR</span>
             </div>
         </div>
         <ul class="nav-links">
@@ -29,54 +29,69 @@
             <li><a href="ordens.html">Ordens de Serviços</a></li>
             <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
             <li><a href="cadastrocliente.html" class="active">Cadastro Cliente</a></li>
-            <li><a href="#">Estoque de Peças</a></li>
+            <li><a href="estoque-critico.html">Estoque de Peças</a></li>
             <li><a href="#">Histórico de Veículos</a></li>
             <li><a href="#">Financeiro</a></li>
             <li><a href="#">Relatórios</a></li>
-            <li><a onclick="abrirConta()" style="cursor:pointer;">👤 Minha Conta</a></li>
+            <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
             <li><a href="index.html" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
     <main class="main-content">
-        <div class="cadastro-container">
-            
-            <div class="cadastro-card">
-                <div class="logo-area-form">
-                    <img src="img/download.png" alt="Logo Auto Repair">
+        <div class="orders-container">
+            <div class="orders-header">
+                <h2>Clientes Cadastrados</h2>
+                <div class="search-box">
+                    <input type="text" id="searchCliente" placeholder="Pesquisar por nome ou CPF...">
                 </div>
-                <h2>CADASTRO DE CLIENTES</h2>
-
-                <form id="formCliente" class="form-grid" action="clientes.html">
-                    
-                    <div class="input-group full-width">
-                        <label>Nome Completo</label>
-                        <input type="text" id="nome" placeholder="Digite o nome completo" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label>CPF</label>
-                        <input type="text" id="cpf" placeholder="000.000.000-00" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label>Telefone</label>
-                        <input type="tel" id="telefone" placeholder="(00) 00000-0000" required>
-                    </div>
-
-                    <div class="input-group full-width">
-                        <label>E-mail</label>
-                        <input type="email" id="email" placeholder="exemplo@email.com" required>
-                    </div>
-
-                    <div class="form-footer">
-                        <button type="submit" class="btn-salvar">SALVAR CLIENTE</button>
-                    </div>
-
-                </form>
             </div>
 
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>NOME COMPLETO</th>
+                            <th>CPF / CNPJ</th>
+                            <th>TELEFONE</th>
+                            <th>E-MAIL</th>
+                            <th>AÇÕES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Marcos Silva</strong></td>
+                            <td>123.456.789-00</td>
+                            <td>(11) 98888-7777</td>
+                            <td>marcos@email.com</td>
+                            <td>
+                                <div class="acoes-flex">
+                                    <a href="editar-cliente.html" class="btn-editar">EDITAR</a>
+                                    <a href="excluir-cliente.html" class="btn-excluir">EXCLUIR</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>José Costa</strong></td>
+                            <td>987.654.321-11</td>
+                            <td>(11) 97777-6666</td>
+                            <td>jose.costa@email.com</td>
+                            <td>
+                                <div class="acoes-flex">
+                                    <a href="editar-cliente.html" class="btn-editar">EDITAR</a>
+                                    <a href="excluir-cliente.html" class="btn-excluir">EXCLUIR</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="area-botao-novo">
+                <a href="novo-cliente.html" class="btn-nova-ordem btn-espacado">+ NOVO CLIENTE</a>
+            </div>
         </div>
     </main>
+
 </body>
 </html>

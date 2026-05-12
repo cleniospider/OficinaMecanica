@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Repair - Nova Ordem</title>
+    <title>Auto Repair - Editar Veículo</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/ordens.css">
 </head>
@@ -26,8 +26,8 @@
         </div>
         <ul class="nav-links">
             <li><a href="admin.html">Painel de Gestão</a></li>
-            <li><a href="ordens.html" class="active">Ordens de Serviços</a></li>
-            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
+            <li><a href="ordens.html">Ordens de Serviços</a></li>
+            <li><a href="cadastroveiculo.html" class="active">Cadastro Veículo</a></li>
             <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
             <li><a href="estoque-critico.html">Estoque de Peças</a></li>
             <li><a href="#">Histórico de Veículos</a></li>
@@ -41,38 +41,35 @@
     <main class="main-content">
         <div class="orders-container">
             <div class="orders-header">
-                <h2>Nova Ordem de Serviço</h2>
+                <h2>Editar Veículo</h2>
             </div>
 
-            <div class="caixa-nova-ordem">
-                <form action="ordens.html" class="form-nova-ordem">
+            <div class="caixa-edicao">
+                <form action="cadastroveiculo.html" class="form-edicao" method="POST">
+                    
                     <div class="grupo-input">
-                        <label>Veiculo</label>
-                        <input type="text" placeholder="Ex: Honda Civic" required>
+                        <label>Marca / Modelo</label>
+                        <input type="text" name="veiculo" value="CBR 600RR" required>
+                    </div>
+
+                    <div class="grupo-input">
+                        <label>Placa</label>
+                        <input type="text" name="placa" value="ABC-1234" required>
+                    </div>
+
+                    <div class="grupo-input">
+                        <label>Ano / Cor</label>
+                        <input type="text" name="ano_cor" value="2020 / Vermelho" required>
                     </div>
 
                     <div class="grupo-input">
                         <label>Proprietário</label>
-                        <input type="text" placeholder="Ex: Marcos Silva" required>
+                        <input type="text" name="proprietario" value="Marcos Silva" required>
                     </div>
 
-                    <div class="grupo-input">
-                        <label>Entrada</label>
-                        <input type="text" placeholder="Data" required>
-                    </div>
-
-                    <div class="grupo-input">
-                        <label>Status Inicial</label>
-                        <select>
-                            <option value="ativo" selected>Ativo</option>
-                            <option value="pronto">Pronto</option>
-                            <option value="parado">Parado</option>
-                        </select>
-                    </div>
-                    
                     <div class="botoes-acao">
-                        <button type="submit" class="btn-salvar">Salvar Nova Ordem</button>
-                        <a href="ordens.html" class="btn-voltar">Cancelar</a>
+                        <button type="submit" class="btn-salvar">Atualizar Veículo</button>
+                        <a href="cadastroveiculo.html" class="btn-voltar">Cancelar</a>
                     </div>
                 </form>
             </div>

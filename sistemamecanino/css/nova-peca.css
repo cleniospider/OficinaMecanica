@@ -1,0 +1,91 @@
+/* Container alinhado ao topo dentro da main */
+.container-topo {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    background-color: #000;
+    min-height: calc(100vh - 70px);
+}
+
+/* Card Escuro estilo a imagem enviada */
+.form-card-dark {
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+.form-title {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.campo-grupo {
+    margin-bottom: 20px;
+}
+
+.campo-grupo label {
+    display: block;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Inputs e Selects */
+.campo-grupo input, 
+.input-select {
+    width: 100%;
+    padding: 15px;
+    background-color: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+}
+
+.input-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 15px;
+}
+
+/* Botões */
+.acoes-flex {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-salvar-green {
+    flex: 1;
+    background-color: #00d34d;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-cancelar-red {
+    flex: 1;
+    background-color: #d80000;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.btn-salvar-green:hover, .btn-cancelar-red:hover {
+    filter: brightness(1.1);
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair - Novo Cliente</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/ordens.css">
+    <link rel="stylesheet" href="css/cadastro_estilo.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <button class="hamburger-btn">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="header-logo-text">AUTO REPAIR</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="profile-area">
+            <img src="img/download.png" alt="Avatar" class="avatar"> 
+            <div class="mobile-profile-text">
+                AUTO REPAIR<br>
+                <span class="role-text">ADMINISTRADOR</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin.html">Painel de Gestão</a></li>
+            <li><a href="ordens.html">Ordens de Serviços</a></li>
+            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
+            <li><a href="cadastrocliente.html" class="active">Cadastro Cliente</a></li>
+            <li><a href="estoque-critico.html">Estoque de Peças</a></li>
+            <li><a href="#">Histórico de Veículos</a></li>
+            <li><a href="#">Financeiro</a></li>
+            <li><a href="#">Relatórios</a></li>
+            <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
+            <li><a href="index.html" class="logout-link">Sair</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="orders-container">
+            <div class="orders-header">
+                <h2>Cadastrar Novo Cliente</h2>
+                <p>Preencha os dados abaixo para registar um novo cliente no sistema.</p>
+            </div>
+
+            <div class="caixa-formulario">
+                <form action="cadastrocliente.html" class="form-estilizado" method="POST">
+                    
+                    <div class="grupo-input">
+                        <label>Nome Completo</label>
+                        <input type="text" placeholder="Ex: João Silva" required>
+                    </div>
+
+                    <div class="grupo-input">
+                        <label for="cpf">CPF / CNPJ</label>
+                        <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="18" required>
+                    </div>
+
+                    <div class="grupo-input">
+                        <label for="telefone">Telefone / WhatsApp</label>
+                        <input type="text" id="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
+                    </div>
+
+                    <div class="grupo-input">
+                        <label>E-mail</label>
+                        <input type="email" placeholder="cliente@email.com">
+                    </div>
+
+                    <div class="grupo-input">
+                        <label>Endereço</label>
+                        <input type="text" placeholder="Rua, Número, Bairro...">
+                    </div>
+                    
+                    <div class="botoes-acao">
+                        <button type="submit" class="btn-salvar">Salvar Cliente</button>
+                        <a href="cadastrocliente.html" class="btn-voltar">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script>
+        // Seleção dos elementos
+        const inputCpf = document.getElementById('cpf');
+        const inputTelefone = document.getElementById('telefone');
+    
+        // Máscara para CPF / CNPJ
+        inputCpf.addEventListener('input', () => {
+            let valor = inputCpf.value.replace(/\D/g, ''); 
+            
+            if (valor.length <= 11) {
+                // Formatação para CPF
+                valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+                valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+                valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            } else {
+                // Formatação para CNPJ
+                valor = valor.substring(0, 14); 
+                valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+                valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+                valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+                valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+            }
+            inputCpf.value = valor;
+        });
+    
+        // Máscara para Telefone / WhatsApp
+        inputTelefone.addEventListener('input', () => {
+            let valor = inputTelefone.value.replace(/\D/g, ''); // Remove o que não é número
+            
+            // Aplica o DDD: (00)
+            valor = valor.replace(/^(\d{2})(\d)/g, '($1) $2');
+            
+            // Ajusta o hífen para fixo ou celular
+            if (valor.length > 13) {
+                // Celular: (00) 00000-0000
+                valor = valor.replace(/(\d{5})(\d)/, '$1-$2');
+            } else {
+                // Fixo: (00) 0000-0000
+                valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+            }
+    
+            inputTelefone.value = valor;
+        });
+    </script>
+</body>
+</html>
