@@ -6,6 +6,22 @@
     <title>Auto Repair - Ordens de Serviço</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/ordens.css">
+    <style>
+        /* Cores baseadas na sua nova lógica de OS */
+        .dot-finalizado { background-color: #2ecc71; } /* Verde */
+        .dot-ativo { background-color: #f1c40f; }      /* Amarelo */
+        .dot-parado { background-color: #ff0000; }     /* Vermelho */
+
+        /* Estilo para a placa dentro da tabela */
+        .placa-badge {
+            background: #eee;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
 
@@ -26,11 +42,11 @@
         </div>
         <ul class="nav-links">
             <li><a href="admin.html">Painel de Gestão</a></li>
-            <li><a href="ordens.html" class="active">Ordens de Serviços</a></li>
-            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
             <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
+            <li><a href="ordens.html" class="active">Ordens de Serviços</a></li>
             <li><a href="estoque-critico.html">Estoque de Peças</a></li>
-            <li><a href="#">Histórico de Veículos</a></li>
+            <li><a href="historico-veiculos.html">Histórico de Veículos</a></li>
             <li><a href="#">Financeiro</a></li>
             <li><a href="#">Relatórios</a></li>
             <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
@@ -41,9 +57,9 @@
     <main class="main-content">
         <div class="orders-container">
             <div class="orders-header">
-                <h2>Ordens de Serviço</h2>
+                <h2>Controle de Ordens de Serviço (OS)</h2>
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Pesquisar veículo ou cliente...">
+                    <input type="text" id="searchInput" placeholder="Pesquisar veículo, cliente ou Nº OS...">
                 </div>
             </div>
 
@@ -51,46 +67,49 @@
                 <table id="ordersTable">
                     <thead>
                         <tr>
+                            <th>Nº OS</th>
                             <th>STATUS</th>
                             <th>VEÍCULO</th>
+                            <th>PLACA</th>
                             <th>PROPRIETÁRIO</th>
-                            <th>ENTRADA</th>
+                            <th>PROBLEMA</th>
+                            <th>SERVIÇOS</th>
+                            <th>PEÇAS</th>
+                            <th>VALOR (R$)</th>
                             <th>AÇÕES</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
                         <tr>
-                            <td><span class="status-dot dot-pronto"></span></td>
-                            <td><strong>CBR 600RR</strong><br><small class="placa-texto">ABC-1234</small></td>
+                            <td>#1025</td>
+                            <td><span class="status-dot dot-ativo" title="Ativo"></span></td>
+                            <td><strong>CBR 600RR</strong></td>
+                            <td><span class="placa-badge">ABC-1234</span></td>
                             <td>Marcos Silva</td>
-                            <td>27/03</td>
+                            <td><small>Vazamento de óleo na suspensão</small></td>
+                            <td><small>Troca de retentores e fluido</small></td>
+                            <td><small>Retentores Honda, Óleo Motul</small></td>
+                            <td><strong style="color: #2ecc71;">R$ 450,00</strong></td>
                             <td>
                                 <div class="acoes-flex">
-                                    <a href="editar-ordem.html" class="btn-editar">EDITAR</a>
+                                    <a href="editar-ordem.html" class="btn-editar">GERENCIAR</a>
                                     <a href="excluir-ordem.html" class="btn-excluir">EXCLUIR</a>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td><span class="status-dot dot-ativo"></span></td>
-                            <td><strong>TOYOTA COROLLA</strong><br><small class="placa-texto">DEF-5678</small></td>
+                            <td>#1026</td>
+                            <td><span class="status-dot dot-parado" title="Parado"></span></td>
+                            <td><strong>TOYOTA COROLLA</strong></td>
+                            <td><span class="placa-badge">DEF-5678</span></td>
                             <td>José Costa</td>
-                            <td>28/03</td>
+                            <td><small>Barulho ao frear</small></td>
+                            <td><small>Revisão de freios dianteiros</small></td>
+                            <td><small>Pastilhas de freio Cobreq</small></td>
+                            <td><strong style="color: #2ecc71;">R$ 320,00</strong></td>
                             <td>
                                 <div class="acoes-flex">
-                                    <a href="editar-ordem.html" class="btn-editar">EDITAR</a>
-                                    <a href="excluir-ordem.html" class="btn-excluir">EXCLUIR</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><span class="status-dot dot-parado"></span></td>
-                            <td><strong>VW GOLF GTI</strong><br><small class="placa-texto">GTI-2004</small></td>
-                            <td>Arthur Mendes</td>
-                            <td>30/03</td>
-                            <td>
-                                <div class="acoes-flex">
-                                    <a href="editar-ordem.html" class="btn-editar">EDITAR</a>
+                                    <a href="editar-ordem.html" class="btn-editar">GERENCIAR</a>
                                     <a href="excluir-ordem.html" class="btn-excluir">EXCLUIR</a>
                                 </div>
                             </td>
@@ -100,15 +119,16 @@
             </div>
 
             <div class="legend-area">
-                <span class="dot pronto"></span> Pronto
-                <span class="dot ativo"></span> Ativo
-                <span class="dot parado"></span> Parado
+                <span class="dot dot-finalizado"></span> Finalizado
+                <span class="dot dot-ativo"></span> Ativo
+                <span class="dot dot-parado"></span> Parado
             </div>
 
-            <a href="nova-ordem.html" class="btn-nova-ordem">+ NOVA ORDEM DE SERVIÇO</a>
+            <div class="area-botao-novo">
+                <a href="nova-ordem.html" class="btn-nova-ordem">+ ABRIR NOVA ORDEM DE SERVIÇO</a>
+            </div>
+        </div>
     </main>
 
-    <div id="modal-ordem" class="modal-overlay">
-        </div>
 </body>
 </html>

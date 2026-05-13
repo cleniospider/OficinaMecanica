@@ -16,14 +16,12 @@ body {
     overflow-x: hidden;
 }
 
-/* === ALINHAMENTO PRINCIPAL LADO A LADO === */
 .container-central {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 60px; 
     width: 100%;
-    /* AUMENTEI AQUI: de 1000px para 1300px para a logo poder crescer mais */
     max-width: 1300px; 
     padding: 20px;
 }
@@ -37,14 +35,12 @@ body {
 
 .logo-area img {
     max-width: 100%;
-    /* AUMENTEI AQUI: Coloquei 700px. Pode aumentar mais se quiser! */
     width: 700px; 
 }
 
 /* === ÁREA DO FORMULÁRIO === */
 .forms-area {
     flex: 1;
-    /* Deixei um pouquinho mais largo (500px) para acomodar as colunas do cadastro */
     max-width: 500px;
 }
 
@@ -61,7 +57,6 @@ body {
 
 /* === CAMPOS (QUADRADOS DE DIGITAR) === */
 .form-group {
-    /* Diminui a margem inferior para o formulário não ficar tão comprido */
     margin-bottom: 15px; 
     display: flex;
     flex-direction: column;
@@ -87,7 +82,7 @@ body {
     background-color: #2a2a2a; 
     border: none;
     border-radius: 20px; 
-    padding: 14px 20px; /* Diminui um pouco o padding interno pra compactar */
+    padding: 14px 20px; 
     color: #ffffff;
     outline: none;
     font-size: 14px;

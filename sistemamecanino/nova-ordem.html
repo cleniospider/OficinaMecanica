@@ -6,6 +6,7 @@
     <title>Auto Repair - Nova Ordem</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/ordens.css">
+    <link rel="stylesheet" href="css/nova-ordem.css">
 </head>
 <body>
 
@@ -26,11 +27,11 @@
         </div>
         <ul class="nav-links">
             <li><a href="admin.html">Painel de Gestão</a></li>
-            <li><a href="ordens.html" class="active">Ordens de Serviços</a></li>
-            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
             <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
+            <li><a href="ordens.html" class="active">Ordens de Serviços</a></li>
             <li><a href="estoque-critico.html">Estoque de Peças</a></li>
-            <li><a href="#">Histórico de Veículos</a></li>
+            <li><a href="historico-veiculos.html">Histórico de Veículos</a></li>
             <li><a href="#">Financeiro</a></li>
             <li><a href="#">Relatórios</a></li>
             <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
@@ -40,39 +41,62 @@
 
     <main class="main-content">
         <div class="orders-container">
-            <div class="orders-header">
-                <h2>Nova Ordem de Serviço</h2>
+            <div class="titulo-sessao">
+                <h2>NOVA ORDEM <span class="highlight">DE SERVIÇO</span></h2>
+                <div class="linha-decorativa"></div>
             </div>
-
+    
             <div class="caixa-nova-ordem">
                 <form action="ordens.html" class="form-nova-ordem">
-                    <div class="grupo-input">
-                        <label>Veiculo</label>
-                        <input type="text" placeholder="Ex: Honda Civic" required>
-                    </div>
-
-                    <div class="grupo-input">
-                        <label>Proprietário</label>
-                        <input type="text" placeholder="Ex: Marcos Silva" required>
-                    </div>
-
-                    <div class="grupo-input">
-                        <label>Entrada</label>
-                        <input type="text" placeholder="Data" required>
-                    </div>
-
-                    <div class="grupo-input">
-                        <label>Status Inicial</label>
-                        <select>
-                            <option value="ativo" selected>Ativo</option>
-                            <option value="pronto">Pronto</option>
-                            <option value="parado">Parado</option>
-                        </select>
-                    </div>
                     
+                    <div class="form-header-info">
+                        <div class="grupo-input">
+                            <label class="label-red">CLIENTE</label>
+                            <input type="text" placeholder="Nome do Cliente">
+                        </div>
+                        <div class="grupo-input">
+                            <label class="label-red">VEÍCULO</label>
+                            <input type="text" placeholder="Ex: CBR 600RR">
+                        </div>
+                        <div class="grupo-input">
+                            <label class="label-red">PLACA</label>
+                            <input type="text" class="placa-field" placeholder="ABC-1234">
+                        </div>
+                    </div>
+            
+                    <div class="grupo-input">
+                        <label>Problema:</label>
+                        <textarea rows="4" placeholder="Descreva o problema..."></textarea>
+                    </div>
+            
+                    <div class="grupo-input">
+                        <label>Serviços:</label>
+                        <textarea rows="4" placeholder="Serviços a realizar..."></textarea>
+                    </div>
+            
+                    <div class="grupo-input">
+                        <label>Peças usadas:</label>
+                        <textarea rows="4" placeholder="Lista de peças..."></textarea>
+                    </div>
+            
+                    <div class="form-footer-info">
+                        <div class="grupo-input">
+                            <label>Valor total:</label>
+                            <input type="text" class="valor-total" placeholder="R$ 0,00">
+                        </div>
+                        <div class="grupo-input">
+                            <label>Status:</label>
+                            <select>
+                                <option value="ativo" selected>Ativo</option>
+                                <option value="Finalizado">Finalizado</option>
+                                <option value="parado">Parado</option>
+                            </select>
+                        </div>
+                    </div>
+            
                     <div class="botoes-acao">
-                        <button type="submit" class="btn-salvar">Salvar Nova Ordem</button>
-                        <a href="ordens.html" class="btn-voltar">Cancelar</a>
+                        <button type="submit" class="btn-salvar">SALVAR ALTERAÇÕES</button>
+                        <a href="ordens.html" class="btn-voltar">CANCELAR</a>
                     </div>
                 </form>
             </div>

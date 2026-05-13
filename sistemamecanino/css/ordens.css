@@ -183,7 +183,7 @@ td {
 
 /* --- Correções da Tabela de Ordens --- */
 .placa-texto {
-    color: #666; /* Substitui o style inline que estava na placa */
+    color: #666; 
 }
 
 a.btn-editar {
@@ -191,76 +191,8 @@ a.btn-editar {
     text-align: center;
     display: inline-block;
     box-sizing: border-box;
-    /* Se a cor do botão editar mudar depois disso, adicione a cor original do seu botão aqui */
 }
 
-/* --- Estilos Exclusivos da Tela de Edição --- */
-.caixa-edicao {
-    background: #1e1e1e; /* Ajuste para a cor exata do seu projeto se precisar */
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    margin-top: 20px;
-}
-
-.form-edicao {
-    display: flex;
-    flex-direction: column;
-}
-
-.grupo-input {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
-
-.grupo-input label {
-    color: #ccc;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.grupo-input input, 
-.grupo-input select {
-    padding: 12px;
-    border-radius: 5px;
-    border: 1px solid #444;
-    background: #2a2a2a;
-    color: #fff;
-    font-size: 14px;
-}
-
-.botoes-acao {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.btn-salvar {
-    background: #00cc44;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    flex: 1;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.btn-voltar {
-    background: #cc0000;
-    color: white;
-    text-decoration: none;
-    text-align: center;
-    padding: 12px;
-    border-radius: 5px;
-    flex: 1;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: normal;
-}
 
 /* --- Correção do botão EXCLUIR para quando ele for um link (tag <a>) --- */
 a.btn-excluir {
@@ -278,7 +210,7 @@ a.btn-excluir {
     max-width: 500px;
     margin-top: 20px;
     text-align: center;
-    border-top: 4px solid #cc0000; /* Bordinha vermelha de alerta */
+    border-top: 4px solid #cc0000; 
 }
 
 .icone-alerta {
@@ -333,18 +265,15 @@ a.btn-excluir {
     font-size: 14px;
 }
 
-
-/* --- Correção do botão NOVA ORDEM para quando ele for um link (tag <a>) --- */
 a.btn-nova-ordem {
     text-decoration: none;
     text-align: center;
-    display: block; /* Garante que ele ocupe o espaço correto na tela */
+    display: block; 
     box-sizing: border-box;
-    /* Adicione aqui as configurações de margin/padding originais caso ele mude de tamanho */
+
 }
 
 /* --- Estilos da Tela de Nova Ordem --- */
-/* Como a estrutura é igual à tela de edição, podemos usar as mesmas classes pros botões e inputs! */
 .caixa-nova-ordem {
     background: #1e1e1e; 
     padding: 20px;
@@ -358,17 +287,13 @@ a.btn-nova-ordem {
     flex-direction: column;
 }
 
-/* --- Ajustes específicos para a tela de Cadastro de Veículos --- */
-
 .area-botao-novo {
     margin-top: 30px;
     display: flex;
-    justify-content: flex-start; /* Mantém o botão alinhado à esquerda como na tela de ordens */
+    justify-content: flex-start; 
 }
 
-/* Garante que o botão novo não fique colado na tabela */
 .btn-espacado {
     margin-top: 0; 
 }
-
 

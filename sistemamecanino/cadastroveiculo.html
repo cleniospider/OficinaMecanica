@@ -26,11 +26,11 @@
         </div>
         <ul class="nav-links">
             <li><a href="admin.html">Painel de Gestão</a></li>
-            <li><a href="ordens.html">Ordens de Serviços</a></li>
-            <li><a href="cadastroveiculo.html" class="active">Cadastro Veículo</a></li>
             <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.html" class="active">Cadastro Veículo</a></li>
+            <li><a href="ordens.html">Ordens de Serviços</a></li>
             <li><a href="estoque-critico.html">Estoque de Peças</a></li>
-            <li><a href="#">Histórico de Veículos</a></li>
+            <li><a href="historico-veiculos.html">Histórico de Veículos</a></li>
             <li><a href="#">Financeiro</a></li>
             <li><a href="#">Relatórios</a></li>
             <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
@@ -51,18 +51,22 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>MARCA / MODELO</th>
+                            <th>MARCA</th>
+                            <th>MODELO</th>
                             <th>PLACA</th>
-                            <th>ANO / COR</th>
+                            <th>ANO</th>
+                            <th>COR</th>
                             <th>PROPRIETÁRIO</th>
                             <th>AÇÕES</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td>HONDA</td>
                             <td><strong>CBR 600RR</strong></td>
                             <td class="placa-texto">ABC-1234</td>
-                            <td>2020 / Vermelho</td>
+                            <td>2020</td>
+                            <td>Vermelho</td>
                             <td>Marcos Silva</td>
                             <td>
                                 <div class="acoes-flex">
@@ -72,22 +76,12 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>TOYOTA COROLLA</strong></td>
+                            <td>TOYOTA</td>
+                            <td><strong>COROLLA</strong></td>
                             <td class="placa-texto">DEF-5678</td>
-                            <td>2019 / Prata</td>
+                            <td>2019</td>
+                            <td>Prata</td>
                             <td>José Costa</td>
-                            <td>
-                                <div class="acoes-flex">
-                                    <a href="editar-veiculo.html" class="btn-editar">EDITAR</a>
-                                    <a href="excluir-veiculo.html" class="btn-excluir">EXCLUIR</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>VW GOLF GTI</strong></td>
-                            <td class="placa-texto">GTI-2004</td>
-                            <td>2024 / Preto</td>
-                            <td>Arthur Mendes</td>
                             <td>
                                 <div class="acoes-flex">
                                     <a href="editar-veiculo.html" class="btn-editar">EDITAR</a>

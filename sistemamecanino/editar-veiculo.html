@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto Repair - Editar Veículo</title>
     <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/ordens.css">
+    <link rel="stylesheet" href="css/editar-veiculo.css"> 
 </head>
 <body>
 
@@ -26,11 +26,11 @@
         </div>
         <ul class="nav-links">
             <li><a href="admin.html">Painel de Gestão</a></li>
-            <li><a href="ordens.html">Ordens de Serviços</a></li>
-            <li><a href="cadastroveiculo.html" class="active">Cadastro Veículo</a></li>
             <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.html" class="active">Cadastro Veículo</a></li>
+            <li><a href="ordens.html">Ordens de Serviços</a></li>
             <li><a href="estoque-critico.html">Estoque de Peças</a></li>
-            <li><a href="#">Histórico de Veículos</a></li>
+            <li><a href="historico-veiculos.html">Histórico de Veículos</a></li>
             <li><a href="#">Financeiro</a></li>
             <li><a href="#">Relatórios</a></li>
             <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
@@ -39,37 +39,66 @@
     </aside>
 
     <main class="main-content">
-        <div class="orders-container">
-            <div class="orders-header">
-                <h2>Editar Veículo</h2>
+        <div class="container-form-dark">
+            <div class="titulo-sessao-container">
+                <h2 class="titulo-sessao">EDITAR VEÍCULO <span class="destaque-red">#1025</span></h2>
+                <div class="linha-decorativa"></div>
             </div>
-
-            <div class="caixa-edicao">
-                <form action="cadastroveiculo.html" class="form-edicao" method="POST">
+            
+            <div class="card-dark">
+                <form action="cadastroveiculo.html" method="POST">
                     
-                    <div class="grupo-input">
-                        <label>Marca / Modelo</label>
-                        <input type="text" name="veiculo" value="CBR 600RR" required>
+                    <div class="form-row">
+                        <div class="grupo-input-dark flex-1">
+                            <label class="label-red">MARCA DO VEÍCULO</label>
+                            <select name="marcas" id="marcas-veiculo">
+                                <option value="Honda" selected>Honda</option>
+                                <option value="Yamaha">Yamaha</option>
+                                <option value="Suzuki">Suzuki</option>
+                                <option value="Kawasaki">Kawasaki</option>
+                                <option value="BMW">BMW</option>
+                                <option value="Ducati">Ducati</option>
+                                <option value="Triumph">Triumph</option>
+                                <option value="KTM">KTM</option>
+                                <option value="Harley-Davidson">Harley-Davidson</option>
+                                <option value="Royal Enfield">Royal Enfield</option>
+                                <option value="Volkswagen">Volkswagen</option>
+                                <option value="Chevrolet">Chevrolet</option>
+                                <option value="Fiat">Fiat</option>
+                                <option value="Ford">Ford</option>
+                                <option value="Toyota">Toyota</option>
+                                <option value="Hyundai">Hyundai</option>
+                            </select>
+                        </div>
+                        <div class="grupo-input-dark flex-1">
+                            <label class="label-red">MODELO</label>
+                            <input type="text" value="CBR 600RR" required>
+                        </div>
                     </div>
-
-                    <div class="grupo-input">
-                        <label>Placa</label>
-                        <input type="text" name="placa" value="ABC-1234" required>
+    
+                    <div class="form-row">
+                        <div class="grupo-input-dark flex-1">
+                            <label class="label-red">PLACA</label>
+                            <input type="text" value="ABC-1234" required style="text-transform: uppercase;">
+                        </div>
+                        <div class="grupo-input-dark flex-1">
+                            <label>ANO</label>
+                            <input type="text" value="2024" required>
+                        </div>
+                        <div class="grupo-input-dark flex-1">
+                            <label>COR</label>
+                            <input type="text" value="Vermelha" required>
+                        </div>
                     </div>
-
-                    <div class="grupo-input">
-                        <label>Ano / Cor</label>
-                        <input type="text" name="ano_cor" value="2020 / Vermelho" required>
-                    </div>
-
-                    <div class="grupo-input">
-                        <label>Proprietário</label>
+    
+                    <div class="grupo-input-dark">
+                        <label>PROPRIETÁRIO ATUAL</label>
                         <input type="text" name="proprietario" value="Marcos Silva" required>
                     </div>
-
-                    <div class="botoes-acao">
-                        <button type="submit" class="btn-salvar">Atualizar Veículo</button>
-                        <a href="cadastroveiculo.html" class="btn-voltar">Cancelar</a>
+    
+                    <div class="footer-acoes">
+                        <button type="submit" class="btn-acao btn-salvar-fixo">SALVAR ALTERAÇÕES</button>
+                        <a href="cadastroveiculo.html" class="btn-acao btn-voltar-os">VOLTAR</a>
                     </div>
                 </form>
             </div>

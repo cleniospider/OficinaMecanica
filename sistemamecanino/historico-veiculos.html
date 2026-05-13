@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair - Histórico de Veículos</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/ordens.css">
+    <link rel="stylesheet" href="css/estoque.css">
+    <style>
+        /* Ajustes finos para a visualização de histórico */
+        .veiculo-info-principal {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .responsavel-tag {
+            font-size: 0.85rem;
+            color: #666;
+            background: #eee;
+            padding: 2px 8px;
+            border-radius: 4px;
+            width: fit-content;
+        }
+        .btn-historico {
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s;
+        }
+        .btn-historico:hover {
+            transform: scale(1.01);
+            cursor: pointer;
+        }
+        .placa-box {
+            font-weight: bold;
+            color: #2c3e50;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-header">
+        <button class="hamburger-btn">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="header-logo-text">AUTO REPAIR</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="profile-area">
+            <img src="img/download.png" alt="Avatar" class="avatar"> 
+            <div class="mobile-profile-text">
+                AUTO REPAIR<br>
+                <span class="role-text">ADMINISTRADOR</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin.html">Painel de Gestão</a></li>
+            <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
+            <li><a href="ordens.html">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico.html">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos.html" class="active">Histórico de Veículos</a></li>
+            <li><a href="#">Financeiro</a></li>
+            <li><a href="#">Relatórios</a></li>
+            <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
+            <li><a href="index.html" class="logout-link">Sair</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="orders-container">
+            <div class="orders-header">
+                <h2>Histórico de Veículos</h2>
+            </div>
+
+            <div class="estoque-wrapper">
+                <div class="estoque-controles">
+                    <div class="busca-acoes">
+                        <input type="text" class="input-busca" placeholder="Pesquisar por Placa ou Proprietário...">
+                    </div>
+                </div>
+
+                <div class="lista-pecas">
+                    
+                    <a href="detalhes-historico.html?id=1" class="btn-historico">
+                        <div class="peca-card">
+                            <div class="peca-info-esquerda">
+                                <div class="peca-img-caixa">
+                                    <img src="img/car-icon.png" alt="Carro" onerror="this.src='https://cdn-icons-png.flaticon.com/512/741/741407.png'">
+                                </div>
+                                <div class="veiculo-info-principal">
+                                    <span class="placa-box">ABC-1234</span>
+                                    <h4>Toyota Corolla - Prata</h4>
+                                    <span class="responsavel-tag">👤 Responsável: João Silva</span>
+                                </div>
+                            </div>
+                            <div class="peca-qtd-direita">
+                                <small>Última visita: 12/05/2026</small>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="detalhes-historico.html?id=2" class="btn-historico">
+                        <div class="peca-card">
+                            <div class="peca-info-esquerda">
+                                <div class="peca-img-caixa">
+                                    <img src="img/car-icon.png" alt="Carro" onerror="this.src='https://cdn-icons-png.flaticon.com/512/741/741407.png'">
+                                </div>
+                                <div class="veiculo-info-principal">
+                                    <span class="placa-box">KRA-9876</span>
+                                    <h4>Honda Civic - Preto</h4>
+                                    <span class="responsavel-tag">👤 Responsável: Maria Oliveira</span>
+                                </div>
+                            </div>
+                            <div class="peca-qtd-direita">
+                                <small>Última visita: 05/05/2026</small>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="detalhes-historico.html?id=3" class="btn-historico">
+                        <div class="peca-card">
+                            <div class="peca-info-esquerda">
+                                <div class="peca-img-caixa">
+                                    <img src="img/car-icon.png" alt="Carro" onerror="this.src='https://cdn-icons-png.flaticon.com/512/741/741407.png'">
+                                </div>
+                                <div class="veiculo-info-principal">
+                                    <span class="placa-box">BRA-2E19</span>
+                                    <h4>Fiat Argo - Branco</h4>
+                                    <span class="responsavel-tag">👤 Responsável: Carlos Alberto</span>
+                                </div>
+                            </div>
+                            <div class="peca-qtd-direita">
+                                <small>Última visita: 28/04/2026</small>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

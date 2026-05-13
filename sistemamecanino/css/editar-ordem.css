@@ -1,0 +1,164 @@
+/* Definições de Cores e Reset */
+:root {
+    --bg-dark: #121212;         /* Fundo da página */
+    --card-bg: #1a1a1a;         /* Fundo do formulário */
+    --input-bg: #222222;        /* Fundo dos campos de texto */
+    --input-border: #333333;    /* Borda dos campos */
+    --primary-red: #ff0000;     /* Vermelho vibrante da imagem */
+    --btn-gray: #3d3d3d;        /* Cinza do botão cancelar */
+    --text-white: #ffffff;
+    --text-label: #cccccc;
+}
+
+body.dark-theme {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: 'Inter', sans-serif; /* Fonte mais moderna */
+    margin: 0;
+}
+
+/* Container do Conteúdo */
+.orders-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+/* Cabeçalho da OS com a linha vermelha */
+.os-header-detalhe h2 {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 30px;
+    padding-bottom: 10px; /* Espaço entre o texto e a linha */
+    border-bottom: 2px solid #ff0000; /* A linhazinha que você pediu */
+    display: block; /* Garante que a linha ocupe a largura do container */
+}
+
+/* Garante que o texto 'ORDEM DE SERVIÇO' seja branco e o número vermelho */
+.os-header-detalhe h2 {
+    color: #ffffff;
+}
+
+.text-red {
+    color: #ff0000;
+}
+
+/* Card Principal (Caixa) */
+.caixa-gerenciar-dark {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Info do Topo (Labels em Vermelho) */
+.info-topo-dark {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.info-topo-dark .dado label {
+    display: block;
+    color: var(--primary-red);
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.info-topo-dark .dado span {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.placa-destaque {
+    background-color: var(--primary-red);
+    padding: 3px 10px;
+    border-radius: 4px;
+}
+
+/* Estilização dos Inputs e Textareas */
+.grupo-input-dark {
+    margin-bottom: 20px;
+}
+
+.grupo-input-dark label {
+    display: block;
+    color: var(--text-label);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.grupo-input-dark textarea,
+.grupo-input-dark input,
+.grupo-input-dark select {
+    width: 100%;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    padding: 14px;
+    color: #fff;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border 0.3s;
+}
+
+.grupo-input-dark textarea:focus,
+.grupo-input-dark input:focus {
+    outline: none;
+    border-color: #555;
+}
+
+/* Valor específico em Verde */
+.input-valor-dark {
+    color: #00ff88 !important;
+    font-weight: bold;
+}
+
+/* Grid de Status e Valor (Lado a Lado) */
+.flex-row {
+    display: flex;
+    gap: 20px;
+}
+
+.flex-row .grupo-input-dark {
+    flex: 1;
+}
+
+/* Botões de Ação (Estilo Idêntico à Imagem) */
+.acoes-os-dark {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-os {
+    flex: 1;
+    padding: 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.1s;
+}
+
+.btn-salvar-red {
+    background-color: var(--primary-red);
+    color: white;
+}
+
+.btn-voltar-dark {
+    background-color: var(--btn-gray);
+    color: white;
+}
+
+.btn-os:active {
+    transform: scale(0.98);
+}

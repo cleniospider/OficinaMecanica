@@ -6,7 +6,6 @@
     <title>Auto Repair - Novo Veículo</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/ordens.css">
-    <link rel="stylesheet" href="css/cadastro_estilo.css">
 </head>
 <body>
 
@@ -27,11 +26,11 @@
         </div>
         <ul class="nav-links">
             <li><a href="admin.html">Painel de Gestão</a></li>
-            <li><a href="ordens.html">Ordens de Serviços</a></li>
-            <li><a href="cadastroveiculo.html" class="active">Cadastro Veículo</a></li>
             <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.html" class="active">Cadastro Veículo</a></li>
+            <li><a href="ordens.html">Ordens de Serviços</a></li>
             <li><a href="estoque-critico.html">Estoque de Peças</a></li>
-            <li><a href="#">Histórico de Veículos</a></li>
+            <li><a href="historico-veiculos.html">Histórico de Veículos</a></li>
             <li><a href="#">Financeiro</a></li>
             <li><a href="#">Relatórios</a></li>
             <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
@@ -97,8 +96,8 @@
                                 </select>
                     </div>
                     <div class="grupo-input">
-                        <label>Marca / Modelo</label>
-                        <input type="text" placeholder="Ex: Toyota Corolla" required>
+                        <label>Modelo</label>
+                        <input type="text" placeholder="Ex: CBR 600RR" required>
                     </div>
 
                     <div class="grupo-input">
@@ -107,8 +106,13 @@
                     </div>
 
                     <div class="grupo-input">
-                        <label>Ano / Cor</label>
-                        <input type="text" placeholder="Ex: 2024 / Prata" required>
+                        <label>Ano</label>
+                        <input type="text" placeholder="Ex: 2024" required>
+                    </div>
+
+                    <div class="grupo-input">
+                        <label>Cor</label>
+                        <input type="text" placeholder="Ex: Prata" required>
                     </div>
 
                     <div class="grupo-input">
@@ -117,7 +121,6 @@
                             <option value="" disabled selected>Selecione um cliente</option>
                             <option value="1">Marcos Silva</option>
                             <option value="2">José Costa</option>
-                            <option value="3">Arthur Mendes</option>
                         </select>
                     </div>
                     
