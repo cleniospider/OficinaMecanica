@@ -130,5 +130,5 @@ input:focus, select:focus {
 
 /* Estilo específico para destacar labels importantes se necessário */
 .label-red {
-    color: #ff0000 !important;
+    color: #ccc !important;
 }
