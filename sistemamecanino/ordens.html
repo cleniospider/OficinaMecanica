@@ -81,16 +81,16 @@
                     </thead>
                     <tbody id="tableBody">
                         <tr>
-                            <td>#1025</td>
-                            <td><span class="status-dot dot-ativo" title="Ativo"></span></td>
-                            <td><strong>CBR 600RR</strong></td>
-                            <td><span class="placa-badge">ABC-1234</span></td>
-                            <td>Marcos Silva</td>
-                            <td><small>Vazamento de óleo na suspensão</small></td>
-                            <td><small>Troca de retentores e fluido</small></td>
-                            <td><small>Retentores Honda, Óleo Motul</small></td>
-                            <td><strong style="color: #2ecc71;">R$ 450,00</strong></td>
-                            <td>
+                            <td data-label="Nº OS">#1025</td>
+                            <td data-label="STATUS"><span class="status-dot dot-ativo" title="Ativo"></span></td>
+                            <td data-label="VEÍCULO"><strong>CBR 600RR</strong></td>
+                            <td data-label="PLACA"><span class="placa-badge">ABC-1234</span></td>
+                            <td data-label="PROPRIETÁRIO">Marcos Silva</td>
+                            <td data-label="PROBLEMA"><small>Vazamento de óleo na suspensão</small></td>
+                            <td data-label="SERVIÇOS"><small>Troca de retentores e fluido</small></td>
+                            <td data-label="PEÇAS"><small>Retentores Honda, Óleo Motul</small></td>
+                            <td data-label="VALOR (R$)"><strong style="color: #2ecc71;">R$ 450,00</strong></td>
+                            <td data-label="AÇÕES">
                                 <div class="acoes-flex">
                                     <a href="editar-ordem.html" class="btn-editar">GERENCIAR</a>
                                     <a href="excluir-ordem.html" class="btn-excluir">EXCLUIR</a>
@@ -98,16 +98,16 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>#1026</td>
-                            <td><span class="status-dot dot-parado" title="Parado"></span></td>
-                            <td><strong>TOYOTA COROLLA</strong></td>
-                            <td><span class="placa-badge">DEF-5678</span></td>
-                            <td>José Costa</td>
-                            <td><small>Barulho ao frear</small></td>
-                            <td><small>Revisão de freios dianteiros</small></td>
-                            <td><small>Pastilhas de freio Cobreq</small></td>
-                            <td><strong style="color: #2ecc71;">R$ 320,00</strong></td>
-                            <td>
+                            <td data-label="Nº OS">#1026</td>
+                            <td data-label="STATUS"><span class="status-dot dot-parado" title="Parado"></span></td>
+                            <td data-label="VEÍCULO"><strong>TOYOTA COROLLA</strong></td>
+                            <td data-label="PLACA"><span class="placa-badge">DEF-5678</span></td>
+                            <td data-label="PROPRIETÁRIO">José Costa</td>
+                            <td data-label="PROBLEMA"><small>Barulho ao frear</small></td>
+                            <td data-label="SERVIÇOS"><small>Revisão de freios dianteiros</small></td>
+                            <td data-label="PEÇAS"><small>Pastilhas de freio Cobreq</small></td>
+                            <td data-label="VALOR (R$)"><strong style="color: #2ecc71;">R$ 320,00</strong></td>
+                            <td data-label="AÇÕES">
                                 <div class="acoes-flex">
                                     <a href="editar-ordem.html" class="btn-editar">GERENCIAR</a>
                                     <a href="excluir-ordem.html" class="btn-excluir">EXCLUIR</a>
@@ -130,5 +130,59 @@
         </div>
     </main>
 
-</body>
+    <div id="modal-conta" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Minha Conta</h2>
+            <div class="conta-dados">
+                <p><strong>Status:</strong> <span style="color: #00cc44;">Ativo ✔️</span></p>
+            </div>
+            <button class="btn-fechar-modal">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        const btnMobile = document.querySelector('.hamburger-btn');
+        const sidebar = document.querySelector('#sidebar');
+
+        if(btnMobile) {
+            btnMobile.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        }
+
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
+
+        const linkConta = document.querySelector('a[style*="cursor:pointer"]'); 
+        const modal = document.querySelector('#modal-conta');
+        const btnFechar = document.querySelector('.btn-fechar-modal');
+        const btnX = document.querySelector('.close-btn');
+
+        if(linkConta) {
+            linkConta.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+        }
+
+        [btnFechar, btnX].forEach(btn => {
+            if(btn) {
+                btn.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body> 
 </html>

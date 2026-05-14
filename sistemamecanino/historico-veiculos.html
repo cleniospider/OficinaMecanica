@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/ordens.css">
     <link rel="stylesheet" href="css/historico-veiculo.css">
 </head>
-<body>
+<body class="dark-theme">
 
     <header class="top-header">
         <button class="hamburger-btn">
@@ -31,7 +31,7 @@
             <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
             <li><a href="ordens.html">Ordens de Serviços</a></li>
             <li><a href="estoque-critico.html">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos.html"class="active">Histórico de Veículos</a></li>
+            <li><a href="historico-veiculos.html" class="active">Histórico de Veículos</a></li>
             <li><a href="#">Financeiro</a></li>
             <li><a href="#">Relatórios</a></li>
             <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
@@ -42,7 +42,7 @@
     <main class="main-content">
         <div class="orders-container">
             <div class="orders-header">
-                <h2>Histórico de Atendimentos (Finalizados)</h2>
+                <h2>Histórico de Atendimentos</h2>
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="Pesquisar cliente ou Nº OS...">
                 </div>
@@ -54,56 +54,68 @@
                         <tr>
                             <th>Nº OS</th>
                             <th>PROPRIETÁRIO</th>
-                            <th>DATA DE CONCLUSÃO</th>
+                            <th>DATA</th>
                             <th>STATUS</th>
                             <th>AÇÕES</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
                         <tr>
-                            <td>#1025</td>
-                            <td><strong>Marcos Silva</strong></td>
-                            <td>14/05/2026</td>
-                            <td>
-                                <div style="display: flex; align-items: center; gap: 8px;">
+                            <td data-label="Nº OS">#1025</td>
+                            <td data-label="Proprietário"><strong>Marcos Silva</strong></td>
+                            <td data-label="Data">14/05/2026</td>
+                            <td data-label="Status">
+                                <div class="status-container">
                                     <span class="status-dot dot-finalizado"></span>
-                                    <small style="color: #ccc;">Finalizado</small>
+                                    <small>Finalizado</small>
                                 </div>
                             </td>
                             <td>
                                 <div class="acoes-flex">
-                                    <a href="detalhes-historico.html" class="btn-editar">ANALISAR</a>
-                                    <a href="excluir-historico.html" class="btn-excluir">EXCLUIR</a>
+                                    <a href="#" class="btn-analisar">ANALISAR</a>
+                                    <a href="#" class="btn-excluir-hist">EXCLUIR</a>
                                 </div>
                             </td>
                         </tr>
+                    
                         <tr>
-                            <td>#1024</td>
-                            <td><strong>José Costa</strong></td>
-                            <td>12/05/2026</td>
-                            <td>
-                                <div style="display: flex; align-items: center; gap: 8px;">
+                            <td data-label="Nº OS">#1024</td>
+                            <td data-label="Proprietário"><strong>José Costa</strong></td>
+                            <td data-label="Data">12/05/2026</td>
+                            <td data-label="Status">
+                                <div class="status-container">
                                     <span class="status-dot dot-finalizado"></span>
-                                    <small style="color: #ccc;">Finalizado</small>
+                                    <small>Finalizado</small>
                                 </div>
                             </td>
                             <td>
                                 <div class="acoes-flex">
-                                    <a href="detalhes-historico.html" class="btn-editar">ANALISAR</a>
-                                    <a href="excluir-historico.html" class="btn-excluir">EXCLUIR</a>
+                                    <a href="detalhes-historico.html" class="btn-analisar">ANALISAR</a>
+                                    <a href="excluir-historico.html" class="btn-excluir-hist">EXCLUIR</a>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
-            <div class="legend-area">
-                <span class="dot dot-finalizado"></span> Atendimentos Finalizados
-            </div>
-        </div>
     </main>
 
+    <script>
+        const btnMobile = document.querySelector('.hamburger-btn');
+        const sidebar = document.querySelector('#sidebar');
+
+        if(btnMobile && sidebar) {
+            btnMobile.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        }
+
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
+    </script>
 </body>
 </html>
-       

@@ -199,60 +199,50 @@ body {
 /* === RESPONSIVIDADE CELULAR === */
 @media (max-width: 1024px) {
     .hamburger-btn {
-        display: flex; /* Botão aparece no celular */
+        display: flex; 
     }
 
+    /* Sidebar agora ocupa quase a tela toda no mobile e tem sombra */
     .sidebar {
-        transform: translateX(-100%); /* Menu escondido no celular */
+        transform: translateX(-100%); 
+        width: 260px;
+        box-shadow: 10px 0 15px rgba(0,0,0,0.5);
     }
 
     .sidebar.open {
-        transform: translateX(0); /* Abre o menu ao clicar */
+        transform: translateX(0); 
     }
 
     .main-content {
-        margin-left: 0; /* Remove a margem lateral no celular */
+        margin-left: 0; 
+    }
+
+    .banner-area {
+        height: 180px; /* Banner menor no celular para não empurrar tudo pra baixo */
+    }
+
+    .header-titles {
+        text-align: center;
+        padding: 20px 10px;
+    }
+
+    /* Grid de cards: 2 colunas no celular para não ficar uma tripa única */
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .grid-card, .grid-cardRel {
+        height: 100px;
+        font-size: 11px;
+        padding: 10px;
     }
 }
 
-/* === MODAL === */
-.modal-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background-color: rgba(0,0,0,0.8);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 3000;
-}
-
-.modal-content {
-    background-color: var(--card-bg);
-    padding: 30px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 400px;
-    border: 1px solid var(--accent-red);
-    position: relative;
-}
-
-.close-btn {
-    position: absolute;
-    top: 15px; right: 20px;
-    font-size: 28px;
-    color: var(--text-muted);
-    cursor: pointer;
-}
-
-.btn-fechar-modal {
-    width: 100%;
-    padding: 12px;
-    margin-top: 20px;
-    background-color: var(--accent-red);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
+/* Ajuste para telas muito pequenas (iPhone SE, etc) */
+@media (max-width: 380px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr; /* 1 coluna só se a tela for minúscula */
+    }
 }

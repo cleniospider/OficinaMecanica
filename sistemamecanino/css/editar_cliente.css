@@ -94,3 +94,49 @@ input[type="email"] {
     text-transform: uppercase;
     font-size: 0.9rem;
 }
+
+/* === RESPONSIVIDADE DO FORMULÁRIO === */
+@media (max-width: 768px) {
+    .container-os {
+        width: 95%;
+        margin: 10px auto;
+        padding: 10px;
+    }
+
+    .titulo-os {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    /* Força os campos que estão lado a lado a ficarem um embaixo do outro */
+    .linha-dupla {
+        display: flex;
+        flex-direction: column; 
+        gap: 0; /* Remove o espaço lateral se houver */
+    }
+
+    .campo-grupo {
+        width: 100% !important; /* Garante que ocupe a largura toda */
+        margin-bottom: 15px;
+    }
+
+    .form-os input {
+        width: 100%;
+        box-sizing: border-box; /* Evita que o input passe da borda da tela */
+        font-size: 16px; /* Tamanho bom para não dar zoom automático no iPhone */
+    }
+
+    /* Ajusta os botões para ficarem um embaixo do outro e grandes */
+    .botoes-os {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-finalizar-os, .btn-voltar-os {
+        width: 100%;
+        margin: 0;
+        padding: 15px;
+        text-align: center;
+    }
+}

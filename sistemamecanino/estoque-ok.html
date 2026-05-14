@@ -152,6 +152,21 @@
             </div>
         </div>
     </main>
+    <script>
+        const btnMobile = document.querySelector('.hamburger-btn');
+        const sidebar = document.querySelector('#sidebar');
 
+        btnMobile.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        // Fecha o menu ao clicar em links (importante para mobile)
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
+    </script>
 </body>
 </html>

@@ -61,30 +61,28 @@ body.dark-theme {
     letter-spacing: 1px;
 }
 
+/* AJUSTE: Fonte e Cor igual aos demais campos */
 .form-header-info .grupo-input input {
     width: 100%;
     background-color: transparent !important;
     border: none !important;
     border-bottom: 2px solid var(--input-border) !important;
     padding: 8px 0;
-    color: var(--text-white);
+    color: var(--text-white) !important; /* Força o branco */
+    font-family: 'Inter', sans-serif;    /* Mesma fonte do body */
     font-size: 1.1rem;
     font-weight: 600;
     outline: none;
     transition: border-color 0.3s;
 }
 
-.form-header-info .grupo-input input:focus {
-    border-bottom-color: var(--primary-red) !important;
-}
-
+/* AJUSTE: Placa agora é normal, sem vermelho e sem fonte de máquina */
 .placa-field {
-    color: var(--primary-red) !important;
+    color: var(--text-white) !important; /* Ficou branco igual aos outros */
     text-transform: uppercase;
-    font-family: 'monospace';
-    letter-spacing: 2px;
+    font-family: 'Inter', sans-serif !important; /* Tirou o monospace */
+    letter-spacing: 1px; /* Diminuí um pouco o espaçamento para ficar natural */
 }
-
 /* --- Card Principal do Formulário --- */
 .form-gerenciar {
     background-color: var(--card-bg);

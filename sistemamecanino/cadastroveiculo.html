@@ -62,13 +62,13 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>HONDA</td>
-                            <td><strong>CBR 600RR</strong></td>
-                            <td class="placa-texto">ABC-1234</td>
-                            <td>2020</td>
-                            <td>Vermelho</td>
-                            <td>Marcos Silva</td>
-                            <td>
+                            <td data-label="MARCA">HONDA</td>
+                            <td data-label="MODELO"><strong>CBR 600RR</strong></td>
+                            <td data-label="PLACA" class="placa-texto">ABC-1234</td>
+                            <td data-label="ANO">2020</td>
+                            <td data-label="COR">Vermelho</td>
+                            <td data-label="PROPRIETÁRIO">Marcos Silva</td>
+                            <td data-label="AÇÕES">
                                 <div class="acoes-flex">
                                     <a href="editar-veiculo.html" class="btn-editar">EDITAR</a>
                                     <a href="excluir-veiculo.html" class="btn-excluir">EXCLUIR</a>
@@ -76,13 +76,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>TOYOTA</td>
-                            <td><strong>COROLLA</strong></td>
-                            <td class="placa-texto">DEF-5678</td>
-                            <td>2019</td>
-                            <td>Prata</td>
-                            <td>José Costa</td>
-                            <td>
+                            <td data-label="MARCA">TOYOTA</td>
+                            <td data-label="MODELO"><strong>COROLLA</strong></td>
+                            <td data-label="PLACA" class="placa-texto">DEF-5678</td>
+                            <td data-label="ANO">2019</td>
+                            <td data-label="COR">Prata</td>
+                            <td data-label="PROPRIETÁRIO">José Costa</td>
+                            <td data-label="AÇÕES">
                                 <div class="acoes-flex">
                                     <a href="editar-veiculo.html" class="btn-editar">EDITAR</a>
                                     <a href="excluir-veiculo.html" class="btn-excluir">EXCLUIR</a>
@@ -99,5 +99,59 @@
         </div>
     </main>
 
+    <div id="modal-conta" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Minha Conta</h2>
+            <div class="conta-dados">
+                <p><strong>Status:</strong> <span style="color: #00cc44;">Ativo ✔️</span></p>
+            </div>
+            <button class="btn-fechar-modal">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        const btnMobile = document.querySelector('.hamburger-btn');
+        const sidebar = document.querySelector('#sidebar');
+
+        if(btnMobile) {
+            btnMobile.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        }
+
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
+
+        const linkConta = document.querySelector('a[style*="cursor:pointer"]'); 
+        const modal = document.querySelector('#modal-conta');
+        const btnFechar = document.querySelector('.btn-fechar-modal');
+        const btnX = document.querySelector('.close-btn');
+
+        if(linkConta) {
+            linkConta.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+        }
+
+        [btnFechar, btnX].forEach(btn => {
+            if(btn) {
+                btn.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

@@ -50,19 +50,19 @@
                 <form action="ordens.html" class="form-nova-ordem">
                     
                     <div class="form-header-info">
-                        <div class="grupo-input">
-                            <label class="label-red">CLIENTE</label>
-                            <input type="text" placeholder="Nome do Cliente">
+                        <div class="form-header-info">
+                            <div class="grupo-input">
+                                <label>Cliente:</label> <input type="text" placeholder="Nome do Cliente">
+                            </div>
+                            <div class="grupo-input">
+                                <label>Veículo:</label>
+                                <input type="text" placeholder="Ex: CBR 600RR">
+                            </div>
+                            <div class="grupo-input">
+                                <label>Placa:</label>
+                                <input type="text" class="placa-field" placeholder="ABC-1234">
+                            </div>
                         </div>
-                        <div class="grupo-input">
-                            <label class="label-red">VEÍCULO</label>
-                            <input type="text" placeholder="Ex: CBR 600RR">
-                        </div>
-                        <div class="grupo-input">
-                            <label class="label-red">PLACA</label>
-                            <input type="text" class="placa-field" placeholder="ABC-1234">
-                        </div>
-                    </div>
             
                     <div class="grupo-input">
                         <label>Problema:</label>
@@ -102,6 +102,51 @@
             </div>
         </div>
     </main>
+    <script>
+        const btnMobile = document.querySelector('.hamburger-btn');
+        const sidebar = document.querySelector('#sidebar');
 
+        // Abre e fecha o menu lateral
+        btnMobile.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        // Fecha o menu ao clicar em um link (essencial para mobile)
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
+
+        // Lógica do Modal de Conta
+        const linkConta = document.querySelector('a[style*="cursor:pointer"]'); 
+        const modal = document.querySelector('#modal-conta');
+        const btnFechar = document.querySelector('.btn-fechar-modal');
+        const btnX = document.querySelector('.close-btn');
+
+        if(linkConta) {
+            linkConta.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+        }
+
+        [btnFechar, btnX].forEach(btn => {
+            if(btn) {
+                btn.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+            }
+        });
+
+        // Fecha o modal se clicar fora dele
+        window.addEventListener('click', (e) => {
+            if (e.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body> </html>
 </body>
 </html>

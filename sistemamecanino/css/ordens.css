@@ -297,3 +297,112 @@ a.btn-nova-ordem {
     margin-top: 0; 
 }
 
+@media (max-width: 768px) {
+    /* --- CABEÇALHO: TÍTULO EM CIMA E LUPA EMBAIXO --- */
+    .orders-header {
+        display: flex;
+        flex-direction: column; /* Empilha os elementos */
+        align-items: center;    /* Centraliza tudo */
+        gap: 15px;              /* Espaço entre o título e a lupa */
+        margin-bottom: 25px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .orders-header h2 {
+        color: #ffffff;
+        font-size: 1.4rem;
+        margin: 0;
+        width: 100%;
+    }
+
+    .search-box {
+        width: 100%; /* Lupa ocupa a largura total no mobile */
+    }
+
+    .search-box input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 5px;
+        box-sizing: border-box; /* Evita que a borda passe da tela */
+    }
+
+    /* --- MANTENDO SEU ESTILO DE CARDS --- */
+    .table-responsive table, 
+    .table-responsive thead, 
+    .table-responsive tbody, 
+    .table-responsive th, 
+    .table-responsive td, 
+    .table-responsive tr { 
+        display: block; 
+    }
+
+    .table-responsive thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .table-responsive tr {
+        border: 1px solid #333;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #1a1a1a;
+    }
+
+    .table-responsive td { 
+        border: none;
+        position: relative;
+        padding: 12px 10px 12px 130px; 
+        text-align: left;
+        font-size: 14px;
+        border-bottom: 1px solid #222;
+        min-height: 45px;
+        display: flex;
+        align-items: center;
+        color: #ffffff;
+    }
+
+    /* --- AJUSTE DAS AÇÕES --- */
+    .table-responsive td[data-label="AÇÕES"] {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 10px;
+        border-bottom: none;
+    }
+
+    .table-responsive td[data-label="AÇÕES"]:before {
+        position: static;
+        transform: none;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .table-responsive td:before { 
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 110px; 
+        font-weight: bold;
+        color: #ff0000; 
+        content: attr(data-label);
+        font-size: 11px;
+        text-transform: uppercase;
+    }
+
+    .acoes-flex {
+        display: flex;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .btn-editar, .btn-excluir {
+        flex: 1;
+        padding: 12px;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+}

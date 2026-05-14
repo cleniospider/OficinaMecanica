@@ -86,3 +86,67 @@
 .peca-texto h4 { margin: 0; font-size: 16px; }
 .peca-texto p { margin: 5px 0 0; font-size: 14px; color: #888; }
 .peca-qtd-direita { font-size: 22px; font-weight: bold; }
+
+/* --- RESPONSIVIDADE (MOBILE) --- */
+@media (max-width: 768px) {
+    .estoque-wrapper {
+        padding: 15px; /* Menos recuo no mobile */
+    }
+
+    /* Faz os controles (filtros e busca) ficarem um embaixo do outro */
+    .estoque-controles {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    /* Filtros ocupando a largura toda ou quebrando linha */
+    .filtros-grupo {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr; /* Três colunas iguais */
+        gap: 8px;
+    }
+
+    .btn-f {
+        padding: 10px 5px;
+        font-size: 11px;
+        text-align: center;
+    }
+
+    /* Busca e Botão Nova Peça */
+    .busca-acoes {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .input-busca {
+        width: 100%; /* Busca ocupa tudo */
+    }
+
+    .btn-nova-peca {
+        text-align: center;
+    }
+
+    /* Ajuste nos Cards de Peças */
+    .peca-card {
+        padding: 15px;
+        position: relative;
+    }
+
+    .peca-info-esquerda {
+        gap: 12px;
+    }
+
+    .peca-img-caixa {
+        width: 60px; /* Reduz um pouco a imagem no mobile */
+        height: 50px;
+    }
+
+    .peca-texto h4 {
+        font-size: 14px;
+    }
+
+    .peca-qtd-direita {
+        font-size: 18px; /* Número da quantidade um pouco menor */
+    }
+}

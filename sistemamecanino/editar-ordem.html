@@ -17,7 +17,7 @@
         <div class="header-logo-text">AUTO REPAIR</div>
     </header>
 
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
         <div class="profile-area">
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
@@ -47,59 +47,73 @@
 
             <div class="form-header-info">
                 <div class="grupo-input">
-                    <label class="label-red">CLIENTE</label>
-                    <input type="text" value="Marcos Silva" placeholder="Nome do Cliente">
+                    <label class="label-padrao">Cliente:</label>
+                    <input type="text" value="Marcos Silva">
                 </div>
                 <div class="grupo-input">
-                    <label class="label-red">VEÍCULO</label>
-                    <input type="text" value="CBR 600RR" placeholder="Ex: CBR 600RR">
+                    <label class="label-padrao">Veículo:</label>
+                    <input type="text" value="CBR 600RR">
                 </div>
                 <div class="grupo-input">
-                    <label class="label-red">PLACA</label>
-                    <input type="text" class="placa-field" value="ABC-1234" placeholder="ABC-1234">
+                    <label class="label-padrao">Placa:</label>
+                    <input type="text" class="placa-field" value="ABC-1234">
                 </div>
             </div>
 
-                <form class="form-gerenciar" action="ordens.html">
+            <form class="form-gerenciar" action="ordens.html">
+                <div class="grupo-input-dark">
+                    <label>Problema:</label>
+                    <textarea rows="3">Vazamento de óleo na suspensão</textarea>
+                </div>
+
+                <div class="grupo-input-dark">
+                    <label>Serviços:</label>
+                    <textarea rows="3">Troca de retentores e fluido</textarea>
+                </div>
+
+                <div class="grupo-input-dark">
+                    <label>Peças usadas:</label>
+                    <textarea rows="2">Retentores Honda, Óleo Motul</textarea>
+                </div>
+
+                <div class="flex-row">
                     <div class="grupo-input-dark">
-                        <label>Problema:</label>
-                        <textarea rows="3">Vazamento de óleo na suspensão</textarea>
+                        <label>Valor total:</label>
+                        <input type="text" value="R$ 450,00" class="input-valor-dark">
                     </div>
 
                     <div class="grupo-input-dark">
-                        <label>Serviços:</label>
-                        <textarea rows="3">Troca de retentores e fluido</textarea>
+                        <label>Status:</label>
+                        <select class="select-dark">
+                            <option value="ativo" selected>Ativo</option>
+                            <option value="parado">Parado</option>
+                            <option value="finalizado">Finalizado</option>
+                        </select>
                     </div>
+                </div>
 
-                    <div class="grupo-input-dark">
-                        <label>Peças usadas:</label>
-                        <textarea rows="2">Retentores Honda, Óleo Motul</textarea>
-                    </div>
-
-                    <div class="flex-row">
-                        <div class="grupo-input-dark">
-                            <label>Valor total:</label>
-                            <input type="text" value="R$ 450,00" class="input-valor-dark">
-                        </div>
-
-                        <div class="grupo-input-dark">
-                            <label>Status:</label>
-                            <select class="select-dark">
-                                <option value="ativo" selected>Ativo</option>
-                                <option value="parado">Parado</option>
-                                <option value="finalizado">Finalizado</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="acoes-os-dark">
-                        <button type="submit" class="btn-os btn-salvar-red">SALVAR ALTERAÇÕES</button>
-                        <a href="ordens.html" class="btn-os btn-voltar-dark">VOLTAR</a>
-                    </div>
-                </form>
-            </div>
+                <div class="acoes-os-dark">
+                    <button type="submit" class="btn-os btn-salvar-red">SALVAR ALTERAÇÕES</button>
+                    <a href="ordens.html" class="btn-os btn-voltar-dark">VOLTAR</a>
+                </div>
+            </form>
         </div>
     </main>
 
+    <script>
+        const btnMobile = document.querySelector('.hamburger-btn');
+        const sidebar = document.querySelector('#sidebar');
+
+        btnMobile.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
+    </script>
 </body>
 </html>
