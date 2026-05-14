@@ -1,97 +1,95 @@
-/* CONFIGURAÇÃO GLOBAL - ARIAL */
-body, input, select, button, a {
-    font-family: Arial, Helvetica, sans-serif;
-}
-
+/* Configuração Geral Dark */
 body {
-    background-color: #121212;
-    color: #ffffff;
-    margin: 0;
+    background-color: #121212 !important;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* AJUSTE DO CONTEÚDO PARA NÃO FICAR EMBAIXO DA SIDEBAR */
-.main-content {
-    margin-left: 260px; /* Ajuste conforme a largura da sua sidebar */
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-}
-
-/* CONTAINER DO TÍTULO */
+/* Container Principal */
 .container-form-dark {
-    width: 100%;
-    max-width: 1000px; /* Deixa o quadrado largo como na imagem */
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
+/* Título e Linha de Destaque */
 .titulo-sessao-container {
-    margin-bottom: 30px;
+    border-bottom: 2px solid #ff0000;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
 }
 
 .titulo-sessao {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    color: white;
     text-transform: uppercase;
-    margin: 0 0 10px 0;
-    color: #fff;
+    margin: 0;
 }
 
-.destaque-red {
-    color: #ff0000;
+.titulo-sessao .destaque-red {
+    color: #ff0000; /* Vermelho do Designer */
 }
 
-.linha-decorativa {
-    width: 100%;
-    height: 2px;
-    background-color: #ff0000;
-}
-
-/* CARD DO FORMULÁRIO */
+/* O Card do Formulário (Baseado na caixa-gerenciar) */
 .card-dark {
-    background-color: #1a1a1a;
-    padding: 40px;
+    background-color: #1c1c1c;
+    padding: 35px;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
-.form-row {
-    display: flex;
-    gap: 20px;
+/* Labels e Inputs */
+.grupo-input-dark {
     margin-bottom: 20px;
-}
-
-.flex-1 { flex: 1; }
-
-.label-red {
-    color: #ff0000 !important;
-    font-weight: bold;
 }
 
 .grupo-input-dark label {
     display: block;
     margin-bottom: 10px;
     color: #ccc;
-    font-size: 0.85rem;
+    font-weight: bold;
+    font-size: 0.9rem;
     text-transform: uppercase;
 }
 
-/* INPUTS E SELECTS PADRONIZADOS */
+/* Estilo para Inputs e Selects */
 input[type="text"], 
+input[type="email"],
 select {
     width: 100%;
-    background-color: #242424; /* Cinza escuro da imagem */
-    border: 1px solid #333;
-    border-radius: 6px;
-    padding: 15px;
-    color: white;
+    background-color: #262626;
+    border: 1px solid #3d3d3d;
+    border-radius: 5px;
+    color: #fff;
+    padding: 12px;
     font-size: 1rem;
     box-sizing: border-box;
     outline: none;
 }
 
-select option {
-    background-color: #1a1a1a;
+input:focus, select:focus {
+    border-color: #ff0000;
 }
 
-/* BOTÕES DE AÇÃO */
+/* Alinhamento de Linhas (Flex ou Grid) */
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+/* Ajuste para mobile em linhas duplas/triplas */
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+/* Rodapé de Ações (Botões) */
 .footer-acoes {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -100,16 +98,16 @@ select option {
 }
 
 .btn-acao {
-    padding: 18px;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 1rem;
-    text-transform: uppercase;
-    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
     text-decoration: none;
+    text-align: center;
     border: none;
-    transition: 0.3s;
+    display: inline-block;
 }
 
 .btn-salvar-fixo {
@@ -117,17 +115,20 @@ select option {
     color: white;
 }
 
+.btn-salvar-fixo:hover {
+    background-color: #cc0000;
+}
+
 .btn-voltar-os {
     background-color: #3d3d3d;
     color: white;
 }
 
-.btn-salvar-fixo:hover { background-color: #cc0000; }
-.btn-voltar-os:hover { background-color: #4d4d4d; }
+.btn-voltar-os:hover {
+    background-color: #555;
+}
 
-/* AJUSTE PARA TELAS MENORES */
-@media (max-width: 900px) {
-    .main-content { margin-left: 0; padding: 20px; }
-    .form-row { flex-direction: column; gap: 0; }
-    .footer-acoes { grid-template-columns: 1fr; }
+/* Estilo específico para destacar labels importantes se necessário */
+.label-red {
+    color: #ff0000 !important;
 }

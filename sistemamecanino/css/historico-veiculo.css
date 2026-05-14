@@ -1,0 +1,100 @@
+/* Importando base para manter o fundo e layout */
+body {
+    background-color: #000;
+}
+
+/* O Card da Tabela (Container cinza escuro) */
+.table-responsive {
+    background-color: #1a1a1a; 
+    border-radius: 8px;
+    border: 1px solid #222;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+#ordersTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#ordersTable thead th {
+    color: #888; 
+    font-size: 11px;
+    text-transform: uppercase;
+    padding: 20px 15px;
+    text-align: left;
+    border-bottom: 1px solid #222;
+}
+
+#ordersTable tbody td {
+    padding: 15px;
+    color: #fff;
+    border-top: 1px solid #252525;
+    vertical-align: middle;
+}
+
+/* Status Dot Finalizado */
+.dot-finalizado { 
+    background-color: #2ecc71; 
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* --- BOTÕES COM CORES FIXAS DO DESIGNER --- */
+
+.acoes-flex {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+/* Botão ANALISAR - Vermelho Fixo */
+.btn-analisar {
+    background-color: #ff0000 !important;
+    color: #fff !important;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 10px 18px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-block;
+}
+
+.btn-analisar:hover {
+    background-color: #cc0000 !important;
+}
+
+/* Botão EXCLUIR - Cinza Fixo */
+.btn-excluir-hist {
+    background-color: #3d3d3d !important;
+    color: #fff !important;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 10px 18px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-block;
+}
+
+.btn-excluir-hist:hover {
+    background-color: #555 !important;
+}
+
+/* Ajuste na barra de busca */
+.search-box input {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    color: #fff;
+    border-radius: 5px;
+    padding: 8px 15px;
+}

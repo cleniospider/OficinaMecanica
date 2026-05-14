@@ -34,7 +34,7 @@
 
 .grupo-input-dark label {
     display: block;
-    color: #ff0000; /* Vermelho da foto */
+    color: white; /* Vermelho da foto */
     font-size: 12px;
     font-weight: bold;
     margin-bottom: 8px;
@@ -89,22 +89,15 @@
 }
 
 .btn-salvar-os {
-    background: transparent;
-    border: 1px solid #ff0000;
-    color: #fff;
-}
-
-.btn-salvar-os:hover {
-    background: #ff0000;
-}
-
-.btn-finalizar-os {
-    background: #ff0000;
-    color: #fff;
-}
-
-.btn-finalizar-os:hover {
-    background: #ff0000;
+    background-color: #ff0000;
+    border: none;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
 }
 
 .btn-voltar-os {

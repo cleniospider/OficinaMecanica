@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Repair - Excluir Veículo</title>
+    <title>Auto Repair - Excluir Histórico</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/ordens.css">
- </head>
+    <link rel="stylesheet" href="css/excluir-historico.css">
+</head>
 <body>
 
     <header class="top-header">
@@ -27,10 +28,10 @@
         <ul class="nav-links">
             <li><a href="admin.html">Painel de Gestão</a></li>
             <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo.html" class="active">Cadastro Veículo</a></li>
+            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
             <li><a href="ordens.html">Ordens de Serviços</a></li>
             <li><a href="estoque-critico.html">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos.html">Histórico de Veículos</a></li>
+            <li><a href="historico-veiculos.html"class="active">Histórico de Veículos</a></li>
             <li><a href="#">Financeiro</a></li>
             <li><a href="#">Relatórios</a></li>
             <li><a style="cursor:pointer;">👤 Minha Conta</a></li>
@@ -41,16 +42,16 @@
     <main class="main-content">
         <div class="orders-container">
             <div class="orders-header">
-                <h2>Excluir Veículo</h2>
+                <h2>Excluir Registro de Histórico</h2>
             </div>
 
             <div class="caixa-exclusao">
                 <div class="icone-alerta">⚠️</div>
-                <h3>Tem certeza que deseja excluir este cadastro veiculo?</h3>
-                
-                <form action="cadastroveiculo.html" class="form-exclusao">
+                <h3>Tem certeza que deseja excluir esse historico?</h3>
+               
+                <form action="historico-veiculos.html" class="form-exclusao">
                     <div class="botoes-acao-excluir">
-                        <a href="cadastroveiculo.html" class="btn-cancelar-exclusao">Cancelar</a>
+                        <a href="historico-veiculos.html" class="btn-cancelar-exclusao">Cancelar</a>
                         <button type="submit" class="btn-confirmar-exclusao">Sim</button>
                     </div>
                 </form>
