@@ -19,17 +19,17 @@ body.dark-theme {
 
 /* Container do Conteúdo */
 .orders-container {
-    max-width: 900px;
-    margin: 50px auto;
+    max-width: 750px;
+    margin: 40px auto;
     padding: 0 20px;
 }
 
 /* Cabeçalho da OS */
 .os-header-detalhe h2 {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     text-transform: uppercase;
     font-weight: 800;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     padding-bottom: 10px;
     border-bottom: 2px solid var(--primary-red);
     color: var(--text-white);
@@ -39,55 +39,59 @@ body.dark-theme {
     color: var(--primary-red);
 }
 
-/* --- NOVO: Seção de Informações do Topo (Inputs de Cliente, Veículo e Placa) --- */
+/* --- Seção de Informações do Topo (Cliente, Veículo e Placa) --- */
 .form-header-info {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr; /* Cliente maior que os outros */
+    grid-template-columns: 2fr 1fr 1fr; 
     gap: 20px;
     background-color: var(--card-bg);
-    padding: 25px;
-    border-radius: 12px 12px 0 0; /* Arredonda só em cima para colar no form */
+    padding: 20px 30px; 
+    border-radius: 12px 12px 0 0; 
     border: 1px solid var(--input-border);
-    border-bottom: none; /* Tira a borda de baixo para unir com o form */
+    border-bottom: none; 
 }
 
-.label-red {
+.label-padrao {
     display: block;
-    color: var(--primary-red) !important;
-    font-size: 0.75rem;
-    font-weight: 800;
+    color: #888888; 
+    font-size: 0.8rem;
+    font-weight: 500; 
     text-transform: uppercase;
-    margin-bottom: 8px;
-    letter-spacing: 1px;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
 }
 
-/* AJUSTE: Fonte e Cor igual aos demais campos */
 .form-header-info .grupo-input input {
     width: 100%;
     background-color: transparent !important;
     border: none !important;
-    border-bottom: 2px solid var(--input-border) !important;
-    padding: 8px 0;
-    color: var(--text-white) !important; /* Força o branco */
-    font-family: 'Inter', sans-serif;    /* Mesma fonte do body */
-    font-size: 1.1rem;
-    font-weight: 600;
+    border-bottom: 1px solid var(--input-border) !important;
+    padding: 6px 0;
+    color: #e0e0e0 !important; 
+    font-family: 'Inter', sans-serif;    
+    font-size: 0.95rem; 
+    font-weight: 400;  
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, color 0.3s;
 }
 
-/* AJUSTE: Placa agora é normal, sem vermelho e sem fonte de máquina */
-.placa-field {
-    color: var(--text-white) !important; /* Ficou branco igual aos outros */
-    text-transform: uppercase;
-    font-family: 'Inter', sans-serif !important; /* Tirou o monospace */
-    letter-spacing: 1px; /* Diminuí um pouco o espaçamento para ficar natural */
+/* NOVO: Efeito ao clicar para preencher os campos do topo (acende em vermelho) */
+.form-header-info .grupo-input input:focus {
+    border-bottom-color: var(--primary-red) !important;
+    color: #fff !important;
 }
+
+.placa-field {
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif !important; 
+    letter-spacing: 0.5px; 
+}
+
 /* --- Card Principal do Formulário --- */
 .form-gerenciar {
     background-color: var(--card-bg);
-    padding: 40px;
-    border-radius: 0 0 12px 12px; /* Arredonda só embaixo */
+    padding: 30px 40px; 
+    border-radius: 0 0 12px 12px; 
     border: 1px solid var(--input-border);
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
@@ -100,9 +104,10 @@ body.dark-theme {
 .grupo-input-dark label {
     display: block;
     color: var(--text-label);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
 }
 
 .grupo-input-dark textarea,
@@ -112,16 +117,18 @@ body.dark-theme {
     background-color: var(--input-bg);
     border: 1px solid var(--input-border);
     border-radius: 6px;
-    padding: 14px;
+    padding: 12px;
     color: #fff;
-    font-size: 1rem;
+    font-size: 0.95rem;
     box-sizing: border-box;
     transition: border 0.3s;
 }
 
-.grupo-input-dark textarea:focus {
+.grupo-input-dark textarea:focus,
+.grupo-input-dark .input-valor-dark:focus,
+.select-dark:focus {
     outline: none;
-    border-color: #555;
+    border-color: var(--primary-red);
 }
 
 /* Valor específico em Verde */
@@ -144,16 +151,16 @@ body.dark-theme {
 .acoes-os-dark {
     display: flex;
     gap: 15px;
-    margin-top: 30px;
+    margin-top: 25px;
 }
 
 .btn-os {
     flex: 1;
-    padding: 16px;
+    padding: 14px;
     border: none;
     border-radius: 6px;
-    font-weight: 800;
-    font-size: 0.9rem;
+    font-weight: 700;
+    font-size: 0.85rem;
     cursor: pointer;
     text-transform: uppercase;
     text-align: center;
@@ -194,6 +201,7 @@ body.dark-theme {
     
     .form-gerenciar {
         border-radius: 12px;
+        padding: 20px;
     }
 
     .flex-row {

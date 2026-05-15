@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/ordens.css">
     <link rel="stylesheet" href="css/nova-ordem.css">
 </head>
-<body>
+<body class="dark-theme">
 
     <header class="top-header">
         <button class="hamburger-btn">
@@ -41,114 +41,82 @@
 
     <main class="main-content">
         <div class="orders-container">
-            <div class="titulo-sessao">
-                <h2>NOVA ORDEM <span class="highlight">DE SERVIÇO</span></h2>
-                <div class="linha-decorativa"></div>
+            <div class="os-header-detalhe">
+                <h2>NOVA ORDEM <span class="text-red">DE SERVIÇO</span></h2>
             </div>
     
-            <div class="caixa-nova-ordem">
-                <form action="ordens.html" class="form-nova-ordem">
+            <form action="ordens.html" class="form-nova-ordem">
+                
+                <div class="form-header-info">
+                    <div class="grupo-input">
+                        <label class="label-padrao">Cliente:</label>
+                        <input type="text" placeholder="Nome do Cliente" required>
+                    </div>
+                    <div class="grupo-input">
+                        <label class="label-padrao">Veículo:</label>
+                        <input type="text" placeholder="Ex: CBR 600RR" required>
+                    </div>
+                    <div class="grupo-input">
+                        <label class="label-padrao">Placa:</label>
+                        <input type="text" class="placa-field" placeholder="ABC-1234" required>
+                    </div>
+                </div>
+        
+                <div class="form-corpo-ordem">
                     
-                    <div class="form-header-grid">
-                        <div class="grupo-input">
-                            <label>CLIENTE:</label>
-                            <input type="text" placeholder="Nome do Cliente">
-                        </div>
-                        <div class="grupo-input">
-                            <label>VEÍCULO:</label>
-                            <input type="text" placeholder="Ex: CBR 600RR">
-                        </div>
-                        <div class="grupo-input">
-                            <label>PLACA:</label>
-                            <input type="text" placeholder="ABC-1234">
-                        </div>
+                    <div class="grupo-input-dark">
+                        <label>Problema:</label>
+                        <textarea rows="3" placeholder="Descreva o problema constatado..."></textarea>
+                    </div>
+
+                    <div class="grupo-input-dark">
+                        <label>Serviços:</label>
+                        <textarea rows="3" placeholder="Serviços a realizar..."></textarea>
                     </div>
             
-                    <div class="form-mid-grid">
-                        <div class="grupo-input">
-                            <label>PROBLEMA:</label>
-                            <textarea rows="6" placeholder="Descreva o problema..."></textarea>
-                        </div>
-                        <div class="grupo-input">
-                            <label>SERVIÇOS:</label>
-                            <textarea rows="6" placeholder="Serviços a realizar..."></textarea>
-                        </div>
+                    <div class="grupo-input-dark">
+                        <label>Peças usadas:</label>
+                        <textarea rows="2" placeholder="Lista de peças e componentes..."></textarea>
                     </div>
-            
-                    <div class="form-footer-grid">
-                        <div class="grupo-input">
-                            <label>PEÇAS USADAS:</label>
-                            <textarea rows="5" placeholder="Lista de peças..."></textarea>
+
+                    <div class="flex-row">
+                        <div class="grupo-input-dark">
+                            <label>Valor total:</label>
+                            <input type="text" class="input-valor-dark" placeholder="R$ 0,00">
                         </div>
-                        <div class="financeiro-col">
-                            <div class="grupo-input">
-                                <label>VALOR TOTAL:</label>
-                                <input type="text" class="valor-total" placeholder="R$ 0,00">
-                            </div>
-                            <div class="grupo-input">
-                                <label>STATUS:</label>
-                                <select>
-                                    <option value="ativo">Ativo</option>
-                                    <option value="finalizado">Finalizado</option>
-                                    <option value="parado">Parado</option>
-                                </select>
-                            </div>
+                        <div class="grupo-input-dark">
+                            <label>Status:</label>
+                            <select class="select-dark">
+                                <option value="ativo" selected>Ativo</option>
+                                <option value="finalizado">Finalizado</option>
+                                <option value="parado">Parado</option>
+                            </select>
                         </div>
                     </div>
             
                     <div class="botoes-acao">
-                        <button type="submit" class="btn-salvar">SALVAR ALTERAÇÕES</button>
-                        <a href="ordens.html" class="btn-voltar">CANCELAR</a>
+                        <button type="submit" class="btn-os btn-salvar-red">SALVAR ALTERAÇÕES</button>
+                        <a href="ordens.html" class="btn-os btn-voltar-dark">CANCELAR</a>
                     </div>
-                </form>
-            </div>
-        <div>
+                </div>
+            </form>
+        </div>
     </main>
+
     <script>
         const btnMobile = document.querySelector('.hamburger-btn');
         const sidebar = document.querySelector('#sidebar');
 
-        // Abre e fecha o menu lateral
         btnMobile.addEventListener('click', () => {
             sidebar.classList.toggle('open');
         });
 
-        // Fecha o menu ao clicar em um link (essencial para mobile)
         const links = document.querySelectorAll('.nav-links a');
         links.forEach(link => {
             link.addEventListener('click', () => {
                 sidebar.classList.remove('open');
             });
         });
-
-        // Lógica do Modal de Conta
-        const linkConta = document.querySelector('a[style*="cursor:pointer"]'); 
-        const modal = document.querySelector('#modal-conta');
-        const btnFechar = document.querySelector('.btn-fechar-modal');
-        const btnX = document.querySelector('.close-btn');
-
-        if(linkConta) {
-            linkConta.addEventListener('click', (e) => {
-                e.preventDefault();
-                modal.style.display = 'flex';
-            });
-        }
-
-        [btnFechar, btnX].forEach(btn => {
-            if(btn) {
-                btn.addEventListener('click', () => {
-                    modal.style.display = 'none';
-                });
-            }
-        });
-
-        // Fecha o modal se clicar fora dele
-        window.addEventListener('click', (e) => {
-            if (e.target == modal) {
-                modal.style.display = 'none';
-            }
-        });
     </script>
-</body> </html>
 </body>
 </html>
