@@ -49,48 +49,49 @@
             <div class="caixa-nova-ordem">
                 <form action="ordens.html" class="form-nova-ordem">
                     
-                    <div class="form-header-info">
-                        <div class="form-header-info">
-                            <div class="grupo-input">
-                                <label>Cliente:</label> <input type="text" placeholder="Nome do Cliente">
-                            </div>
-                            <div class="grupo-input">
-                                <label>Veículo:</label>
-                                <input type="text" placeholder="Ex: CBR 600RR">
-                            </div>
-                            <div class="grupo-input">
-                                <label>Placa:</label>
-                                <input type="text" class="placa-field" placeholder="ABC-1234">
-                            </div>
-                        </div>
-            
-                    <div class="grupo-input">
-                        <label>Problema:</label>
-                        <textarea rows="4" placeholder="Descreva o problema..."></textarea>
-                    </div>
-            
-                    <div class="grupo-input">
-                        <label>Serviços:</label>
-                        <textarea rows="4" placeholder="Serviços a realizar..."></textarea>
-                    </div>
-            
-                    <div class="grupo-input">
-                        <label>Peças usadas:</label>
-                        <textarea rows="4" placeholder="Lista de peças..."></textarea>
-                    </div>
-            
-                    <div class="form-footer-info">
+                    <div class="form-header-grid">
                         <div class="grupo-input">
-                            <label>Valor total:</label>
-                            <input type="text" class="valor-total" placeholder="R$ 0,00">
+                            <label>CLIENTE:</label>
+                            <input type="text" placeholder="Nome do Cliente">
                         </div>
                         <div class="grupo-input">
-                            <label>Status:</label>
-                            <select>
-                                <option value="ativo" selected>Ativo</option>
-                                <option value="Finalizado">Finalizado</option>
-                                <option value="parado">Parado</option>
-                            </select>
+                            <label>VEÍCULO:</label>
+                            <input type="text" placeholder="Ex: CBR 600RR">
+                        </div>
+                        <div class="grupo-input">
+                            <label>PLACA:</label>
+                            <input type="text" placeholder="ABC-1234">
+                        </div>
+                    </div>
+            
+                    <div class="form-mid-grid">
+                        <div class="grupo-input">
+                            <label>PROBLEMA:</label>
+                            <textarea rows="6" placeholder="Descreva o problema..."></textarea>
+                        </div>
+                        <div class="grupo-input">
+                            <label>SERVIÇOS:</label>
+                            <textarea rows="6" placeholder="Serviços a realizar..."></textarea>
+                        </div>
+                    </div>
+            
+                    <div class="form-footer-grid">
+                        <div class="grupo-input">
+                            <label>PEÇAS USADAS:</label>
+                            <textarea rows="5" placeholder="Lista de peças..."></textarea>
+                        </div>
+                        <div class="financeiro-col">
+                            <div class="grupo-input">
+                                <label>VALOR TOTAL:</label>
+                                <input type="text" class="valor-total" placeholder="R$ 0,00">
+                            </div>
+                            <div class="grupo-input">
+                                <label>STATUS:</label>
+                                <select>
+                                    <option value="ativo">Ativo</option>
+                                    <option value="finalizado">Finalizado</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
             
@@ -100,7 +101,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        <div>
     </main>
     <script>
         const btnMobile = document.querySelector('.hamburger-btn');

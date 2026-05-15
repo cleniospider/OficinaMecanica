@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operações Matemáticas</title>
+</head>
+<body>
+
+    <h1>Calculadora em JavaScript</h1>
+
+    <script>
+        let num1 = prompt("Digite o primeiro número:");
+        let num2 = prompt("Digite o segundo número:");
+
+        num1 = Number(num1);
+        num2 = Number(num2);
+
+        let soma = num1 + num2;
+        let subtracao = num1 - num2;
+        let multiplicacao = num1 * num2;
+        let divisao = num1 / num2;
+
+        document.write("<h2>Resultados</h2>");
+        document.write("Soma: " + soma + "<br>");
+        document.write("Subtração: " + subtracao + "<br>");
+        document.write("Multiplicação: " + multiplicacao + "<br>");
+        document.write("Divisão: " + divisao + "<br><br>");
+
+        // Comparações
+        document.write("Num1 é maior que Num2? " + (num1 > num2) + "<br>");
+        document.write("Num1 é igual a Num2? " + (num1 == num2) + "<br><br>");
+
+        num1++;
+        num2--;
+
+        document.write("Novo valor de Num1 após incremento: " + num1 + "<br>");
+        document.write("Novo valor de Num2 após decremento: " + num2 + "<br>");
+
+        console.log("Soma: " + soma);
+        console.log("Subtração: " + subtracao);
+        console.log("Multiplicação: " + multiplicacao);
+        console.log("Divisão: " + divisao);
+    </script>
+
+</body>
+</html>
