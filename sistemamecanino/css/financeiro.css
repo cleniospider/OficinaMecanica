@@ -1,0 +1,145 @@
+.financeiro-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.titulo-sessao-esquerda {
+    text-align: left;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    padding-left: 10px;
+    border-left: 5px solid #ff0000;
+}
+
+.cards-resumo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.card-fin {
+    background-color: #1c1c1e;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #2c2c2e;
+}
+
+.label-fin {
+    color: #8e8e93;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.valor-fin {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.saldo { color: #30d158; }
+.receber { color: #ff9f0a; }
+.pagar { color: #ff453a; }
+
+/* Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    color: #8e8e93;
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+    font-size: 0.85rem;
+}
+
+tbody td {
+    padding: 15px;
+    border-bottom: 1px solid #1c1c1e;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.status-pago {
+    background-color: #30d158;
+    color: #000;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 0.7rem;
+}
+
+.status-aguard {
+    background-color: #ff453a;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 0.7rem;
+}
+
+/* Botão Excluir Estilo Vinho (Igual ao das imagens) */
+.btn-excluir-vinho {
+    background-color: #440000;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none; /* ESSENCIAL: remove o sublinhado de link */
+    display: inline-block; /* Faz o padding funcionar corretamente */
+    transition: 0.3s;
+}
+
+.btn-excluir-vinho:hover {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.td-acoes {
+    text-align: center;
+}
+
+/* Mobile Responsivo */
+@media (max-width: 768px) {
+    .main-content { margin-left: 0; padding: 20px; }
+    .cards-resumo { grid-template-columns: 1fr; }
+    thead { display: none; }
+
+    tr {
+        display: block;
+        background: #1c1c1e;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 5px;
+        border-bottom: 1px solid #2c2c2e;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #ff0000;
+        font-size: 0.75rem;
+    }
+
+    .btn-excluir-vinho {
+        width: 100%;
+        margin-top: 5px;
+    }
+}

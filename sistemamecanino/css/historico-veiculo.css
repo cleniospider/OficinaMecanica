@@ -63,12 +63,16 @@ td {
 .dot-finalizado { background: #00cc44; }
 
 /* Botões */
-.acoes-flex { display: flex; gap: 8px; }
+/* --- BOTÕES --- */
+.acoes-flex { 
+    display: flex; 
+    gap: 8px; 
+}
 
-.btn-editar, .btn-excluir { 
+.btn-editar, .btn-excluir-vinho { 
     text-decoration: none;
     text-align: center;
-    padding: 6px 12px; 
+    padding: 8px 15px; 
     border-radius: 4px; 
     cursor: pointer; 
     font-weight: bold; 
@@ -76,95 +80,39 @@ td {
     color: white;
     border: none;
     display: inline-block;
+    transition: 0.3s;
 }
 
-.btn-editar { background: #ff0000; }
-.btn-excluir { background: #440000; transition: 0.2s; }
-.btn-excluir:hover { background: #440000; }
+/* Botão Analisar (Vermelho Padrão) */
+.btn-editar { 
+    background: #ff0000; 
+}
 
-/* --- RESPONSIVIDADE (O PONTO CHAVE) --- */
+.btn-editar:hover {
+    background: #cc0000;
+}
+
+/* Botão Excluir (Estilo Vinho que você pediu) */
+.btn-excluir-vinho { 
+    background-color: #440000; /* Vermelho escuro/vinho */
+}
+
+.btn-excluir-vinho:hover { 
+    background-color: #ff0000; /* No hover ele brilha para o vermelho vivo */
+}
+
+/* --- AJUSTE RESPONSIVO MOBILE --- */
 @media (max-width: 768px) {
-    .orders-header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-
-    .search-box, .search-box input { width: 100%; }
-
-    /* Transforma Tabela em Card */
-    .table-responsive, table, thead, tbody, th, td, tr { 
-        display: block; 
-    }
-
-    thead tr { 
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-    }
-
-    tr {
-        border: 1px solid #333;
-        margin-bottom: 15px;
-        padding: 10px;
-        border-radius: 8px;
-        background-color: #1a1a1a;
-    }
-
-    td { 
-        border: none;
-        position: relative;
-        /* Espaço na esquerda para o label não bater no texto */
-        padding: 12px 10px 12px 140px; 
-        text-align: right; /* Texto do valor na direita */
-        border-bottom: 1px solid #222;
-        min-height: 45px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
-    /* O Label Vermelho na Esquerda */
-    td:before { 
-        position: absolute;
-        left: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 120px; 
-        font-weight: bold;
-        color: #ff0000; /* Cor vermelha do print */
-        content: attr(data-label);
-        font-size: 10px;
-        text-transform: uppercase;
-        text-align: left;
-    }
-
-    /* Ajuste para a linha de AÇÕES */
-    td[data-label="AÇÕES"] {
-        flex-direction: column;
-        align-items: flex-start;
-        padding-left: 10px;
-        border-bottom: none;
-        margin-top: 5px;
-    }
-
-    td[data-label="AÇÕES"]:before {
-        position: static;
-        transform: none;
-        margin-bottom: 10px;
-        display: block;
-    }
-
-    .acoes-flex {
-        display: flex;
-        width: 100%;
-        gap: 10px;
-    }
-
-    /* Botões divididos 50/50 no mobile */
-    .btn-editar, .btn-excluir {
+    .btn-editar, .btn-excluir-vinho {
         flex: 1;
         padding: 12px;
         font-size: 12px;
+        text-transform: uppercase;
+    }
+    
+    .acoes-flex {
+        width: 100%;
+        gap: 10px;
+        margin-top: 5px;
     }
 }

@@ -2,6 +2,7 @@ body {
     background-color: #000;
     color: #fff;
     margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .main-content {
@@ -14,10 +15,9 @@ body {
     margin: 0 auto;
 }
 
-/* Header */
 .header-topo {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Centralizado no Header */
     align-items: center;
     margin-bottom: 20px;
     border-bottom: 2px solid #ff0000;
@@ -30,18 +30,6 @@ body {
     font-weight: bold;
 }
 
-/* Botão Voltar simples como o cinza que você gosta */
-.btn-voltar-simples {
-    background-color: #3d3d3d;
-    color: #fff;
-    text-decoration: none;
-    padding: 8px 20px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: bold;
-}
-
-/* Card Principal (Estilo Tabela OS) */
 .cartao-analise {
     background-color: #1a1a1a;
     border-radius: 8px;
@@ -55,7 +43,7 @@ body {
     padding-bottom: 10px;
 }
 
-.info-secao:last-child {
+.info-secao:last-of-type {
     border-bottom: none;
 }
 
@@ -88,7 +76,44 @@ body {
     display: inline-block;
 }
 
-/* Mobile */
+/* --- BOTÃO VOLTAR CENTRALIZADO --- */
+.area-botao-voltar {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center; /* Centraliza no Desktop */
+}
+
+.btn-voltar-simples {
+    background-color: #3d3d3d;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 40px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.btn-voltar-simples:hover {
+    background-color: #555;
+}
+
+/* --- MOBILE --- */
 @media (max-width: 768px) {
-    .main-content { margin-left: 0; padding: 20px; }
+    .main-content { 
+        margin-left: 0; 
+        padding: 20px; 
+    }
+
+    .area-botao-voltar {
+        justify-content: center; /* Mantém centralizado no Mobile */
+    }
+
+    .btn-voltar-simples {
+        width: 100%; /* No mobile ocupa a largura toda por segurança */
+        padding: 15px;
+        display: block;
+        box-sizing: border-box;
+    }
 }

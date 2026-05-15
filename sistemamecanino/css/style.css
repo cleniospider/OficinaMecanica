@@ -33,7 +33,7 @@ body {
 }
 
 .logo-area img {
-    max-width: 100%; /* Garante que a logo nunca ultrapasse a tela */
+    max-width: 100%;
     height: auto;
     width: 600px; 
 }
@@ -54,6 +54,10 @@ body {
     font-weight: 500;
     margin-bottom: 30px;
     letter-spacing: 1px;
+}
+
+.title-register {
+    font-size: 22px;
 }
 
 .form-group {
@@ -77,6 +81,12 @@ body {
     color: #cccccc;
 }
 
+.label-cargo {
+    font-size: 13px; 
+    color: #ffffff; 
+    display: block;
+}
+
 .form-group input {
     background-color: #2a2a2a; 
     border: none;
@@ -94,6 +104,10 @@ body {
     justify-content: space-between;
     gap: 10px;
     margin: 15px 0 30px;
+}
+
+.roles-register {
+    margin: 10px 0 20px;
 }
 
 .roles-container input[type="radio"] {
@@ -125,10 +139,18 @@ body {
     color: #aaaaaa;
 }
 
+.link-back-container {
+    margin-top: 15px;
+}
+
 .link-container a {
     color: #ff0000; 
     text-decoration: none;
     font-weight: bold;
+}
+
+#link-ir-login {
+    color: #ffffff;
 }
 
 .btn-submit {
@@ -140,21 +162,21 @@ body {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    width: 100%; /* No mobile e desk, o botão agora ocupa o espaço do form */
+    width: 100%; 
     max-width: 200px;
     transition: background 0.3s;
 }
 
 /* ===========================================
-   MEDIA QUERY - O PULO DO GATO PARA CELULAR
+    MEDIA QUERY - RESPONSIVIDADE MOBILE
    =========================================== */
 @media (max-width: 900px) {
     body {
-        align-items: flex-start; /* Permite rolar a tela se o form for longo */
+        align-items: flex-start; 
     }
 
     .container-central {
-        flex-direction: column; /* Coloca a LOGO em cima e o FORM embaixo */
+        flex-direction: column; 
         gap: 20px;
         padding-top: 20px;
     }
@@ -165,7 +187,7 @@ body {
     }
 
     .logo-area img {
-        width: 200px; /* Logo menor no celular */
+        width: 200px; 
     }
 
     .forms-area {
@@ -173,7 +195,7 @@ body {
     }
 
     .form-row {
-        flex-direction: column; /* Campos de nome/email ficam um embaixo do outro */
+        flex-direction: column; 
         gap: 0;
     }
 
@@ -183,10 +205,10 @@ body {
     }
 
     .btn-submit {
-        max-width: 100%; /* Botão largo no celular para facilitar o toque */
+        max-width: 100%; 
     }
 
     .roles-container label {
-        font-size: 10px; /* Ajuste fino para não quebrar o texto do cargo */
+        font-size: 10px; 
     }
 }

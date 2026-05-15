@@ -1,0 +1,90 @@
+/* Layout Geral */
+.relatorios-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título Principal */
+.titulo-sessao-relatorio {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Cards dos Gráficos */
+.card-grafico {
+    width: 100%;
+    background: #121212;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.card-grafico h3 {
+    color: #bbbbbb;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+}
+
+/* Ajustes de Gráficos */
+canvas {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+.pizza-wrapper, .gauge-container {
+    max-width: 280px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Valor central do velocímetro */
+.gauge-value {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #00cc44;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+/* Linha divisória idêntica à foto */
+hr.divisor {
+    width: 100%;
+    border: 0;
+    border-top: 1px solid #222222;
+    margin: 20px 0 40px 0;
+}
+
+/* RESPONSIVIDADE MOBILE */
+@media (max-width: 768px) {
+    .relatorios-container {
+        padding: 15px;
+    }
+
+    .card-grafico {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .titulo-sessao-relatorio {
+        font-size: 1.2rem;
+    }
+
+    .gauge-value {
+        font-size: 1.1rem;
+    }
+}
