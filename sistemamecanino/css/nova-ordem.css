@@ -77,16 +77,17 @@ input:focus, textarea:focus, select:focus {
 
 /* --- BOTÕES (IGUAL AO PRIMEIRO PRINT) --- */
 /* Botões (Desktop e Base) */
+/* --- ESTILO DOS BOTÕES (CORRIGIDO) --- */
 .botoes-acao {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    display: flex;
+    flex-direction: column; /* No mobile, um embaixo do outro */
+    gap: 12px;
     margin-top: 30px;
 }
 
 .btn-salvar, .btn-voltar {
     width: 100%;
-    height: 55px; /* Altura fixa para garantir que fiquem iguais */
+    height: 50px; /* Altura idêntica para os dois */
     border-radius: 6px;
     font-weight: bold;
     text-transform: uppercase;
@@ -94,11 +95,9 @@ input:focus, textarea:focus, select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     border: none;
-    transition: background 0.3s;
-    text-decoration: none; /* Caso o cancelar seja um link <a> */
-    box-sizing: border-box;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .btn-salvar {
@@ -111,15 +110,52 @@ input:focus, textarea:focus, select:focus {
     color: white;
 }
 
-/* Ajuste específico para Mobile */
-@media (max-width: 768px) {
-    .botoes-acao {
-        grid-template-columns: 1fr; /* Um embaixo do outro */
-        gap: 12px;
+/* --- AJUSTE DOS GRIDS (IMPEDE QUE FIQUEM ESMAGADOS) --- */
+
+/* No PC (Telas maiores que 768px) */
+@media (min-width: 769px) {
+    .form-header-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 20px;
     }
 
-    .btn-salvar, .btn-voltar {
-        height: 50px; /* Diminuí um pouco a altura para o celular */
-        padding: 0;   /* Remove paddings que possam deformar */
+    .form-mid-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+    }
+
+    .botoes-acao {
+        flex-direction: row; /* No PC, botões lado a lado */
+    }
+}
+
+/* No CELULAR (Telas até 768px) */
+@media (max-width: 768px) {
+    /* Força todos os grupos de grid a virarem uma única coluna */
+    .form-header-grid, 
+    .form-mid-grid, 
+    .form-footer-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Garante que os inputs ocupem a largura total disponível */
+    .grupo-input input, 
+    .grupo-input textarea, 
+    .grupo-input select {
+        width: 100%;
+    }
+    
+    .caixa-nova-ordem {
+        padding: 20px;
     }
 }
