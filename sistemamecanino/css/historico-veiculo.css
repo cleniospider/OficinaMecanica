@@ -12,7 +12,10 @@
     margin-bottom: 20px;
 }
 
-.orders-header h2 { font-size: 20px; color: white; }
+.orders-header h2 { 
+    font-size: 20px; 
+    color: white; 
+}
 
 .search-box input {
     background: #1e1e1e;
@@ -21,6 +24,12 @@
     border-radius: 6px;
     color: white;
     width: 250px;
+    transition: 0.3s;
+}
+
+.search-box input:focus {
+    border-color: #ff0000;
+    outline: none;
 }
 
 /* --- TABELA DESKTOP --- */
@@ -55,14 +64,14 @@ td {
 
 /* Status dots */
 .status-dot {
-    height: 10px; width: 10px;
+    height: 10px; 
+    width: 10px;
     border-radius: 50%;
     display: inline-block;
     margin-right: 5px;
 }
 .dot-finalizado { background: #00cc44; }
 
-/* Botões */
 /* --- BOTÕES --- */
 .acoes-flex { 
     display: flex; 
@@ -92,27 +101,90 @@ td {
     background: #cc0000;
 }
 
-/* Botão Excluir (Estilo Vinho que você pediu) */
+/* Botão Excluir (Vinho) */
 .btn-excluir-vinho { 
-    background-color: #440000; /* Vermelho escuro/vinho */
+    background-color: #440000; 
 }
 
 .btn-excluir-vinho:hover { 
-    background-color: #ff0000; /* No hover ele brilha para o vermelho vivo */
+    background-color: #ff0000; 
 }
 
 /* --- AJUSTE RESPONSIVO MOBILE --- */
 @media (max-width: 768px) {
+    .orders-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .search-box input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .table-responsive {
+        background: transparent;
+        border: none;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        background: #121212;
+        border: 1px solid #222;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        padding: 10px 15px;
+        box-sizing: border-box;
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        padding: 12px 0;
+        border-bottom: 1px solid #1a1a1a;
+    }
+
+    td:last-child {
+        border-bottom: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding-top: 15px;
+    }
+
+    /* O que você pediu está bem aqui! Modifiquei a cor para o vermelho do seu sistema */
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #ff0000; /* Deixou os tópicos (Nº OS, Proprietário, etc) vermelhos */
+        text-transform: uppercase;
+        font-size: 11px;
+        text-align: left;
+    }
+
+    .acoes-flex {
+        width: 100%;
+        gap: 10px;
+    }
+    
     .btn-editar, .btn-excluir-vinho {
         flex: 1;
         padding: 12px;
         font-size: 12px;
         text-transform: uppercase;
-    }
-    
-    .acoes-flex {
-        width: 100%;
-        gap: 10px;
-        margin-top: 5px;
     }
 }
