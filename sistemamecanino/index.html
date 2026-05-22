@@ -110,41 +110,70 @@
     </main>
 
     <script>
-        // Lógica de alternância entre as telas
-        const loginScreen = document.getElementById('login-screen');
-        const registerScreen = document.getElementById('register-screen');
-        const linkIrCadastro = document.getElementById('link-ir-cadastro');
-        const linkIrLogin = document.getElementById('link-ir-login');
+        // Lógica de alternância entre as telas de Login e Cadastro
+const loginScreen = document.getElementById('login-screen');
+const registerScreen = document.getElementById('register-screen');
+const linkIrCadastro = document.getElementById('link-ir-cadastro');
+const linkIrLogin = document.getElementById('link-ir-login');
 
-        linkIrCadastro.addEventListener('click', () => {
-            loginScreen.classList.add('hidden');
-            registerScreen.classList.remove('hidden');
-        });
+linkIrCadastro.addEventListener('click', () => {
+    loginScreen.classList.add('hidden');
+    registerScreen.classList.remove('hidden');
+});
 
-        linkIrLogin.addEventListener('click', () => {
-            registerScreen.classList.add('hidden');
-            loginScreen.classList.remove('hidden');
-        });
+linkIrLogin.addEventListener('click', () => {
+    registerScreen.classList.add('hidden');
+    loginScreen.classList.remove('hidden');
+});
 
-        // Máscara do CPF (000.000.000-00)
-        const inputCpf = document.getElementById('reg-cpf');
-        inputCpf.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, "");
-            if (value.length > 3) value = value.slice(0, 3) + "." + value.slice(3);
-            if (value.length > 7) value = value.slice(0, 7) + "." + value.slice(7);
-            if (value.length > 11) value = value.slice(0, 11) + "-" + value.slice(11);
-            e.target.value = value.slice(0, 14);
-        });
+// LÓGICA DE REDIRECIONAMENTO POR CARGO NO LOGIN
+const formLogin = document.getElementById('form-login');
+formLogin.addEventListener('submit', (e) => {
+    e.preventDefault(); // Impede o envio padrão do formulário
+    
+    // Pega o valor do cargo selecionado
+    const cargoSelecionado = document.querySelector('input[name="login-cargo"]:checked').value;
 
-        // Máscara do Telefone ((00) 00000-0000)
-        const inputTel = document.getElementById('reg-tel');
-        inputTel.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, "");
-            if (value.length > 0) value = "(" + value;
-            if (value.length > 3) value = value.slice(0, 3) + ") " + value.slice(3);
-            if (value.length > 10) value = value.slice(0, 10) + "-" + value.slice(10);
-            e.target.value = value.slice(0, 15);
-        });
+    // Redireciona para a tela correspondente
+    if (cargoSelecionado === 'admin') {
+        window.location.href = 'admin.html';
+    } else if (cargoSelecionado === 'recep') {
+        window.location.href = 'recep.html';
+    } else if (cargoSelecionado === 'mecan') {
+        window.location.href = 'mecan.html';
+    }
+});
+
+// LÓGICA DE REDIRECIONAMENTO NO CADASTRO (Opcional)
+const formRegister = document.getElementById('form-register');
+formRegister.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const cargoCadastro = document.querySelector('input[name="reg-cargo"]:checked').value;
+    
+    if (cargoCadastro === 'admin') window.location.href = 'admin.html';
+    if (cargoCadastro === 'recep') window.location.href = 'recep.html';
+    if (cargoCadastro === 'mecan') window.location.href = 'mecan.html';
+});
+
+// Máscara do CPF (000.000.000-00)
+const inputCpf = document.getElementById('reg-cpf');
+inputCpf.addEventListener('input', (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 3) value = value.slice(0, 3) + "." + value.slice(3);
+    if (value.length > 7) value = value.slice(0, 7) + "." + value.slice(7);
+    if (value.length > 11) value = value.slice(0, 11) + "-" + value.slice(11);
+    e.target.value = value.slice(0, 14);
+});
+
+// Máscara do Telefone ((00) 00000-0000)
+const inputTel = document.getElementById('reg-tel');
+inputTel.addEventListener('input', (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 0) value = "(" + value;
+    if (value.length > 3) value = value.slice(0, 3) + ") " + value.slice(3);
+    if (value.length > 10) value = value.slice(0, 10) + "-" + value.slice(10);
+    e.target.value = value.slice(0, 15);
+});
     </script>
 </body>
 </html>
