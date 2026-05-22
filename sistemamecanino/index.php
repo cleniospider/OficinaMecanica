@@ -11,34 +11,34 @@
     <main class="container-central">
         
         <div class="logo-area">
-            <img src="img/download.png" alt="Logo Auto Repair">
+            <img src="img/download.png" alt="Logo Auto Repair" method = "post">
         </div>
 
         <div class="forms-area">
             
             <div id="login-screen">
                 <h1 class="title">LOGIN</h1>
-                <form action="cadastro.php"></form>
+                <form action="cadastro.php">
                 <form id="form-login" action="admin.html">
                     <div class="form-group">
-                        <label for="login-email">Email</label>
-                        <input type="email" id="login-email" placeholder="email@gmail.com" required>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="email@gmail.com" required>
                     </div>
-
+                    
                     <div class="form-group">
-                        <label for="login-senha">Senha</label>
-                        <input type="password" id="login-senha" placeholder="******" minlength="6" maxlength="10" required>
+                        <label for="senha">Senha</label>
+                        <input type="password" id="senha" placeholder="******" minlength="6" maxlength="10" required>
                     </div>
                 </form>
                     <div class="roles-container">
-                        <input type="radio" id="login-admin" name="login-cargo" value="admin" required>
-                        <label for="login-admin">ADMIN</label>
+                        <input type="radio" id="admin" name="cargo" value="admin" required>
+                        <label for="admin">ADMIN</label>
 
-                        <input type="radio" id="login-recep" name="login-cargo" value="recep">
-                        <label for="login-recep">RECEP.</label>
+                        <input type="radio" id="recep" name="cargo" value="recep">
+                        <label for="recep">RECEP.</label>
 
-                        <input type="radio" id="login-mecan" name="login-cargo" value="mecan">
-                        <label for="login-mecan">MECÂN.</label>
+                        <input type="radio" id="mecan" name="cargo" value="mecan">
+                        <label for="mecan">MECÂN.</label>
                     </div>
 
                     <div class="link-container">
@@ -56,46 +56,46 @@
                     <div class="form-row">
                         <div class="form-group half-width">
                             <label for="reg-nome">Nome Completo</label>
-                            <input type="text" id="reg-nome" name="nome" placeholder="Tássio" required>
+                            <input type="text" id="nome" name="nome" placeholder="Tássio" required>
                         </div>
                         <div class="form-group half-width">
-                            <label for="reg-email">Email</label>
-                            <input type="email" id="reg-email" name="email" placeholder="email@gmail.com" required>
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="email@gmail.com" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group half-width">
                             <label for="reg-cpf">CPF</label>
-                            <input type="text" id="reg-cpf" placeholder="000.000.000-00" maxlength="14" required>
+                            <input type="text" id="cpf" name = "cpf" placeholder="000.000.000-00" maxlength="14" required>
                         </div>
                         <div class="form-group half-width">
-                            <label for="reg-tel">Telefone</label>
-                            <input type="text" id="reg-tel" placeholder="(00) 00000-0000" maxlength="15" required>
+                            <label for="telefone">Telefone</label>
+                            <input type="text" id="telefone" name = "telefone" placeholder="(00) 00000-0000" maxlength="15" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group half-width">
-                            <label for="reg-senha">Senha</label>
-                            <input type="password" id="reg-senha" placeholder="******" minlength="6" maxlength="10" required>
+                            <label for="senha">Senha</label>
+                            <input type="password" id="senha" name = "senha" placeholder="******" minlength="6" maxlength="10" required>
                         </div>
                         <div class="form-group half-width">
                             <label for="reg-confirma-senha">Confirmação de senha</label>
-                            <input type="password" id="reg-confirma-senha" placeholder="******" minlength="6" maxlength="10" required>
+                            <input type="password" id="reg-confirma-senha" name = "senha" placeholder="******" minlength="6" maxlength="10" required>
                         </div>
                     </div>
 
                     <label class="label-cargo">Cargo</label>
                     <div class="roles-container roles-register">
-                        <input type="radio" id="reg-admin" name="reg-cargo" value="admin" required>
-                        <label for="reg-admin">ADMIN</label>
+                        <input type="radio" id="admin" name="cargo" value="admin" required>
+                        <label for="admin">ADMIN</label>
 
-                        <input type="radio" id="reg-recep" name="reg-cargo" value="recep">
-                        <label for="reg-recep">RECEP.</label>
+                        <input type="radio" id="recep" name="cargo" value="recep">
+                        <label for="recep">RECEP.</label>
 
-                        <input type="radio" id="reg-mecan" name="reg-cargo" value="mecan">
-                        <label for="reg-mecan">MECÂN.</label>
+                        <input type="radio" id="mecan" name="cargo" value="mecan">
+                        <label for="mecan">MECÂN.</label>
                     </div>
 
                     <button type="submit" class="btn-submit">Cadastrar</button>
