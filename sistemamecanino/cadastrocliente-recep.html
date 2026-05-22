@@ -3,25 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Repair - Ordens de Serviço (Recepcionista)</title>
+    <title>Auto Repair - Cadastro de Clientes (Recepcionista)</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/ordens.css">
-    <style>
-        /* Cores baseadas na sua nova lógica de OS */
-        .dot-finalizado { background-color: #2ecc71; } /* Verde */
-        .dot-ativo { background-color: #f1c40f; }      /* Amarelo */
-        .dot-parado { background-color: #ff0000; }     /* Vermelho */
-
-        /* Estilo para a placa dentro da tabela */
-        .placa-badge {
-            background: #eee;
-            padding: 2px 5px;
-            border-radius: 4px;
-            font-family: monospace;
-            font-weight: bold;
-            color: #333;
-        }
-    </style>
 </head>
 <body>
 
@@ -42,9 +26,9 @@
         </div>
         <ul class="nav-links">
             <li><a href="recep.html">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente-recep.html">Cadastro Cliente</a></li>
+            <li><a href="cadastrocliente-recep.html"class="active">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo-recep.html">Cadastro Veículo</a></li>
-            <li><a href="ordens-recep.html" class="active">Ordens de Serviços</a></li> 
+            <li><a href="ordens-recep.html">Ordens de Serviços</a></li> 
             <li><a href="historico-veiculos-recep.html">Histórico de Veículos</a></li>
             <li><a href="minha-conta.html">Minha conta</a></li> 
             <li><a href="index.html" class="logout-link">Sair</a></li>
@@ -54,60 +38,45 @@
     <main class="main-content">
         <div class="orders-container">
             <div class="orders-header">
-                <h2>Controle de Ordens de Serviço (OS) - Recepção</h2>
+                <h2>Clientes Cadastrados - Recepção</h2>
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Pesquisar veículo, cliente ou Nº OS...">
+                    <input type="text" id="searchCliente" placeholder="Pesquisar por nome ou CPF...">
                 </div>
             </div>
 
             <div class="table-responsive">
-                <table id="ordersTable">
+                <table>
                     <thead>
                         <tr>
-                            <th>Nº OS</th>
-                            <th>STATUS</th>
-                            <th>VEÍCULO</th>
-                            <th>PLACA</th>
-                            <th>PROPRIETÁRIO</th>
-                            <th>PROBLEMA</th>
-                            <th>SERVIÇOS</th>
-                            <th>PEÇAS</th>
-                            <th>VALOR (R$)</th>
+                            <th>NOME COMPLETO</th>
+                            <th>CPF / CNPJ</th>
+                            <th>TELEFONE</th>
+                            <th>E-MAIL</th>
                             <th>AÇÕES</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody">
+                    <tbody>
                         <tr>
-                            <td data-label="Nº OS">#1025</td>
-                            <td data-label="STATUS"><span class="status-dot dot-ativo" title="Ativo"></span></td>
-                            <td data-label="VEÍCULO"><strong>CBR 600RR</strong></td>
-                            <td data-label="PLACA"><span class="placa-badge">ABC-1234</span></td>
-                            <td data-label="PROPRIETÁRIO">Marcos Silva</td>
-                            <td data-label="PROBLEMA"><small>Vazamento de óleo na suspensão</small></td>
-                            <td data-label="SERVIÇOS"><small>Troca de retentores e fluido</small></td>
-                            <td data-label="PEÇAS"><small>Retentores Honda, Óleo Motul</small></td>
-                            <td data-label="VALOR (R$)"><strong style="color: #2ecc71;">R$ 450,00</strong></td>
+                            <td data-label="NOME"><strong>Marcos Silva</strong></td>
+                            <td data-label="CPF/CNPJ">123.456.789-00</td>
+                            <td data-label="TELEFONE">(11) 98888-7777</td>
+                            <td data-label="E-MAIL">marcos@email.com</td>
                             <td data-label="AÇÕES">
                                 <div class="acoes-flex">
-                                    <a href="editar-ordem.html" class="btn-editar">GERENCIAR</a>
-                                    <a href="excluir-ordem.html" class="btn-excluir">EXCLUIR</a>
+                                    <a href="editar-cliente-recep.html" class="btn-editar">EDITAR</a>
+                                    <a href="excluir-cliente-recep.html" class="btn-excluir">EXCLUIR</a>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td data-label="Nº OS">#1026</td>
-                            <td data-label="STATUS"><span class="status-dot dot-parado" title="Parado"></span></td>
-                            <td data-label="VEÍCULO"><strong>TOYOTA COROLLA</strong></td>
-                            <td data-label="PLACA"><span class="placa-badge">DEF-5678</span></td>
-                            <td data-label="PROPRIETÁRIO">José Costa</td>
-                            <td data-label="PROBLEMA"><small>Barulho ao frear</small></td>
-                            <td data-label="SERVIÇOS"><small>Revisão de freios dianteiros</small></td>
-                            <td data-label="PEÇAS"><small>Pastilhas de freio Cobreq</small></td>
-                            <td data-label="VALOR (R$)"><strong style="color: #2ecc71;">R$ 320,00</strong></td>
+                            <td data-label="NOME"><strong>José Costa</strong></td>
+                            <td data-label="CPF/CNPJ">987.654.321-11</td>
+                            <td data-label="TELEFONE">(11) 97777-6666</td>
+                            <td data-label="E-MAIL">jose.costa@email.com</td>
                             <td data-label="AÇÕES">
                                 <div class="acoes-flex">
-                                    <a href="editar-ordem.html" class="btn-editar">GERENCIAR</a>
-                                    <a href="excluir-ordem.html" class="btn-excluir">EXCLUIR</a>
+                                    <a href="editar-cliente-recep.html" class="btn-editar">EDITAR</a>
+                                    <a href="excluir-cliente-recep.html" class="btn-excluir">EXCLUIR</a>
                                 </div>
                             </td>
                         </tr>
@@ -115,14 +84,8 @@
                 </table>
             </div>
 
-            <div class="legend-area">
-                <span class="dot dot-finalizado"></span> Finalizado
-                <span class="dot dot-ativo"></span> Ativo
-                <span class="dot dot-parado"></span> Parado
-            </div>
-
             <div class="area-botao-novo">
-                <a href="nova-ordem.html" class="btn-nova-ordem">+ ABRIR NOVA ORDEM DE SERVIÇO</a>
+                <a href="novo-cliente-recep.html" class="btn-nova-ordem btn-espacado">+ NOVO CLIENTE</a>
             </div>
         </div>
     </main>
@@ -181,5 +144,5 @@
             }
         });
     </script>
-</body> 
+</body>
 </html>
