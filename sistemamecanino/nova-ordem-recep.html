@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Repair - Novo Cliente (Recepção)</title>
+    <title>Auto Repair - Nova Ordem (Recepção)</title>
     <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/novo-cliente.css">
+    <link rel="stylesheet" href="css/ordens.css">
+    <link rel="stylesheet" href="css/nova-ordem.css">
 </head>
-<body>
+<body class="dark-theme">
 
     <header class="top-header">
         <button class="hamburger-btn">
@@ -26,9 +27,9 @@
         </div>
         <ul class="nav-links">
             <li><a href="recep.html">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente-recep.html" class="active">Cadastro Cliente</a></li>
+            <li><a href="cadastrocliente-recep.html">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo-recep.html">Cadastro Veículo</a></li>
-            <li><a href="ordens-recep.html">Ordens de Serviços</a></li> 
+            <li><a href="ordens-recep.html" class="active">Ordens de Serviços</a></li> 
             <li><a href="historico-veiculos-recep.html">Histórico de Veículos</a></li>
             <li><a href="minha-conta-recep.html">Minha conta</a></li> 
             <li><a href="index.html" class="logout-link">Sair</a></li>
@@ -36,40 +37,66 @@
     </aside>
 
     <main class="main-content">
-        <div class="container-form-dark">
-            <h2 class="titulo-sessao">CADASTRAR NOVO CLIENTE - RECEPÇÃO</h2>
-            
-            <div class="card-dark">
-                <form action="cadastrocliente-recep.html" method="POST">
-                    
-                    <div class="form-row">
-                        <div class="grupo-input-dark flex-3">
-                            <label>NOME COMPLETO</label>
-                            <input type="text" placeholder="Ex: João Silva" required>
-                        </div>
-                        <div class="grupo-input-dark flex-1">
-                            <label>CPF / CNPJ</label>
-                            <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="18" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="grupo-input-dark flex-1">
-                            <label>TELEFONE / WHATSAPP</label>
-                            <input type="text" id="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
-                        </div>
-                        <div class="grupo-input-dark flex-2">
-                            <label>E-MAIL</label>
-                            <input type="email" placeholder="cliente@email.com">
-                        </div>
-                    </div>
-
-                    <div class="footer-acoes">
-                        <button type="submit" class="btn-acao btn-salvar-os">SALVAR CADASTRO</button>
-                        <a href="cadastrocliente-recep.html" class="btn-acao btn-voltar-os">VOLTAR</a>
-                    </div>
-                </form>
+        <div class="orders-container">
+            <div class="os-header-detalhe">
+                <h2>NOVA ORDEM <span class="text-red">DE SERVIÇO - RECEPÇÃO</span></h2>
             </div>
+    
+            <form action="ordens-recep.html" class="form-nova-ordem">
+                
+                <div class="form-header-info">
+                    <div class="grupo-input">
+                        <label class="label-padrao">Cliente:</label>
+                        <input type="text" placeholder="Nome do Cliente" required>
+                    </div>
+                    <div class="grupo-input">
+                        <label class="label-padrao">Veículo:</label>
+                        <input type="text" placeholder="Ex: CBR 600RR" required>
+                    </div>
+                    <div class="grupo-input">
+                        <label class="label-padrao">Placa:</label>
+                        <input type="text" class="placa-field" placeholder="ABC-1234" required style="text-transform: uppercase;">
+                    </div>
+                </div>
+        
+                <div class="form-corpo-ordem">
+                    
+                    <div class="grupo-input-dark">
+                        <label>Problema:</label>
+                        <textarea rows="3" placeholder="Descreva o problema constatado..."></textarea>
+                    </div>
+
+                    <div class="grupo-input-dark">
+                        <label>Serviços:</label>
+                        <textarea rows="3" placeholder="Serviços a realizar..."></textarea>
+                    </div>
+            
+                    <div class="grupo-input-dark">
+                        <label>Peças usadas:</label>
+                        <textarea rows="2" placeholder="Lista de peças e componentes..."></textarea>
+                    </div>
+
+                    <div class="flex-row">
+                        <div class="grupo-input-dark">
+                            <label>Valor total:</label>
+                            <input type="text" class="input-valor-dark" placeholder="R$ 0,00">
+                        </div>
+                        <div class="grupo-input-dark">
+                            <label>Status:</label>
+                            <select class="select-dark">
+                                <option value="ativo" selected>Ativo</option>
+                                <option value="finalizado">Finalizado</option>
+                                <option value="parado">Parado</option>
+                            </select>
+                        </div>
+                    </div>
+            
+                    <div class="botoes-acao">
+                        <button type="submit" class="btn-os btn-salvar-red">SALVAR ALTERAÇÕES</button>
+                        <a href="ordens-recep.html" class="btn-os btn-voltar-dark">CANCELAR</a>
+                    </div>
+                </div>
+            </form>
         </div>
     </main>
 
@@ -84,28 +111,6 @@
         </div>
     </div>
 
-    <script>
-        const inputCpf = document.getElementById('cpf');
-        const inputTelefone = document.getElementById('telefone');
-
-        inputCpf.addEventListener('input', () => {
-            let valor = inputCpf.value.replace(/\D/g, ''); 
-            if (valor.length <= 11) {
-                valor = valor.replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-            } else {
-                valor = valor.substring(0, 14).replace(/^(\d{2})(\d)/, '$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3').replace(/\.(\d{3})(\d)/, '.$1/$2').replace(/(\d{4})(\d)/, '$1-$2');
-            }
-            inputCpf.value = valor;
-        });
-
-        inputTelefone.addEventListener('input', () => {
-            let valor = inputTelefone.value.replace(/\D/g, '');
-            valor = valor.replace(/^(\d{2})(\d)/g, '($1) $2');
-            if (valor.length > 13) valor = valor.replace(/(\d{5})(\d)/, '$1-$2');
-            else valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
-            inputTelefone.value = valor;
-        });
-    </script>
     <script>
         const btnMobile = document.querySelector('.hamburger-btn');
         const sidebar = document.querySelector('#sidebar');
