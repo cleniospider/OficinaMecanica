@@ -58,7 +58,7 @@
                     </div>
                     <div class="grupo-input">
                         <label class="label-padrao">Placa:</label>
-                        <input type="text" class="placa-field" placeholder="ABC-1234" required>
+                        <input type="text" class="placa-field" placeholder="ABC-1234" required style="text-transform: uppercase;">
                     </div>
                 </div>
         
@@ -82,7 +82,7 @@
                     <div class="flex-row">
                         <div class="grupo-input-dark">
                             <label>Valor total:</label>
-                            <input type="text" class="input-valor-dark" placeholder="R$ 0,00">
+                            <input type="text" class="input-valor-dark money-mask" placeholder="R$ 0,00">
                         </div>
                         <div class="grupo-input-dark">
                             <label>Status:</label>
@@ -104,6 +104,7 @@
     </main>
 
     <script>
+        // --- SCRIPT DO MENU LATERAL ---
         const btnMobile = document.querySelector('.hamburger-btn');
         const sidebar = document.querySelector('#sidebar');
 
@@ -117,6 +118,35 @@
                 sidebar.classList.remove('open');
             });
         });
+
+        // --- SCRIPT DA MÁSCARA MONETÁRIA ---
+        const inputValor = document.querySelector('.money-mask');
+
+        if (inputValor) {
+            inputValor.addEventListener('input', (e) => {
+                let value = e.target.value;
+
+                // Remove tudo o que não for número de 0 a 9
+                value = value.replace(/\D/g, '');
+
+                // Se o campo estiver totalmente vazio, mantém limpo para exibir o placeholder
+                if (!value) {
+                    e.target.value = '';
+                    return;
+                }
+
+                // Ajusta as casas decimais (centavos)
+                value = (parseInt(value) / 100).toFixed(2);
+
+                // Aplica a formatação em Real brasileiro (R$)
+                let valorFormatado = parseFloat(value).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                });
+
+                e.target.value = valorFormatado;
+            });
+        }
     </script>
 </body>
 </html>

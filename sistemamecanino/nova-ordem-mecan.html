@@ -54,7 +54,7 @@
                     </div>
                     <div class="grupo-input">
                         <label class="label-padrao">Placa:</label>
-                        <input type="text" class="placa-field" placeholder="ABC-1234" required style="text-transform: uppercase;">
+                        <input type="text" class="placa-field" placeholder="ABC-1234" maxlength="8" required style="text-transform: uppercase;">
                     </div>
                 </div>
         
@@ -78,7 +78,7 @@
                     <div class="flex-row">
                         <div class="grupo-input-dark">
                             <label>Valor total:</label>
-                            <input type="text" class="input-valor-dark" placeholder="R$ 0,00">
+                            <input type="text" class="input-valor-dark money-mask" placeholder="R$ 0,00">
                         </div>
                         <div class="grupo-input-dark">
                             <label>Status:</label>
@@ -100,6 +100,7 @@
     </main>
 
     <script>
+        // --- SCRIPT DO MENU LATERAL (ORIGINAL) ---
         const btnMobile = document.querySelector('.hamburger-btn');
         const sidebar = document.querySelector('#sidebar');
 
@@ -113,6 +114,49 @@
                 sidebar.classList.remove('open');
             });
         });
+
+        // --- MÁSCARA MONETÁRIA (VALOR TOTAL) ---
+        const inputValor = document.querySelector('.money-mask');
+
+        if (inputValor) {
+            inputValor.addEventListener('input', (e) => {
+                let value = e.target.value;
+                value = value.replace(/\D/g, '');
+
+                if (!value) {
+                    e.target.value = '';
+                    return;
+                }
+
+                value = (parseInt(value) / 100).toFixed(2);
+
+                let valorFormatado = parseFloat(value).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                });
+
+                e.target.value = valorFormatado;
+            });
+        }
+
+        // --- MÁSCARA DE PLACA DE VEÍCULO (PADRÃO ANTIGO E MERCOSUL) ---
+        const inputPlaca = document.querySelector('.placa-field');
+
+        if (inputPlaca) {
+            inputPlaca.addEventListener('input', (e) => {
+                let value = e.target.value;
+                
+                // Remove caracteres especiais
+                value = value.replace(/[^a-zA-Z0-9]/g, '');
+                
+                // Insere o hífen na quarta posição
+                if (value.length > 3) {
+                    value = value.substring(0, 3) + '-' + value.substring(3, 7);
+                }
+                
+                e.target.value = value.toUpperCase();
+            });
+        }
     </script>
 </body>
 </html>

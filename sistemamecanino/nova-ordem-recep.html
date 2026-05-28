@@ -31,7 +31,7 @@
             <li><a href="cadastroveiculo-recep.html">Cadastro Veículo</a></li>
             <li><a href="ordens-recep.html" class="active">Ordens de Serviços</a></li> 
             <li><a href="historico-veiculos-recep.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.html">Minha conta</a></li> 
+            <li><a href="minha-conta-recep.html" class="link-minha-conta">Minha conta</a></li> 
             <li><a href="index.html" class="logout-link">Sair</a></li>
         </ul>
     </aside>
@@ -55,7 +55,7 @@
                     </div>
                     <div class="grupo-input">
                         <label class="label-padrao">Placa:</label>
-                        <input type="text" class="placa-field" placeholder="ABC-1234" required style="text-transform: uppercase;">
+                        <input type="text" class="placa-field" placeholder="ABC-1234" maxlength="8" required style="text-transform: uppercase;">
                     </div>
                 </div>
         
@@ -79,7 +79,7 @@
                     <div class="flex-row">
                         <div class="grupo-input-dark">
                             <label>Valor total:</label>
-                            <input type="text" class="input-valor-dark" placeholder="R$ 0,00">
+                            <input type="text" class="input-valor-dark money-mask" placeholder="R$ 0,00">
                         </div>
                         <div class="grupo-input-dark">
                             <label>Status:</label>
@@ -112,6 +112,7 @@
     </div>
 
     <script>
+        // --- SCRIPT DO MENU LATERAL ---
         const btnMobile = document.querySelector('.hamburger-btn');
         const sidebar = document.querySelector('#sidebar');
 
@@ -126,15 +127,16 @@
             });
         });
 
-        // Lógica do Modal de Conta
-        const linkConta = document.querySelector('a[style*="cursor:pointer"]'); 
+        // --- LÓGICA DO MODAL DE CONTA ---
+        // CORRIGIDO: Selecionando o link da conta de forma mais segura pela classe
+        const linkConta = document.querySelector('.link-minha-conta'); 
         const modal = document.querySelector('#modal-conta');
         const btnFechar = document.querySelector('.btn-fechar-modal');
         const btnX = document.querySelector('.close-btn');
 
         if(linkConta) {
             linkConta.addEventListener('click', (e) => {
-                e.preventDefault();
+                e.preventDefault(); // Impede a página de navegar e recarregar
                 modal.style.display = 'flex';
             });
         }
@@ -152,6 +154,46 @@
                 modal.style.display = 'none';
             }
         });
+
+        // --- NOVO SCRIPT: MÁSCARA MONETÁRIA ---
+        const inputValor = document.querySelector('.money-mask');
+
+        if (inputValor) {
+            inputValor.addEventListener('input', (e) => {
+                let value = e.target.value;
+                value = value.replace(/\D/g, '');
+
+                if (!value) {
+                    e.target.value = '';
+                    return;
+                }
+
+                value = (parseInt(value) / 100).toFixed(2);
+
+                let valorFormatado = parseFloat(value).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                });
+
+                e.target.value = valorFormatado;
+            });
+        }
+
+        // --- NOVO SCRIPT: MÁSCARA DE PLACA DE VEÍCULO ---
+        const inputPlaca = document.querySelector('.placa-field');
+
+        if (inputPlaca) {
+            inputPlaca.addEventListener('input', (e) => {
+                let value = e.target.value;
+                value = value.replace(/[^a-zA-Z0-9]/g, '');
+                
+                if (value.length > 3) {
+                    value = value.substring(0, 3) + '-' + value.substring(3, 7);
+                }
+                
+                e.target.value = value.toUpperCase();
+            });
+        }
     </script>
 </body>
 </html>
