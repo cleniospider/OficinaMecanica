@@ -110,6 +110,30 @@
     </main>
 
     <script>
+        // Login com redirecionamento por perfil
+         const cargoSelecionado = document.querySelector('input[name="login-cargo"]:checked');
+
+         if (!cargoSelecionado) {
+            alert('Selecione um cargo.');
+            return;
+}
+
+          const cargo = cargoSelecionado.value;
+
+formLogin.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const cargo = cargoSelecionado.value;
+
+    if (cargo === 'admin') {
+        window.location.href = 'admin.html';
+    } else if (cargo === 'recep') {
+        window.location.href = 'recep.html';
+    } else if (cargo === 'mecan') {
+        window.location.href = 'mecanico.html';
+    }
+});
+        
         // Lógica de alternância entre as telas de Login e Cadastro
 const loginScreen = document.getElementById('login-screen');
 const registerScreen = document.getElementById('register-screen');
