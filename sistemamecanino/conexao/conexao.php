@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 // Configurações do Banco de Dados
 $servidor = "127.0.0.1";
 $usuario  = "root"; // Ajuste aqui conforme seu banco
-$senha    = "senha";
+$senha    = "";
 $banco    = "oficinamecanica";
 $porta    = 3306;
 
