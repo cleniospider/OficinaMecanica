@@ -1,22 +1,6 @@
 <?php 
 require_once('conexao/conexao.php');
 
-// Dados que você quer enviar (geralmente vêm de um formulário via $_POST)
-$nome = "João Silva";
-$email = "joao@email.com";
-
-// O comando SQL com placeholders (:nome, :email)
-$sql = "INSERT INTO usuarios (nome, email) VALUES (:nome, :email)";
-
-$stmt = $pdo->prepare($sql);
-
-// Executa passando os dados reais
-$stmt->execute([
-    'nome' => $nome,
-    'email' => $email
-]);
-
-echo "Dados enviados com sucesso! ID do usuário: " . $pdo->lastInsertId();
 ?>
 
 <!DOCTYPE html>
