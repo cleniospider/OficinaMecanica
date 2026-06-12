@@ -19,7 +19,7 @@
             <div id="login-screen">
                 <h1 class="title">LOGIN</h1>
 
-                <form id="form-login" action="admin.html">
+                <form id="form-login">
                     <div class="form-group">
                         <label for="login-email">Email</label>
                         <input type="email" id="login-email" placeholder="email@gmail.com" required>
@@ -52,7 +52,7 @@
             <div id="register-screen" class="hidden">
                 <h1 class="title title-register">CADASTRO PROFISSIONAL</h1>
 
-                <form id="form-register" action="admin.html">
+                <form id="form-register">
                     <div class="form-row">
                         <div class="form-group half-width">
                             <label for="reg-nome">Nome Completo</label>
@@ -110,94 +110,84 @@
     </main>
 
     <script>
-        // Login com redirecionamento por perfil
-         const cargoSelecionado = document.querySelector('input[name="login-cargo"]:checked');
+        // 1. ALTERNÂNCIA ENTRE AS TELAS DE LOGIN E CADASTRO
+        const loginScreen = document.getElementById('login-screen');
+        const registerScreen = document.getElementById('register-screen');
+        const linkIrCadastro = document.getElementById('link-ir-cadastro');
+        const linkIrLogin = document.getElementById('link-ir-login');
 
-         if (!cargoSelecionado) {
-            alert('Selecione um cargo.');
-            return;
-}
+        linkIrCadastro.addEventListener('click', () => {
+            loginScreen.classList.add('hidden');
+            registerScreen.classList.remove('hidden');
+        });
 
-          const cargo = cargoSelecionado.value;
+        linkIrLogin.addEventListener('click', () => {
+            registerScreen.classList.add('hidden');
+            loginScreen.classList.remove('hidden');
+        });
 
-formLogin.addEventListener('submit', function(e) {
-    e.preventDefault();
+        // 2. REDIRECIONAMENTO POR CARGO NO LOGIN
+        const formLogin = document.getElementById('form-login');
+        formLogin.addEventListener('submit', (e) => {
+            e.preventDefault(); // Impede o envio padrão do formulário
+            
+            const cargoSelecionado = document.querySelector('input[name="login-cargo"]:checked');
 
-    const cargo = cargoSelecionado.value;
+            if (!cargoSelecionado) {
+                alert('Por favor, selecione um cargo para entrar.');
+                return;
+            }
 
-    if (cargo === 'admin') {
-        window.location.href = 'admin.html';
-    } else if (cargo === 'recep') {
-        window.location.href = 'recep.html';
-    } else if (cargo === 'mecan') {
-        window.location.href = 'mecanico.html';
-    }
-});
-        
-        // Lógica de alternância entre as telas de Login e Cadastro
-const loginScreen = document.getElementById('login-screen');
-const registerScreen = document.getElementById('register-screen');
-const linkIrCadastro = document.getElementById('link-ir-cadastro');
-const linkIrLogin = document.getElementById('link-ir-login');
+            const cargo = cargoSelecionado.value;
 
-linkIrCadastro.addEventListener('click', () => {
-    loginScreen.classList.add('hidden');
-    registerScreen.classList.remove('hidden');
-});
+            // Redireciona para a tela correspondente baseado no valor do Radio Button
+            if (cargo === 'admin') {
+                window.location.href = 'admin.html';
+            } else if (cargo === 'recep') {
+                window.location.href = 'recep.html';
+            } else if (cargo === 'mecan') {
+                window.location.href = 'mecan.html'; // Ajustado para "mecanico.html" conforme seu relato
+            }
+        });
 
-linkIrLogin.addEventListener('click', () => {
-    registerScreen.classList.add('hidden');
-    loginScreen.classList.remove('hidden');
-});
+        // 3. REDIRECIONAMENTO NO CADASTRO
+        const formRegister = document.getElementById('form-register');
+        formRegister.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const cargoCadastro = document.querySelector('input[name="reg-cargo"]:checked');
+            
+            if (!cargoCadastro) {
+                alert('Por favor, selecione um cargo para cadastrar.');
+                return;
+            }
 
-// LÓGICA DE REDIRECIONAMENTO POR CARGO NO LOGIN
-const formLogin = document.getElementById('form-login');
-formLogin.addEventListener('submit', (e) => {
-    e.preventDefault(); // Impede o envio padrão do formulário
-    
-    // Pega o valor do cargo selecionado
-    const cargoSelecionado = document.querySelector('input[name="login-cargo"]:checked').value;
+            const cargo = cargoCadastro.value;
+            
+            if (cargo === 'admin') window.location.href = 'admin.html';
+            if (cargo === 'recep') window.location.href = 'recep.html';
+            if (cargo === 'mecan') window.location.href = 'mecanico.html';
+        });
 
-    // Redireciona para a tela correspondente
-    if (cargoSelecionado === 'admin') {
-        window.location.href = 'admin.html';
-    } else if (cargoSelecionado === 'recep') {
-        window.location.href = 'recep.html';
-    } else if (cargoSelecionado === 'mecan') {
-        window.location.href = 'mecan.html';
-    }
-});
+        // 4. MÁSCARA DO CPF (000.000.000-00)
+        const inputCpf = document.getElementById('reg-cpf');
+        inputCpf.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, "");
+            if (value.length > 3) value = value.slice(0, 3) + "." + value.slice(3);
+            if (value.length > 7) value = value.slice(0, 7) + "." + value.slice(7);
+            if (value.length > 11) value = value.slice(0, 11) + "-" + value.slice(11);
+            e.target.value = value.slice(0, 14);
+        });
 
-// LÓGICA DE REDIRECIONAMENTO NO CADASTRO (Opcional)
-const formRegister = document.getElementById('form-register');
-formRegister.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const cargoCadastro = document.querySelector('input[name="reg-cargo"]:checked').value;
-    
-    if (cargoCadastro === 'admin') window.location.href = 'admin.html';
-    if (cargoCadastro === 'recep') window.location.href = 'recep.html';
-    if (cargoCadastro === 'mecan') window.location.href = 'mecan.html';
-});
-
-// Máscara do CPF (000.000.000-00)
-const inputCpf = document.getElementById('reg-cpf');
-inputCpf.addEventListener('input', (e) => {
-    let value = e.target.value.replace(/\D/g, "");
-    if (value.length > 3) value = value.slice(0, 3) + "." + value.slice(3);
-    if (value.length > 7) value = value.slice(0, 7) + "." + value.slice(7);
-    if (value.length > 11) value = value.slice(0, 11) + "-" + value.slice(11);
-    e.target.value = value.slice(0, 14);
-});
-
-// Máscara do Telefone ((00) 00000-0000)
-const inputTel = document.getElementById('reg-tel');
-inputTel.addEventListener('input', (e) => {
-    let value = e.target.value.replace(/\D/g, "");
-    if (value.length > 0) value = "(" + value;
-    if (value.length > 3) value = value.slice(0, 3) + ") " + value.slice(3);
-    if (value.length > 10) value = value.slice(0, 10) + "-" + value.slice(10);
-    e.target.value = value.slice(0, 15);
-});
+        // 5. MÁSCARA DO TELEFONE ((00) 00000-0000)
+        const inputTel = document.getElementById('reg-tel');
+        inputTel.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, "");
+            if (value.length > 0) value = "(" + value;
+            if (value.length > 3) value = value.slice(0, 3) + ") " + value.slice(3);
+            if (value.length > 10) value = value.slice(0, 10) + "-" + value.slice(10);
+            e.target.value = value.slice(0, 15);
+        });
     </script>
 </body>
 </html>
