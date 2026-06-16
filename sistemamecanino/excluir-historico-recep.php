@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair - Excluir Histórico (Recepção)</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/excluir-historico.css">
+</head>
+<body class="dark-theme">
+
+    <header class="top-header">
+        <button class="hamburger-btn">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="header-logo-text">AUTO REPAIR</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="profile-area">
+            <img src="img/download.png" alt="Avatar" class="avatar"> 
+            <div class="mobile-profile-text">
+                AUTO REPAIR<br>
+                <span class="role-text" style="color: #3399ff;">RECEPCIONISTA</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="recep.html">Painel de Gestão</a></li>
+            <li><a href="cadastrocliente-recep.html">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo-recep.html">Cadastro Veículo</a></li>
+            <li><a href="ordens-recep.html">Ordens de Serviços</a></li> 
+            <li><a href="historico-veiculos-recep.html" class="active">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-recep.html">Minha conta</a></li> 
+            <li><a href="index.html" class="logout-link">Sair</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="historico-container">
+            <h2 class="titulo-sessao">EXCLUIR HISTÓRICO - RECEPÇÃO</h2>
+
+            <div class="caixa-exclusao">
+                <div class="icone-alerta">⚠️</div>
+                <h3>Tem certeza que deseja excluir este registro de histórico?</h3>
+                <p class="aviso-texto">Esta ação removerá permanentemente os dados desta manutenção.</p>
+                
+                <form action="historico-veiculos-recep.html" class="form-exclusao">
+                    <div class="botoes-acao-excluir">
+                        <a href="historico-veiculos-recep.html" class="btn-cancelar-exclusao">CANCELAR</a>
+                        <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div id="modal-conta" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Minha Conta</h2>
+            <div class="conta-dados">
+                <p><strong>Status:</strong> <span style="color: #00cc44;">Ativo ✔️</span></p>
+            </div>
+            <button class="btn-fechar-modal">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        const btnMobile = document.querySelector('.hamburger-btn');
+        const sidebar = document.querySelector('#sidebar');
+        if(btnMobile && sidebar) {
+            btnMobile.addEventListener('click', () => sidebar.classList.toggle('open'));
+        }
+
+        // Fecha o menu ao clicar em um link
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
+
+        // Lógica do Modal de Conta
+        const linkConta = document.querySelector('a[style*="cursor:pointer"]'); 
+        const modal = document.querySelector('#modal-conta');
+        const btnFechar = document.querySelector('.btn-fechar-modal');
+        const btnX = document.querySelector('.close-btn');
+
+        if(linkConta) {
+            linkConta.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+        }
+
+        [btnFechar, btnX].forEach(btn => {
+            if(btn) {
+                btn.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

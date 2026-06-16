@@ -26,7 +26,7 @@ require_once('conexao/conexao.php');
             <div id="login-screen">
                 <h1 class="title">LOGIN</h1>
                 <form action="cadastro.php">
-                <form id="form-login" action="admin.html">
+                <form id="form-login" action="admin.php">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" placeholder="email@gmail.com" required>
