@@ -25,12 +25,12 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="mecan.html">Painel de Gestão</a></li>
-            <li><a href="ordens-mecanico.html">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico-mecan.html">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos-mecan.html" class="active">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-mecan.html">Minha conta</a></li>
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="mecan.php">Painel de Gestão</a></li>
+            <li><a href="ordens-mecanico.php">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos-mecan.php" class="active">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-mecan.php">Minha conta</a></li>
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -43,9 +43,9 @@
                 <h3>Tem certeza que deseja excluir este registro de histórico?</h3>
                 <p class="aviso-texto">Esta ação removerá permanentemente os dados desta manutenção.</p>
                 
-                <form action="historico-veiculos-mecan.html" class="form-exclusao">
+                <form action="historico-veiculos-mecan.php" class="form-exclusao">
                     <div class="botoes-acao-excluir">
-                        <a href="historico-veiculos-mecan.html" class="btn-cancelar-exclusao">CANCELAR</a>
+                        <a href="historico-veiculos-mecan.php" class="btn-cancelar-exclusao">CANCELAR</a>
                         <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>
                     </div>
                 </form>

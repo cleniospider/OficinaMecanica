@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Configurações do Banco de Dados
-$servidor = "127.0.0.1";
+$servidor = "localhost";
 $usuario  = "root"; // Ajuste aqui conforme seu banco
 $senha    = "";
 $banco    = "oficinamecanica";
@@ -21,9 +21,9 @@ if ($conexao->connect_error) {
 }
 
 // 3. Definindo o charset (Essencial para acentos e caracteres especiais)
-$conexao->set_charset("utf8mb4");
+$conexao->set_charset("utf8");
 
 // Incluindo ferramentas e constantes
 require_once __DIR__ . '/../includes/logger.php';
-define('BASE_URL', 'http://localhost/oficinamecanica/');
+define('BASE_URL', 'http://localhost/oficinamecanica/index.php');
 ?>

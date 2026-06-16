@@ -25,13 +25,13 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="recep.html">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente-recep.html">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo-recep.html">Cadastro Veículo</a></li>
-            <li><a href="ordens-recep.html">Ordens de Serviços</a></li> 
-            <li><a href="historico-veiculos-recep.html" class="active">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.html">Minha conta</a></li> 
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="recep.php">Painel de Gestão</a></li>
+            <li><a href="cadastrocliente-recep.php">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo-recep.php">Cadastro Veículo</a></li>
+            <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
+            <li><a href="historico-veiculos-recep.php" class="active">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-recep.php">Minha conta</a></li> 
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -86,7 +86,7 @@
                 </div>
 
                 <div class="area-botao-voltar">
-                    <a href="historico-veiculos-recep.html" class="btn-voltar-simples">VOLTAR</a>
+                    <a href="historico-veiculos-recep.php" class="btn-voltar-simples">VOLTAR</a>
                 </div>
             </div>
         </div>

@@ -25,13 +25,13 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="recep.html">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente-recep.html" class="active">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo-recep.html">Cadastro Veículo</a></li>
-            <li><a href="ordens-recep.html">Ordens de Serviços</a></li> 
-            <li><a href="historico-veiculos-recep.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.html">Minha conta</a></li> 
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="recep.php">Painel de Gestão</a></li>
+            <li><a href="cadastrocliente-recep.php" class="active">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo-recep.php">Cadastro Veículo</a></li>
+            <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
+            <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-recep.php">Minha conta</a></li> 
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -67,7 +67,7 @@
 
                     <div class="botoes-os">
                         <button type="submit" class="btn-finalizar-os">ATUALIZAR CADASTRO</button>
-                        <a href="cadastrocliente-recep.html" class="btn-voltar-os">CANCELAR</a>
+                        <a href="cadastrocliente-recep.php" class="btn-voltar-os">CANCELAR</a>
                     </div>
                 </form>
             </div>

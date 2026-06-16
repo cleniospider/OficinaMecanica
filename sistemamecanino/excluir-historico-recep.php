@@ -25,13 +25,13 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="recep.html">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente-recep.html">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo-recep.html">Cadastro Veículo</a></li>
-            <li><a href="ordens-recep.html">Ordens de Serviços</a></li> 
-            <li><a href="historico-veiculos-recep.html" class="active">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.html">Minha conta</a></li> 
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="recep.php">Painel de Gestão</a></li>
+            <li><a href="cadastrocliente-recep.php">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo-recep.php">Cadastro Veículo</a></li>
+            <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
+            <li><a href="historico-veiculos-recep.php" class="active">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-recep.php">Minha conta</a></li> 
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -44,9 +44,9 @@
                 <h3>Tem certeza que deseja excluir este registro de histórico?</h3>
                 <p class="aviso-texto">Esta ação removerá permanentemente os dados desta manutenção.</p>
                 
-                <form action="historico-veiculos-recep.html" class="form-exclusao">
+                <form action="historico-veiculos-recep.php" class="form-exclusao">
                     <div class="botoes-acao-excluir">
-                        <a href="historico-veiculos-recep.html" class="btn-cancelar-exclusao">CANCELAR</a>
+                        <a href="historico-veiculos-recep.php" class="btn-cancelar-exclusao">CANCELAR</a>
                         <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>
                     </div>
                 </form>

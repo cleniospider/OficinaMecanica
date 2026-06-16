@@ -32,16 +32,16 @@ require_once('conexao/conexao.php');
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="admin.html">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
-            <li><a href="ordens.html">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico.html" class="active">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos.html">Histórico de Veículos</a></li>
-            <li><a href="financeiro.html">Financeiro</a></li>
-            <li><a href="relatorios.html">Relatórios</a></li>
-            <li><a href="minha-conta.html">Minha conta</a></li>
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="admin.php">Painel de Gestão</a></li>
+            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
+            <li><a href="ordens.php">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico.php" class="active">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
+            <li><a href="financeiro.php">Financeiro</a></li>
+            <li><a href="relatorios.php">Relatórios</a></li>
+            <li><a href="minha-conta.php">Minha conta</a></li>
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 

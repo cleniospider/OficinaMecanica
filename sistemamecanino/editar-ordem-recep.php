@@ -26,13 +26,13 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="recep.html">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente-recep.html">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo-recep.html">Cadastro Veículo</a></li>
-            <li><a href="ordens-recep.html" class="active">Ordens de Serviços</a></li> 
-            <li><a href="historico-veiculos-recep.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.html" class="link-minha-conta">Minha conta</a></li>  
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="recep.php">Painel de Gestão</a></li>
+            <li><a href="cadastrocliente-recep.php">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo-recep.php">Cadastro Veículo</a></li>
+            <li><a href="ordens-recep.php" class="active">Ordens de Serviços</a></li> 
+            <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-recep.php" class="link-minha-conta">Minha conta</a></li>  
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -91,7 +91,7 @@
 
                 <div class="acoes-os-dark">
                     <button type="submit" class="btn-os btn-salvar-red">SALVAR ALTERAÇÕES</button>
-                    <a href="ordens-recep.html" class="btn-os btn-voltar-dark">VOLTAR</a>
+                    <a href="ordens-recep.php" class="btn-os btn-voltar-dark">VOLTAR</a>
                 </div>
             </form>
         </div>

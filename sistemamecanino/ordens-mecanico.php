@@ -41,12 +41,12 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="mecan.html">Painel de Gestão</a></li>
-            <li><a href="ordens-mecanico.html" class="active">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico-mecan.html">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos-mecan.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-mecan.html">Minha conta</a></li>
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="mecan.php">Painel de Gestão</a></li>
+            <li><a href="ordens-mecanico.php" class="active">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-mecan.php">Minha conta</a></li>
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -88,8 +88,8 @@
                             <td data-label="VALOR (R$)"><strong style="color: #2ecc71;">R$ 450,00</strong></td>
                             <td data-label="AÇÕES">
                                 <div class="acoes-flex">
-                                    <a href="editar-ordem-mecan.html" class="btn-editar">GERENCIAR</a>
-                                    <a href="excluir-ordem-mecan.html" class="btn-excluir">EXCLUIR</a>
+                                    <a href="editar-ordem-mecan.php" class="btn-editar">GERENCIAR</a>
+                                    <a href="excluir-ordem-mecan.php" class="btn-excluir">EXCLUIR</a>
                                 </div>
                             </td>
                         </tr>
@@ -105,8 +105,8 @@
                             <td data-label="VALOR (R$)"><strong style="color: #2ecc71;">R$ 320,00</strong></td>
                             <td data-label="AÇÕES">
                                 <div class="acoes-flex">
-                                    <a href="editar-ordem-mecan.html" class="btn-editar">GERENCIAR</a>
-                                    <a href="excluir-ordem-mecan.html" class="btn-excluir">EXCLUIR</a>
+                                    <a href="editar-ordem-mecan.php" class="btn-editar">GERENCIAR</a>
+                                    <a href="excluir-ordem-mecan.php" class="btn-excluir">EXCLUIR</a>
                                 </div>
                             </td>
                         </tr>
@@ -121,7 +121,7 @@
             </div>
 
             <div class="area-botao-novo">
-                <a href="nova-ordem-mecan.html" class="btn-nova-ordem">+ ABRIR NOVA ORDEM DE SERVIÇO</a>
+                <a href="nova-ordem-mecan.php" class="btn-nova-ordem">+ ABRIR NOVA ORDEM DE SERVIÇO</a>
             </div>
         </div>
     </main>

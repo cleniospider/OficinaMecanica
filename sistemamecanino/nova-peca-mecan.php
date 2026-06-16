@@ -27,12 +27,12 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="mecan.html">Painel de Gestão</a></li>
-            <li><a href="ordens-mecanico.html">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico-mecan.html" class="active">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-mecan.html">Minha conta</a></li>
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="mecan.php">Painel de Gestão</a></li>
+            <li><a href="ordens-mecanico.php">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico-mecan.php" class="active">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-mecan.php">Minha conta</a></li>
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -41,7 +41,7 @@
             <div class="form-card-dark">
                 <h2 class="form-title">Nova Peça de Estoque</h2>
                 
-                <form action="estoque-critico-mecan.html" method="GET">
+                <form action="estoque-critico-mecan.php" method="GET">
                     <div class="campo-grupo">
                         <label>Peça</label>
                         <input type="text" name="nome" placeholder="Ex: Pastilha de Freio" required>
@@ -69,7 +69,7 @@
 
                     <div class="acoes-flex">
                         <button type="submit" class="btn-salvar-green">Salvar Nova Peça</button>
-                        <a href="estoque-critico-mecan.html" class="btn-cancelar-red">Cancelar</a>
+                        <a href="estoque-critico-mecan.php" class="btn-cancelar-red">Cancelar</a>
                     </div>
                 </form>
             </div>

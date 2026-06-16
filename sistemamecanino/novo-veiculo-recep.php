@@ -26,13 +26,13 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="recep.html">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente-recep.html">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo-recep.html" class="active">Cadastro Veículo</a></li>
-            <li><a href="ordens-recep.html">Ordens de Serviços</a></li> 
-            <li><a href="historico-veiculos-recep.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.html">Minha conta</a></li>
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="recep.php">Painel de Gestão</a></li>
+            <li><a href="cadastrocliente-recep.php">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo-recep.php" class="active">Cadastro Veículo</a></li>
+            <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
+            <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-recep.php">Minha conta</a></li>
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -43,7 +43,7 @@
             </div>
 
             <div class="caixa-formulario">
-                <form action="cadastroveiculo-recep.html" class="form-estilizado">
+                <form action="cadastroveiculo-recep.php" class="form-estilizado">
                     <div class="grupo-input">
                         <label for="marcas-veiculo">Marca do veículo:</label>
                         <select name="marcas" id="marcas-veiculo">
@@ -125,7 +125,7 @@
                     
                     <div class="botoes-acao">
                         <button type="submit" class="btn-salvar">Salvar Veículo</button>
-                        <a href="cadastroveiculo-recep.html" class="btn-voltar">Cancelar</a>
+                        <a href="cadastroveiculo-recep.php" class="btn-voltar">Cancelar</a>
                     </div>
                 </form>
             </div>

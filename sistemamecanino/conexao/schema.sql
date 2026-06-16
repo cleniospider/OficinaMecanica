@@ -5,8 +5,8 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema oficina mecanica
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `oficina mecanica` DEFAULT CHARACTER SET utf8 ;
-USE `oficina mecanica` ;
+CREATE SCHEMA IF NOT EXISTS `oficinamecanica` DEFAULT CHARACTER SET utf8 ;
+USE `oficinamecanica` ;
 
 -- -----------------------------------------------------
 -- Table `clientes`

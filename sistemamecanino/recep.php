@@ -27,13 +27,13 @@
         </div>
 
         <ul class="nav-links">
-            <li><a href="recep.html"class="active">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente-recep.html">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo-recep.html">Cadastro Veículo</a></li>
-            <li><a href="ordens-recep.html">Ordens de Serviços</a></li> 
-            <li><a href="historico-veiculos-recep.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.html">Minha conta</a></li> 
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="recep.php"class="active">Painel de Gestão</a></li>
+            <li><a href="cadastrocliente-recep.php">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo-recep.php">Cadastro Veículo</a></li>
+            <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
+            <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-recep.php">Minha conta</a></li> 
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -48,10 +48,10 @@
         </div>
 
         <div class="dashboard-grid">
-            <a href="cadastrocliente-recep.html" class="grid-card">CADASTRO CLIENTE</a>
-            <a href="cadastroveiculo-recep.html" class="grid-card">CADASTRO VEÍCULO</a>
-            <a href="ordens-recep.html" class="grid-card">ORDENS DE SERVIÇOS</a>
-            <a href="historico-veiculos-recep.html" class="grid-card">HISTÓRICO DE VEÍCULOS</a>
+            <a href="cadastrocliente-recep.php" class="grid-card">CADASTRO CLIENTE</a>
+            <a href="cadastroveiculo-recep.php" class="grid-card">CADASTRO VEÍCULO</a>
+            <a href="ordens-recep.php" class="grid-card">ORDENS DE SERVIÇOS</a>
+            <a href="historico-veiculos-recep.php" class="grid-card">HISTÓRICO DE VEÍCULOS</a>
         </div>
     </main>
 

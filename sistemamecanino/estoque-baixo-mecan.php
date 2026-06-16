@@ -26,12 +26,12 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="mecan.html">Painel de Gestão</a></li>
-            <li><a href="ordens-mecanico.html">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico-mecan.html" class="active">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos-mecan.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-mecan.html">Minha conta</a></li>
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="mecan.php">Painel de Gestão</a></li>
+            <li><a href="ordens-mecanico.php">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico-mecan.php" class="active">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-mecan.php">Minha conta</a></li>
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -44,14 +44,14 @@
             <div class="estoque-wrapper">
                 <div class="estoque-controles">
                     <div class="filtros-grupo">
-                        <a href="estoque-critico-mecan.html" class="btn-f b-critico">CRÍTICO</a>
-                        <a href="estoque-baixo-mecan.html" class="btn-f b-baixo ativo">BAIXO</a>
-                        <a href="estoque-ok-mecan.html" class="btn-f b-ok">OK</a>
+                        <a href="estoque-critico-mecan.php" class="btn-f b-critico">CRÍTICO</a>
+                        <a href="estoque-baixo-mecan.php" class="btn-f b-baixo ativo">BAIXO</a>
+                        <a href="estoque-ok-mecan.php" class="btn-f b-ok">OK</a>
                     </div>
 
                     <div class="busca-acoes">
                         <input type="text" class="input-busca" placeholder=" Pesquisar por nome...">
-                        <a href="nova-peca-mecan.html" class="btn-nova-peca">+ NOVA PEÇA</a>
+                        <a href="nova-peca-mecan.php" class="btn-nova-peca">+ NOVA PEÇA</a>
                     </div>
                 </div>
 

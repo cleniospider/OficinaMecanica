@@ -25,12 +25,12 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="mecan.html">Painel de Gestão</a></li>
-            <li><a href="ordens-mecanico.html">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico-mecan.html">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos-mecan.html" class="active">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-mecan.html">Minha conta</a></li>
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="mecan.php">Painel de Gestão</a></li>
+            <li><a href="ordens-mecanico.php">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos-mecan.php" class="active">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-mecan.php">Minha conta</a></li>
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="area-botao-voltar">
-                    <a href="historico-veiculos-mecan.html" class="btn-voltar-simples">VOLTAR</a>
+                    <a href="historico-veiculos-mecan.php" class="btn-voltar-simples">VOLTAR</a>
                 </div>
             </div>
         </div>

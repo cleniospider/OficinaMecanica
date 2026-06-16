@@ -1,3 +1,8 @@
+<?php 
+require_once('conexao/conexao.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -25,13 +30,13 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="recep.html">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente-recep.html">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo-recep.html" class="active">Cadastro Veículo</a></li>
-            <li><a href="ordens-recep.html">Ordens de Serviços</a></li> 
-            <li><a href="historico-veiculos-recep.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.html">Minha conta</a></li> 
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="recep.php">Painel de Gestão</a></li>
+            <li><a href="cadastrocliente-recep.php">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo-recep.php" class="active">Cadastro Veículo</a></li>
+            <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
+            <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-recep.php">Minha conta</a></li> 
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -67,8 +72,8 @@
                             <td data-label="PROPRIETÁRIO">Marcos Silva</td>
                             <td data-label="AÇÕES">
                                 <div class="acoes-flex">
-                                    <a href="editar-veiculo-recep.html" class="btn-editar">EDITAR</a>
-                                    <a href="excluir-veiculo-recep.html" class="btn-excluir">EXCLUIR</a>
+                                    <a href="editar-veiculo-recep.php" class="btn-editar">EDITAR</a>
+                                    <a href="excluir-veiculo-recep.php" class="btn-excluir">EXCLUIR</a>
                                 </div>
                             </td>
                         </tr>
@@ -81,8 +86,8 @@
                             <td data-label="PROPRIETÁRIO">José Costa</td>
                             <td data-label="AÇÕES">
                                 <div class="acoes-flex">
-                                    <a href="editar-veiculo-recep.html" class="btn-editar">EDITAR</a>
-                                    <a href="excluir-veiculo-recep.html" class="btn-excluir">EXCLUIR</a>
+                                    <a href="editar-veiculo-recep.php" class="btn-editar">EDITAR</a>
+                                    <a href="excluir-veiculo-recep.php" class="btn-excluir">EXCLUIR</a>
                                 </div>
                             </td>
                         </tr>
@@ -91,7 +96,7 @@
             </div>
 
             <div class="area-botao-novo">
-                <a href="novo-veiculo-recep.html" class="btn-nova-ordem btn-espacado">+ NOVO VEÍCULO</a>
+                <a href="novo-veiculo-recep.php" class="btn-nova-ordem btn-espacado">+ NOVO VEÍCULO</a>
             </div>
         </div>
     </main>

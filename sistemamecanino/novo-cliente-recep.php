@@ -25,13 +25,13 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="recep.html">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente-recep.html" class="active">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo-recep.html">Cadastro Veículo</a></li>
-            <li><a href="ordens-recep.html">Ordens de Serviços</a></li> 
-            <li><a href="historico-veiculos-recep.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.html">Minha conta</a></li> 
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="recep.php">Painel de Gestão</a></li>
+            <li><a href="cadastrocliente-recep.php" class="active">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo-recep.php">Cadastro Veículo</a></li>
+            <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
+            <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-recep.php">Minha conta</a></li> 
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -40,7 +40,7 @@
             <h2 class="titulo-sessao">CADASTRAR NOVO CLIENTE - RECEPÇÃO</h2>
             
             <div class="card-dark">
-                <form action="cadastrocliente-recep.html" method="POST">
+                <form action="cadastrocliente-recep.php" method="POST">
                     
                     <div class="form-row">
                         <div class="grupo-input-dark flex-3">
@@ -66,7 +66,7 @@
 
                     <div class="footer-acoes">
                         <button type="submit" class="btn-acao btn-salvar-os">SALVAR CADASTRO</button>
-                        <a href="cadastrocliente-recep.html" class="btn-acao btn-voltar-os">VOLTAR</a>
+                        <a href="cadastrocliente-recep.php" class="btn-acao btn-voltar-os">VOLTAR</a>
                     </div>
                 </form>
             </div>

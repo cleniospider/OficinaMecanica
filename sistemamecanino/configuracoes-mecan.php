@@ -1,3 +1,11 @@
+<?php 
+require_once('conexao/conexao.php');
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -25,12 +33,12 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="mecan.html">Painel de Gestão</a></li>
-            <li><a href="ordens-mecanico.html">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico-mecan.html">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos-mecan.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-mecan.html" class="active">Minha conta</a></li>
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="mecan.php">Painel de Gestão</a></li>
+            <li><a href="ordens-mecanico.php">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-mecan.php" class="active">Minha conta</a></li>
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -95,8 +103,8 @@
             </section>
 
             <div class="actions-area">
-                <a href="minha-conta-mecan.html" class="btn-save" style="text-decoration: none; display: inline-block; text-align: center;">SALVAR ALTERAÇÕES</a>
-                <a href="minha-conta-mecan.html" class="btn-back">VOLTAR</a>
+                <a href="minha-conta-mecan.php" class="btn-save" style="text-decoration: none; display: inline-block; text-align: center;">SALVAR ALTERAÇÕES</a>
+                <a href="minha-conta-mecan.php" class="btn-back">VOLTAR</a>
             </div>
         </div>
     </main>

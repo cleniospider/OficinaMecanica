@@ -26,11 +26,11 @@
         </div>
         <ul class="nav-links">
             <li><a href="mecan.html">Painel de Gestão</a></li>
-            <li><a href="ordens-mecanico.html" class="active">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico-mecan.html">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos-mecan.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-mecan.html">Minha conta</a></li>
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="ordens-mecanico.php" class="active">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-mecan.php">Minha conta</a></li>
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -43,9 +43,9 @@
                 <h3>Tem certeza que deseja excluir esta OS?</h3>
                 <p class="aviso-texto">Esta ação não poderá ser desfeita e os dados do serviço serão perdidos.</p>
                 
-                <form action="ordens-mecanico.html" class="form-exclusao">
+                <form action="ordens-mecanico.php" class="form-exclusao">
                     <div class="botoes-acao-excluir">
-                        <a href="ordens-mecanico.html" class="btn-cancelar-exclusao">CANCELAR</a>
+                        <a href="ordens-mecanico.php" class="btn-cancelar-exclusao">CANCELAR</a>
                         <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>
                     </div>
                 </form>

@@ -26,12 +26,12 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="mecan.html">Painel de Gestão</a></li>
-            <li><a href="ordens-mecanico.html" class="active">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico-mecan.html">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos-mecan.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-mecan.html" class="link-minha-conta">Minha conta</a></li>
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="mecan.php">Painel de Gestão</a></li>
+            <li><a href="ordens-mecanico.php" class="active">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-mecan.php" class="link-minha-conta">Minha conta</a></li>
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -90,7 +90,7 @@
 
                 <div class="acoes-os-dark">
                     <button type="submit" class="btn-os btn-salvar-red">SALVAR ALTERAÇÕES</button>
-                    <a href="ordens-mecanico.html" class="btn-os btn-voltar-dark">VOLTAR</a>
+                    <a href="ordens-mecanico.php" class="btn-os btn-voltar-dark">VOLTAR</a>
                 </div>
             </form>
         </div>

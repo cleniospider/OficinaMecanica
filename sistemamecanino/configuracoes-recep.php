@@ -98,8 +98,8 @@
             </section>
 
             <div class="actions-area">
-                <a href="minha-conta-recep.html" class="btn-save" style="text-decoration: none; display: inline-block; text-align: center;">SALVAR ALTERAÇÕES</a>
-                <a href="minha-conta-recep.html" class="btn-back">VOLTAR</a>
+                <a href="minha-conta-recep.php" class="btn-save" style="text-decoration: none; display: inline-block; text-align: center;">SALVAR ALTERAÇÕES</a>
+                <a href="minha-conta-recep.php" class="btn-back">VOLTAR</a>
             </div>
         </div>
     </main>

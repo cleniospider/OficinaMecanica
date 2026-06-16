@@ -76,7 +76,7 @@ require_once('conexao/conexao.php');
 
                     <div class="botoes-os">
                         <button type="submit" class="btn-finalizar-os">ATUALIZAR CADASTRO</button>
-                        <a href="cadastrocliente.html" class="btn-voltar-os">CANCELAR</a>
+                        <a href="cadastrocliente.php" class="btn-voltar-os">CANCELAR</a>
                     </div>
                 </form>
             </div>

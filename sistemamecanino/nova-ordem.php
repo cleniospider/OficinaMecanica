@@ -53,7 +53,7 @@ require_once('conexao/conexao.php');
                 <h2>NOVA ORDEM <span class="text-red">DE SERVIÇO</span></h2>
             </div>
     
-            <form action="ordens.html" class="form-nova-ordem">
+            <form action="ordens.php" class="form-nova-ordem">
                 
                 <div class="form-header-info">
                     <div class="grupo-input">

@@ -51,7 +51,7 @@ require_once('conexao/conexao.php');
                 <div class="icone-alerta">⚠️</div>
                 <h3>Tem certeza que deseja excluir este registro financeiro?</h3>
                 
-                <form action="financeiro.html" class="form-exclusao">
+                <form action="financeiro.php" class="form-exclusao">
                     <div class="botoes-acao-excluir">
                         <a href="financeiro.php" class="btn-cancelar-exclusao">CANCELAR</a>
                         <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>

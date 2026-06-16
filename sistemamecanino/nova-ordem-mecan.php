@@ -26,12 +26,12 @@
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="mecan.html">Painel de Gestão</a></li>
-            <li><a href="ordens-mecanico.html" class="active">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico-mecan.html">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos.html">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-mecan.html">Minha conta</a></li>
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="mecan.php">Painel de Gestão</a></li>
+            <li><a href="ordens-mecanico.php" class="active">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-mecan.php">Minha conta</a></li>
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -41,7 +41,7 @@
                 <h2>NOVA ORDEM <span class="text-red">DE SERVIÇO</span></h2>
             </div>
     
-            <form action="ordens-mecanico.html" class="form-nova-ordem">
+            <form action="ordens-mecanico.php" class="form-nova-ordem">
                 
                 <div class="form-header-info">
                     <div class="grupo-input">
@@ -92,7 +92,7 @@
             
                     <div class="botoes-acao">
                         <button type="submit" class="btn-os btn-salvar-red">SALVAR ALTERAÇÕES</button>
-                        <a href="ordens-mecanico.html" class="btn-os btn-voltar-dark">CANCELAR</a>
+                        <a href="ordens-mecanico.php" class="btn-os btn-voltar-dark">CANCELAR</a>
                     </div>
                 </div>
             </form>

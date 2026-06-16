@@ -95,7 +95,7 @@ require_once('conexao/conexao.php');
                 </div>
 
                 <div class="area-botao-voltar">
-                    <a href="historico-veiculos.html" class="btn-voltar-simples">VOLTAR</a>
+                    <a href="historico-veiculos.php" class="btn-voltar-simples">VOLTAR</a>
                 </div>
             </div>
         </div>

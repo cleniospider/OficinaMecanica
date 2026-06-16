@@ -50,7 +50,7 @@ require_once('conexao/conexao.php');
             <h2 class="titulo-sessao">CADASTRAR NOVO CLIENTE </span></h2>
             
             <div class="card-dark">
-                <form action="cadastrocliente.html" method="POST">
+                <form action="cadastrocliente.php" method="POST">
                     
                     <div class="form-row">
                         <div class="grupo-input-dark flex-3">
@@ -76,8 +76,8 @@ require_once('conexao/conexao.php');
 
                     <div class="footer-acoes">
                         <button type="submit" class="btn-acao btn-salvar-os">SALVAR CADASTRO</button>
-                        <a href="cadastrocliente.html" class="btn-acao btn-voltar-os">VOLTAR</a>
-                    </div>
+                        <a href="cadastrocliente.php" class="btn-acao btn-voltar-os">VOLTAR</a>
+                    </div>l
                 </form>
             </div>
         </div>
