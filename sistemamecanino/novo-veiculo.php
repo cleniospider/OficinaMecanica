@@ -1,9 +1,14 @@
 <?php 
 require_once('conexao/conexao.php');
 
+if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_perfil'], ['Admin', 'Recepcionista'])) {
+    header("Location: index.php");
+    exit;
+}
+
+$stmt_cli = $pdo->query("SELECT cpf, `nome completo` FROM clientes ORDER BY `nome completo` ASC");
+$clientes_lista = $stmt_cli->fetchAll();
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -29,11 +34,11 @@ require_once('conexao/conexao.php');
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text">ADMINISTRADOR</span>
+                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'])) ?></span>
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="admin.php">Painel de Gestão</a></li>
+            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : 'recep.php' ?>">Painel de Gestão</a></li>
             <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo.php" class="active">Cadastro Veículo</a></li>
             <li><a href="ordens.php">Ordens de Serviços</a></li>
@@ -42,7 +47,7 @@ require_once('conexao/conexao.php');
             <li><a href="financeiro.php">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
             <li><a href="minha-conta.php">Minha conta</a></li>
-            <li><a href="index.php" class="logout-link">Sair</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
     <main class="main-content">
@@ -52,10 +57,10 @@ require_once('conexao/conexao.php');
             </div>
 
             <div class="caixa-formulario">
-                <form action="cadastroveiculo.php" class="form-estilizado">
+                <form action="cadastroveiculo.php" method="POST" class="form-estilizado">
                     <div class="grupo-input">
                         <label for="marcas-veiculo">Marca do veículo:</label>
-                        <select name="marcas" id="marcas-veiculo">
+                        <select name="marca" id="marcas-veiculo" required>
                             <option value="">Selecione uma marca</option>
                             <option value="Acura">Acura</option>
                             <option value="Agrale">Agrale</option>
@@ -105,30 +110,31 @@ require_once('conexao/conexao.php');
                     </div>
                     <div class="grupo-input">
                         <label>Modelo</label>
-                        <input type="text" placeholder="Ex: CBR 600RR" required>
+                        <input type="text" name="modelo" placeholder="Ex: CBR 600RR" required>
                     </div>
 
                     <div class="grupo-input">
                         <label>Placa</label>
-                        <input type="text" placeholder="Ex: ABC-1234" required>
+                        <input type="text" name="placa" placeholder="Ex: ABC-1234" required>
                     </div>
 
                     <div class="grupo-input">
                         <label for="ano-veiculo">Ano</label>
-                        <input type="tel" id="ano-veiculo" placeholder="Ex: 2024" required>
+                        <input type="tel" id="ano-veiculo" name="ano" placeholder="Ex: 2024" required>
                     </div>
 
                     <div class="grupo-input">
                         <label>Cor</label>
-                        <input type="text" placeholder="Ex: Prata" required>
+                        <input type="text" name="cor" placeholder="Ex: Prata" required>
                     </div>
 
                     <div class="grupo-input">
                         <label>Proprietário</label>
-                        <select required>
+                        <select name="clientes_cpf" required>
                             <option value="" disabled selected>Selecione um cliente</option>
-                            <option value="1">Marcos Silva</option>
-                            <option value="2">José Costa</option>
+                            <?php foreach ($clientes_lista as $cli): ?>
+                                <option value="<?= htmlspecialchars($cli['cpf']) ?>"><?= htmlspecialchars($cli['nome completo']) ?> (CPF: <?= htmlspecialchars($cli['cpf']) ?>)</option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     

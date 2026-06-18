@@ -1,6 +1,10 @@
 <?php 
 require_once('conexao/conexao.php');
 
+if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Mecanico') {
+    header("Location: index.php");
+    exit;
+}
 ?>
 
 
@@ -38,7 +42,7 @@ require_once('conexao/conexao.php');
             <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
             <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
             <li><a href="minha-conta-mecan.php">Minha conta</a></li>
-            <li><a href="index.php" class="logout-link">Sair</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 

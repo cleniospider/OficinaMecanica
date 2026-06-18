@@ -1,9 +1,14 @@
 <?php
+require_once __DIR__ . '/../conexao/conexao.php';
 
-$pdo = new PDO("mysql:host=localhost;dbname=auto_repair", "root", "");
+// Proteção para apenas Administradores acessarem
+if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Admin') {
+    header("Location: ../index.php");
+    exit;
+}
 
-$query = $pdo->query("SELECT * FROM profissionais ORDER BY nome ASC");
-$profissionais = $query->fetchAll(PDO::FETCH_ASSOC);
+$query = $pdo->query("SELECT * FROM usuarios ORDER BY nome_completo ASC");
+$usuarios = $query->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -11,8 +16,8 @@ $profissionais = $query->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Lista de Profissionais - Auto Repair</title>
-    <link rel="stylesheet" href="oficina.css"> <style>
-        /* Estilo rápido para a tabela aparecer bem no seu fundo escuro */
+    <link rel="stylesheet" href="../oficina.css"> 
+    <style>
         .tabela-container { width: 90%; margin: 50px auto; background: rgba(0,0,0,0.8); padding: 20px; border-radius: 10px; color: white; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { padding: 12px; border-bottom: 1px solid #444; text-align: left; }
@@ -30,22 +35,26 @@ $profissionais = $query->fetchAll(PDO::FETCH_ASSOC);
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nome</th>
+                <th>Nome Completo</th>
                 <th>Email</th>
-                <th>Cargo</th>
+                <th>CPF</th>
+                <th>Cargo / Perfil</th>
+                <th>Telefone</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($profissionais as $p): ?>
+            <?php foreach ($usuarios as $u): ?>
             <tr>
-                <td><?= $p['id'] ?></td>
-                <td><?= $p['nome'] ?></td>
-                <td><?= $p['email'] ?></td>
-                <td><?= strtoupper($p['cargo']) ?></td>
+                <td><?= htmlspecialchars($u['id']) ?></td>
+                <td><?= htmlspecialchars($u['nome_completo']) ?></td>
+                <td><?= htmlspecialchars($u['email']) ?></td>
+                <td><?= htmlspecialchars($u['cpf']) ?></td>
+                <td><?= htmlspecialchars($u['perfil']) ?></td>
+                <td><?= htmlspecialchars($u['telefone']) ?></td>
                 <td>
-                    <a href="editar.php?id=<?= $p['id'] ?>" class="btn-edit">Editar</a>
-                    <a href="excluir.php?id=<?= $p['id'] ?>" class="btn-del" onclick="return confirm('Deseja excluir este funcionário?')">Excluir</a>
+                    <a href="editar.php?id=<?= $u['id'] ?>" class="btn-edit">Editar</a>
+                    <a href="excluir.php?id=<?= $u['id'] ?>" class="btn-del" onclick="return confirm('Deseja excluir este funcionário?')">Excluir</a>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -53,7 +62,7 @@ $profissionais = $query->fetchAll(PDO::FETCH_ASSOC);
     </table>
     
     <br>
-    <a href="admin.html" style="color: #fff;">← Voltar ao Painel</a>
+    <a href="../admin.php" style="color: #fff;">← Voltar ao Painel</a>
 </div>
 
 </body>

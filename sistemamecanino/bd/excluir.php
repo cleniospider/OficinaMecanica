@@ -1,27 +1,30 @@
 <?php
-include 'conexao.php';
+require_once __DIR__ . '/../conexao/conexao.php';
 
-$id = $_GET['id'] ?? $_POST['id'] ?? null;
-
-if (!$id) {
-    header("Location: index.php");
+// Proteção para apenas Administradores
+if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Admin') {
+    header("Location: ../index.php");
     exit;
 }
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $stmt = $pdo->prepare("DELETE FROM profissionais WHERE id = ?");
-    $stmt->execute([$id]);
+$id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+
+if ($id) {
+    // Evitar que o usuário logado se exclua
+    if ($id == $_SESSION['usuario_id']) {
+        echo "<script>alert('Você não pode excluir sua própria conta!'); window.location.href='lista.php';</script>";
+        exit;
+    }
+
+    try {
+        $stmt = $pdo->prepare("DELETE FROM usuarios WHERE id = ?");
+        $stmt->execute([$id]);
+    } catch (PDOException $e) {
+        // Tratar erro silenciosamente ou registrar
+        error_log("Erro ao excluir usuário: " . $e->getMessage());
+    }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nome = $_POST['nome'];
-    $cargo = $_POST['cargo'];
-
-    $update = $pdo->prepare("UPDATE profissionais SET nome = ?, cargo = ? WHERE id = ?");
-    $update->execute([$nome, $cargo, $id]);
-
-    header("Location: index.php"); // Volta para a lista
-    exit; 
-}
+header("Location: lista.php");
+exit;
 ?>

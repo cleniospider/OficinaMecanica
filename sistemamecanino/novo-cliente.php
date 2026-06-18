@@ -1,9 +1,11 @@
 <?php 
 require_once('conexao/conexao.php');
 
+if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_perfil'], ['Admin', 'Recepcionista'])) {
+    header("Location: index.php");
+    exit;
+}
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -11,8 +13,8 @@ require_once('conexao/conexao.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto Repair - Novo Cliente</title>
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/novo-cliente.css">
+    <link class="link-css" rel="stylesheet" href="css/admin.css">
+    <link class="link-css" rel="stylesheet" href="css/novo-cliente.css">
 </head>
 <body>
 
@@ -28,11 +30,11 @@ require_once('conexao/conexao.php');
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text">ADMINISTRADOR</span>
+                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'])) ?></span>
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="admin.php">Painel de Gestão</a></li>
+            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : 'recep.php' ?>">Painel de Gestão</a></li>
             <li><a href="cadastrocliente.php" class="active">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
             <li><a href="ordens.php">Ordens de Serviços</a></li>
@@ -41,13 +43,13 @@ require_once('conexao/conexao.php');
             <li><a href="financeiro.php">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
             <li><a href="minha-conta.php">Minha conta</a></li>
-            <li><a href="index.html" class="logout-link">Sair</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
     <main class="main-content">
         <div class="container-form-dark">
-            <h2 class="titulo-sessao">CADASTRAR NOVO CLIENTE </span></h2>
+            <h2 class="titulo-sessao">CADASTRAR NOVO CLIENTE</h2>
             
             <div class="card-dark">
                 <form action="cadastrocliente.php" method="POST">
@@ -55,29 +57,29 @@ require_once('conexao/conexao.php');
                     <div class="form-row">
                         <div class="grupo-input-dark flex-3">
                             <label>NOME COMPLETO</label>
-                            <input type="text" placeholder="Ex: João Silva" required>
+                            <input type="text" name="nome_completo" placeholder="Ex: João Silva" required>
                         </div>
                         <div class="grupo-input-dark flex-1">
                             <label>CPF / CNPJ</label>
-                            <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="18" required>
+                            <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" maxlength="18" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="grupo-input-dark flex-1">
                             <label>TELEFONE / WHATSAPP</label>
-                            <input type="text" id="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
+                            <input type="text" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
                         </div>
                         <div class="grupo-input-dark flex-2">
                             <label>E-MAIL</label>
-                            <input type="email" placeholder="cliente@email.com">
+                            <input type="email" name="email" placeholder="cliente@email.com">
                         </div>
                     </div>
 
                     <div class="footer-acoes">
                         <button type="submit" class="btn-acao btn-salvar-os">SALVAR CADASTRO</button>
                         <a href="cadastrocliente.php" class="btn-acao btn-voltar-os">VOLTAR</a>
-                    </div>l
+                    </div>
                 </form>
             </div>
         </div>

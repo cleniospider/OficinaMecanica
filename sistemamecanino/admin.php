@@ -1,6 +1,10 @@
 <?php 
 require_once('conexao/conexao.php');
 
+if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Admin') {
+    header("Location: index.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +45,7 @@ require_once('conexao/conexao.php');
             <li><a href="financeiro.php">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
             <li><a href="minha-conta.php">Minha Conta</a></li>
-            <li><a href="index.php" class="logout-php">Sair</a></li>
+            <li><a href="index.php?logout=1" class="logout-php">Sair</a></li>
         </ul>
     </aside>
 

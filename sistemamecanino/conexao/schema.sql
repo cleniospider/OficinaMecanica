@@ -14,7 +14,7 @@ USE `oficinamecanica` ;
 CREATE TABLE IF NOT EXISTS `clientes` (
   `nome completo` VARCHAR(100) NOT NULL,
   `cpf` VARCHAR(11) NOT NULL,
-  `telefone` VARCHAR(9) NOT NULL,
+  `telefone` VARCHAR(20) NOT NULL,
   `email` VARCHAR(100) NULL,
   PRIMARY KEY (`cpf`)
 ) ENGINE = InnoDB;
@@ -77,13 +77,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `salario_base` DECIMAL(10,2) NULL,
   `decimal_comissao` DECIMAL(5,2) NULL DEFAULT 0.00,
   `data_cadastro` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `OS_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `OS_id`),
-  CONSTRAINT `fk_usuarios_OS`
-    FOREIGN KEY (`OS_id`)
-    REFERENCES `OS` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
