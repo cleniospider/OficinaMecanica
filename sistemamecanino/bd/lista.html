@@ -1,16 +1,3 @@
-<?php
-require_once __DIR__ . '/../conexao/conexao.php';
-
-// Proteção para apenas Administradores acessarem
-if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Admin') {
-    header("Location: ../index.php");
-    exit;
-}
-
-$query = $pdo->query("SELECT * FROM usuarios ORDER BY nome_completo ASC");
-$usuarios = $query->fetchAll();
-?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -53,17 +40,17 @@ $usuarios = $query->fetchAll();
         </div>
 
         <ul class="nav-links">
-            <li><a href="../admin.php">Painel de Gestão</a></li>
-            <li><a href="lista.php" class="active">Gerenciar Usuários</a></li>
-            <li><a href="../cadastrocliente.php">Cadastro Cliente</a></li>
-            <li><a href="../cadastroveiculo.php">Cadastro Veículo</a></li>
-            <li><a href="../ordens.php">Ordens de Serviços</a></li>
-            <li><a href="../estoque-critico.php">Estoque de Peças</a></li>
-            <li><a href="../historico-veiculos.php">Histórico de Veículos</a></li>
-            <li><a href="../financeiro.php">Financeiro</a></li>
-            <li><a href="../relatorios.php">Relatórios</a></li>
-            <li><a href="../minha-conta.php">Minha Conta</a></li>
-            <li><a href="../index.php?logout=1" class="logout-php">Sair</a></li>
+            <li><a href="../admin.html">Painel de Gestão</a></li>
+            <li><a href="lista.html" class="active">Gerenciar Usuários</a></li>
+            <li><a href="../cadastrocliente.html">Cadastro Cliente</a></li>
+            <li><a href="../cadastroveiculo.html">Cadastro Veículo</a></li>
+            <li><a href="../ordens.html">Ordens de Serviços</a></li>
+            <li><a href="../estoque-critico.html">Estoque de Peças</a></li>
+            <li><a href="../historico-veiculos.html">Histórico de Veículos</a></li>
+            <li><a href="../financeiro.html">Financeiro</a></li>
+            <li><a href="../relatorios.html">Relatórios</a></li>
+            <li><a href="../minha-conta.html">Minha Conta</a></li>
+            <li><a href="../index.html" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -89,34 +76,42 @@ $usuarios = $query->fetchAll();
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                        <?php foreach ($usuarios as $u): 
-                            $badgeClass = 'badge-mecan';
-                            if ($u['perfil'] === 'Admin') $badgeClass = 'badge-admin';
-                            elseif ($u['perfil'] === 'Recepcionista') $badgeClass = 'badge-recep';
-                        ?>
                         <tr>
-                            <td data-label="NOME COMPLETO"><strong><?= htmlspecialchars($u['nome_completo']) ?></strong></td>
-                            <td data-label="EMAIL"><?= htmlspecialchars($u['email']) ?></td>
-                            <td data-label="CPF"><?= htmlspecialchars($u['cpf']) ?></td>
+                            <td data-label="NOME COMPLETO"><strong>Administrador Geral</strong></td>
+                            <td data-label="EMAIL">admin@admin.com</td>
+                            <td data-label="CPF">11122233344</td>
                             <td data-label="CARGO">
-                                <span class="roles-badges <?= $badgeClass ?>"><?= htmlspecialchars($u['perfil']) ?></span>
+                                <span class="roles-badges badge-admin">Admin</span>
                             </td>
-                            <td data-label="TELEFONE"><?= htmlspecialchars($u['telefone'] ?: 'Não informado') ?></td>
+                            <td data-label="TELEFONE">(11) 99999-9999</td>
                             <td data-label="AÇÕES">
                                 <div class="acoes-flex">
-                                    <a href="editar.php?id=<?= $u['id'] ?>" class="btn-editar" style="background-color: #2ecc71; margin-right: 5px;">EDITAR</a>
-                                    <a href="excluir.php?id=<?= $u['id'] ?>" class="btn-excluir" onclick="return confirm('Deseja excluir este profissional?')">EXCLUIR</a>
+                                    <a href="editar.html" class="btn-editar" style="background-color: #2ecc71; margin-right: 5px;">EDITAR</a>
+                                    <a href="#" class="btn-excluir" onclick="alert('Você não pode excluir sua própria conta!')">EXCLUIR</a>
                                 </div>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
+                        <tr>
+                            <td data-label="NOME COMPLETO"><strong>Clenio Spider</strong></td>
+                            <td data-label="EMAIL">clenio@gmail.com</td>
+                            <td data-label="CPF">22233344455</td>
+                            <td data-label="CARGO">
+                                <span class="roles-badges badge-mecan">Mecanico</span>
+                            </td>
+                            <td data-label="TELEFONE">(11) 98888-8888</td>
+                            <td data-label="AÇÕES">
+                                <div class="acoes-flex">
+                                    <a href="editar.html" class="btn-editar" style="background-color: #2ecc71; margin-right: 5px;">EDITAR</a>
+                                    <a href="#" class="btn-excluir" onclick="return confirm('Deseja excluir este profissional?')">EXCLUIR</a>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
             <div class="area-botao-novo">
-                <!-- Como o cadastro de profissional está na tela de login/index.php, mantemos botão ou link para orientar -->
-                <a href="../index.php?logout=1" class="btn-nova-ordem">+ CADASTRAR NOVO PROFISSIONAL</a>
+                <a href="../index.html" class="btn-nova-ordem">+ CADASTRAR NOVO PROFISSIONAL</a>
             </div>
         </div>
     </main>
