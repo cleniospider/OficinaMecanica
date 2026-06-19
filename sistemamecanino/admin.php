@@ -37,6 +37,7 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Admin') 
 
         <ul class="nav-links">
             <li><a href="admin.php" class="active">Painel de Gestão</a></li>
+            <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
             <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
             <li><a href="ordens.php">Ordens de Serviços</a></li>
@@ -60,6 +61,7 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Admin') 
         </div>
 
         <div class="dashboard-grid">
+            <a href="bd/lista.php" class="grid-card">GERENCIAR USUÁRIOS</a>
             <a href="cadastrocliente.php" class="grid-card">CADASTRO CLIENTE</a>
             <a href="cadastroveiculo.php" class="grid-card">CADASTRO VEÍCULO</a>
             <a href="ordens.php" class="grid-card">ORDENS DE SERVIÇOS</a>

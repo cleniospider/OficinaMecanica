@@ -1,8 +1,27 @@
 <?php 
 require_once('conexao/conexao.php');
 
-?>
+// Proteção de sessão
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: index.php");
+    exit;
+}
 
+try {
+    // Buscar ordens finalizadas
+    $stmt = $pdo->query("
+        SELECT o.id, o.data_entrada, o.status, c.`nome completo` AS cliente_nome 
+        FROM OS o
+        JOIN veiculo v ON o.veiculo_id1 = v.id
+        JOIN clientes c ON o.clientes_cpf = c.cpf
+        WHERE o.status = 'finalizado'
+        ORDER BY o.data_entrada DESC
+    ");
+    $historicos = $stmt->fetchAll();
+} catch (PDOException $e) {
+    die("Erro ao buscar histórico de veículos: " . $e->getMessage());
+}
+?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -12,6 +31,9 @@ require_once('conexao/conexao.php');
     <title>Auto Repair - Histórico</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/historico-veiculo.css">
+    <style>
+        .dot-finalizado { background-color: #2ecc71; } /* Verde */
+    </style>
 </head>
 <body class="dark-theme">
 
@@ -27,11 +49,14 @@ require_once('conexao/conexao.php');
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text">ADMINISTRADOR</span>
+                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'] ?? 'ADMINISTRADOR')) ?></span>
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="admin.php">Painel de Gestão</a></li>
+            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : ($_SESSION['usuario_perfil'] === 'Mecanico' ? 'mecan.php' : 'recep.php') ?>">Painel de Gestão</a></li>
+            <?php if ($_SESSION['usuario_perfil'] === 'Admin'): ?>
+                <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
+            <?php endif; ?>
             <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
             <li><a href="ordens.php">Ordens de Serviços</a></li>
@@ -40,7 +65,7 @@ require_once('conexao/conexao.php');
             <li><a href="financeiro.php">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
             <li><a href="minha-conta.php">Minha conta</a></li>
-            <li><a href="index.php" class="logout-link">Sair</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -64,36 +89,29 @@ require_once('conexao/conexao.php');
                             <th>AÇÕES</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td data-label="Nº OS">#1025</td>
-                            <td data-label="PROPRIETÁRIO">Marcos Silva</td>
-                            <td data-label="DATA">14/05/2026</td>
-                            <td data-label="STATUS">
-                                <span class="status-dot dot-finalizado"></span> Finalizado
-                            </td>
-                            <td data-label="AÇÕES">
-                                <div class="acoes-flex">
-                                    <a href="detalhes-historico.php" class="btn-editar">ANALISAR</a>
-                                    <a href="excluir-historico.php" class="btn-excluir-vinho">EXCLUIR</a>
-                                </div>
-                            </td>
-                        </tr>
-                    
-                        <tr>
-                            <td data-label="Nº OS">#1024</td>
-                            <td data-label="PROPRIETÁRIO">José Costa</td>
-                            <td data-label="DATA">12/05/2026</td>
-                            <td data-label="STATUS">
-                                <span class="status-dot dot-finalizado"></span> Finalizado
-                            </td>
-                            <td data-label="AÇÕES">
-                                <div class="acoes-flex">
-                                    <a href="detalhes-historico.php" class="btn-editar">ANALISAR</a>
-                                    <a href="excluir-historico.php" class="btn-excluir-vinho">EXCLUIR</a>
-                                </div>
-                            </td>
-                        </tr>
+                    <tbody id="tableBody">
+                        <?php if (empty($historicos)): ?>
+                            <tr>
+                                <td colspan="5" style="text-align: center; color: #aaa; padding: 20px;">Nenhum atendimento finalizado registrado no histórico.</td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($historicos as $h): ?>
+                            <tr>
+                                <td data-label="Nº OS">#<?= htmlspecialchars($h['id']) ?></td>
+                                <td data-label="PROPRIETÁRIO"><strong><?= htmlspecialchars($h['cliente_nome']) ?></strong></td>
+                                <td data-label="DATA"><?= date('d/m/Y', strtotime($h['data_entrada'])) ?></td>
+                                <td data-label="STATUS">
+                                    <span class="status-dot dot-finalizado"></span> Finalizado
+                                </td>
+                                <td data-label="AÇÕES">
+                                    <div class="acoes-flex">
+                                        <a href="detalhes-historico.php?id=<?= $h['id'] ?>" class="btn-editar">ANALISAR</a>
+                                        <a href="excluir-historico.php?id=<?= $h['id'] ?>" class="btn-excluir-vinho">EXCLUIR</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div> 
@@ -106,6 +124,27 @@ require_once('conexao/conexao.php');
         if(btnMobile && sidebar) {
             btnMobile.addEventListener('click', () => sidebar.classList.toggle('open'));
         }
+
+        // Filtro em tempo real
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#tableBody tr');
+            
+            rows.forEach(row => {
+                const idCell = row.querySelector('td[data-label="Nº OS"]');
+                const propCell = row.querySelector('td[data-label="PROPRIETÁRIO"]');
+                if (idCell && propCell) {
+                    const idText = idCell.textContent.toLowerCase();
+                    const propText = propCell.textContent.toLowerCase();
+                    if (idText.includes(filter) || propText.includes(filter)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            });
+        });
     </script>
 </body>
 </html>
