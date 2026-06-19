@@ -163,6 +163,7 @@ $clientes = $stmt_clientes->fetchAll();
                                 <td data-label="AÇÕES">
                                     <div class="acoes-flex">
                                         <a href="cadastroveiculo.php?cliente_cpf=<?= $c['cpf'] ?>" class="btn-editar" style="background-color: #3498db; margin-right: 5px;">VEÍCULOS</a>
+                                        <a href="editar-cliente.php?cpf=<?= $c['cpf'] ?>" class="btn-editar" style="background-color: #2ecc71; margin-right: 5px;">EDITAR</a>
                                         <a href="cadastrocliente.php?excluir=<?= $c['cpf'] ?>" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">EXCLUIR</a>
                                     </div>
                                 </td>

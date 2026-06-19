@@ -1,3 +1,11 @@
+<?php 
+require_once('conexao/conexao.php');
+
+if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_perfil'], ['Admin', 'Recepcionista'])) {
+    header("Location: index.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -31,7 +39,7 @@
             <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
             <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
             <li><a href="minha-conta-recep.php">Minha conta</a></li> 
-            <li><a href="index.php" class="logout-link">Sair</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -45,22 +53,22 @@
                     <div class="form-row">
                         <div class="grupo-input-dark flex-3">
                             <label>NOME COMPLETO</label>
-                            <input type="text" placeholder="Ex: João Silva" required>
+                            <input type="text" name="nome_completo" placeholder="Ex: João Silva" required>
                         </div>
                         <div class="grupo-input-dark flex-1">
                             <label>CPF / CNPJ</label>
-                            <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="18" required>
+                            <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" maxlength="18" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="grupo-input-dark flex-1">
                             <label>TELEFONE / WHATSAPP</label>
-                            <input type="text" id="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
+                            <input type="text" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
                         </div>
                         <div class="grupo-input-dark flex-2">
                             <label>E-MAIL</label>
-                            <input type="email" placeholder="cliente@email.com">
+                            <input type="email" name="email" placeholder="cliente@email.com">
                         </div>
                     </div>
 

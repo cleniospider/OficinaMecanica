@@ -48,6 +48,11 @@ CREATE TABLE IF NOT EXISTS `OS` (
   `data_entrada` DATETIME NOT NULL,
   `veiculo_id1` INT NOT NULL,
   `clientes_cpf` VARCHAR(11) NOT NULL,
+  `problema` TEXT NULL,
+  `servicos` TEXT NULL,
+  `pecas_usadas` TEXT NULL,
+  `valor_total` DECIMAL(10,2) NULL DEFAULT 0.00,
+  `status` VARCHAR(20) NOT NULL DEFAULT 'ativo',
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_OS_veiculo1`
     FOREIGN KEY (`veiculo_id1`)
@@ -60,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `OS` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `usuarios`

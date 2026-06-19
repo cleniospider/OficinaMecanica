@@ -598,6 +598,18 @@ try {
     $pdo = new PDO("mysql:host=$servidor;port=$porta;dbname=$banco;charset=utf8mb4", $usuario, $senha);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+    // MIGRATION AUTOMÁTICA DA TABELA OS
+    $check_os = $pdo->query("SHOW COLUMNS FROM `OS` LIKE 'problema'")->fetch();
+    if (!$check_os) {
+        $pdo->exec("ALTER TABLE `OS` 
+            ADD COLUMN `problema` TEXT NULL,
+            ADD COLUMN `servicos` TEXT NULL,
+            ADD COLUMN `pecas_usadas` TEXT NULL,
+            ADD COLUMN `valor_total` DECIMAL(10,2) NULL DEFAULT 0.00,
+            ADD COLUMN `status` VARCHAR(20) NOT NULL DEFAULT 'ativo'
+        ");
+    }
 } catch (PDOException $e) {
     die("Erro de conexão PDO crítico: " . $e->getMessage());
 }

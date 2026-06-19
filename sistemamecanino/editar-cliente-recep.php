@@ -1,3 +1,51 @@
+<?php 
+require_once('conexao/conexao.php');
+
+if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_perfil'], ['Admin', 'Recepcionista'])) {
+    header("Location: index.php");
+    exit;
+}
+
+$erro = "";
+$sucesso = "";
+
+$cpf = $_GET['cpf'] ?? '';
+$cpf_limpo = preg_replace('/\D/', '', $cpf);
+
+// Buscar cliente
+$stmt = $pdo->prepare("SELECT * FROM clientes WHERE cpf = ?");
+$stmt->execute([$cpf_limpo]);
+$cliente = $stmt->fetch();
+
+if (!$cliente) {
+    header("Location: cadastrocliente-recep.php");
+    exit;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome = trim($_POST['nome'] ?? '');
+    $telefone = trim($_POST['telefone'] ?? '');
+    $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
+
+    if (!empty($nome) && !empty($telefone)) {
+        try {
+            $stmt_update = $pdo->prepare("UPDATE clientes SET `nome completo` = ?, telefone = ?, email = ? WHERE cpf = ?");
+            $stmt_update->execute([$nome, $telefone, $email, $cpf_limpo]);
+            
+            // Sincronizar o nome do cliente na tabela de veículos
+            $stmt_up_veic = $pdo->prepare("UPDATE veiculo SET cliente = ? WHERE clientes_cpf = ?");
+            $stmt_up_veic->execute([$nome, $cpf_limpo]);
+
+            header("Location: cadastrocliente-recep.php?cadastro_sucesso=" . urlencode("Cliente atualizado com sucesso!"));
+            exit;
+        } catch (PDOException $e) {
+            $erro = "Erro ao atualizar cliente: " . $e->getMessage();
+        }
+    } else {
+        $erro = "Preencha todos os campos obrigatórios!";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,6 +54,16 @@
     <title>Auto Repair - Editar Cliente (Recepção)</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/editar_cliente.css">
+    <style>
+        .alert-error {
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body class="dark-theme">
 
@@ -31,7 +89,7 @@
             <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
             <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
             <li><a href="minha-conta-recep.php">Minha conta</a></li> 
-            <li><a href="index.php" class="logout-link">Sair</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -40,28 +98,32 @@
             
             <h2 class="titulo-os">EDITAR CADASTRO <span class="n-os">DE CLIENTE</span></h2>
 
+            <?php if (!empty($erro)): ?>
+                <div class="alert-error"><?= htmlspecialchars($erro) ?></div>
+            <?php endif; ?>
+
             <div class="caixa-gerenciar">
-                <form class="form-os" action="cadastrocliente-recep.html" method="POST">
+                <form class="form-os" method="POST">
                     
                     <div class="campo-grupo">
                         <label>Nome Completo:</label>
-                        <input type="text" value="Marcos Silva" required>
+                        <input type="text" name="nome" value="<?= htmlspecialchars($cliente['nome completo']) ?>" required>
                     </div>
 
                     <div class="campo-grupo">
                         <label>CPF / CNPJ:</label>
-                        <input type="text" id="cpf_cnpj" value="123.456.789-00" required maxlength="18">
+                        <input type="text" id="cpf_cnpj" value="<?= htmlspecialchars($cliente['cpf']) ?>" readonly style="background: #2a2a2a; color: #888; cursor: not-allowed;">
                     </div>
 
                     <div class="linha-dupla">
                         <div class="campo-grupo">
                             <label>Telefone / WhatsApp:</label>
-                            <input type="text" id="telefone" value="(11) 98888-7777" required maxlength="15">
+                            <input type="text" id="telefone" name="telefone" value="<?= htmlspecialchars($cliente['telefone']) ?>" required maxlength="15">
                         </div>
 
                         <div class="campo-grupo">
                             <label>E-mail:</label>
-                            <input type="email" value="marcos@email.com">
+                            <input type="email" name="email" value="<?= htmlspecialchars($cliente['email']) ?>">
                         </div>
                     </div>
 

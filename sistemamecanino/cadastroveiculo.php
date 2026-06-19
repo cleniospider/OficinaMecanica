@@ -186,6 +186,7 @@ $veiculos = $stmt_veiculos->fetchAll();
                                 <td data-label="PROPRIETÁRIO"><?= htmlspecialchars($v['cliente']) ?></td>
                                 <td data-label="AÇÕES">
                                     <div class="acoes-flex">
+                                        <a href="editar-veiculo.php?id=<?= $v['id'] ?>" class="btn-editar" style="background-color: #2ecc71; margin-right: 5px;">EDITAR</a>
                                         <a href="cadastroveiculo.php?excluir=<?= $v['id'] ?>" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir este veículo?')">EXCLUIR</a>
                                     </div>
                                 </td>
