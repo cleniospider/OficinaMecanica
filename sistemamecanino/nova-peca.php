@@ -33,10 +33,10 @@ require_once('conexao/conexao.php');
         </div>
         <ul class="nav-links">
             <li><a href="admin.php">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente.php" class="active">Cadastro Cliente</a></li>
+            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
             <li><a href="ordens.php">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico.php">Estoque de Peças</a></li>
+            <li><a href="estoque-critico.php" class="active">Estoque de Peças</a></li>
             <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
             <li><a href="financeiro.php">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
@@ -76,7 +76,7 @@ require_once('conexao/conexao.php');
 
                     <div class="footer-acoes">
                         <button type="submit" class="btn-acao btn-salvar-os">SALVAR CADASTRO</button>
-                        <a href="cadastrocliente.php" class="btn-acao btn-voltar-os">VOLTAR</a>
+                        <a href="estoque-critico.php" class="btn-acao btn-voltar-os">VOLTAR</a>
                     </div>
                 </form>
             </div>
