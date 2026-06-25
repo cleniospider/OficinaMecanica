@@ -8,34 +8,36 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 
 try {
-    // 1. Calcular Saldo Atual (Receitas pagas - Despesas pagas)
+    // 1. Saldo Atual = total de receitas pagas - total de despesas pagas
     $stmt_saldo = $pdo->query("
         SELECT 
-            SUM(CASE WHEN tipo = '1: Receita' AND status = 'PAGO' THEN valor ELSE 0 END) -
-            SUM(CASE WHEN tipo = '2: Despesa' AND status = 'PAGO' THEN valor ELSE 0 END) AS saldo
+            COALESCE(SUM(CASE WHEN tipo = '1: Receita' AND status = 'PAGO' THEN valor ELSE 0 END), 0) -
+            COALESCE(SUM(CASE WHEN tipo = '2: Despesa' AND status = 'PAGO' THEN valor ELSE 0 END), 0) AS saldo
         FROM Financeiro
     ");
     $saldo_atual = floatval($stmt_saldo->fetchColumn() ?: 0.0);
 
-    // 2. Calcular A Receber (Receitas aguardando)
+    // 2. A Receber = receitas pendentes (Aguardando) 
     $stmt_receber = $pdo->query("
-        SELECT SUM(valor) FROM Financeiro WHERE tipo = '1: Receita' AND status = 'Aguardando'
+        SELECT COALESCE(SUM(valor), 0) FROM Financeiro 
+        WHERE tipo = '1: Receita' AND status IN ('Aguardando', 'aguardando', 'AGUARDANDO')
     ");
     $a_receber = floatval($stmt_receber->fetchColumn() ?: 0.0);
 
-    // 3. Calcular A Pagar (Despesas aguardando)
+    // 3. A Pagar = despesas pendentes (Aguardando)
     $stmt_pagar = $pdo->query("
-        SELECT SUM(valor) FROM Financeiro WHERE tipo = '2: Despesa' AND status = 'Aguardando'
+        SELECT COALESCE(SUM(valor), 0) FROM Financeiro 
+        WHERE tipo = '2: Despesa' AND status IN ('Aguardando', 'aguardando', 'AGUARDANDO')
     ");
     $a_pagar = floatval($stmt_pagar->fetchColumn() ?: 0.0);
 
-    // 4. Buscar Lançamentos
+    // 4. Buscar Lançamentos com dados do cliente via OS
     $stmt_trans = $pdo->query("
         SELECT f.*, c.`nome completo` AS cliente_nome 
         FROM Financeiro f
         LEFT JOIN OS o ON f.OS_id = o.id
         LEFT JOIN clientes c ON o.clientes_cpf = c.cpf
-        ORDER BY f.data DESC
+        ORDER BY f.data DESC, f.id DESC
     ");
     $transacoes = $stmt_trans->fetchAll();
 } catch (PDOException $e) {

@@ -1,10 +1,41 @@
 <?php 
 require_once('conexao/conexao.php');
 
+// Proteção de sessão
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: index.php");
+    exit;
+}
+
+// Buscar dados atualizados do usuário no banco
+$usuario = null;
+try {
+    $stmt = $pdo->prepare("SELECT id, nome_completo, email, perfil FROM usuarios WHERE id = ?");
+    $stmt->execute([$_SESSION['usuario_id']]);
+    $usuario = $stmt->fetch();
+} catch (PDOException $e) {
+    // fallback para sessão
+}
+
+$nome    = $usuario['nome_completo'] ?? $_SESSION['usuario_nome'] ?? 'Usuário';
+$email   = $usuario['email']        ?? 'Não informado';
+$perfil  = $usuario['perfil']       ?? $_SESSION['usuario_perfil'] ?? 'Usuário';
+
+// URL do painel de acordo com o perfil
+$painel = match($perfil) {
+    'Admin'         => 'admin.php',
+    'Mecanico'      => 'mecan.php',
+    'Recepcionista' => 'recep.php',
+    default         => 'index.php'
+};
+
+$nivel = match($perfil) {
+    'Admin'         => 'Nível 1 — Administrador',
+    'Mecanico'      => 'Nível 2 — Mecânico',
+    'Recepcionista' => 'Nível 3 — Recepcionista',
+    default         => 'Nível Indefinido'
+};
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -29,20 +60,30 @@ require_once('conexao/conexao.php');
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text">ADMINISTRADOR</span>
+                <span class="role-text"><?= htmlspecialchars(strtoupper($perfil)) ?></span>
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="admin.php">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
+            <li><a href="<?= $painel ?>">Painel de Gestão</a></li>
+            <?php if ($perfil === 'Admin'): ?>
+                <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
+            <?php endif; ?>
+            <?php if ($perfil !== 'Mecanico'): ?>
+                <li><a href="<?= $perfil === 'Recepcionista' ? 'cadastrocliente-recep.php' : 'cadastrocliente.php' ?>">Cadastro Cliente</a></li>
+                <li><a href="<?= $perfil === 'Recepcionista' ? 'cadastroveiculo-recep.php' : 'cadastroveiculo.php' ?>">Cadastro Veículo</a></li>
+            <?php endif; ?>
             <li><a href="ordens.php">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico.php">Estoque de Peças</a></li>
+            <li><a href="servicos.php">Serviços</a></li>
+            <?php if ($perfil !== 'Recepcionista'): ?>
+                <li><a href="estoque-critico.php">Estoque de Peças</a></li>
+            <?php endif; ?>
             <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
-            <li><a href="financeiro.php">Financeiro</a></li>
-            <li><a href="relatorios.php">Relatórios</a></li>
-            <li><a href="minha-conta.php" class="active">Minha conta</a></li>
-            <li><a href="index.php" class="logout-link">Sair</a></li>
+            <?php if ($perfil === 'Admin'): ?>
+                <li><a href="financeiro.php">Financeiro</a></li>
+                <li><a href="relatorios.php">Relatórios</a></li>
+            <?php endif; ?>
+            <li><a href="minha-conta.php" class="active">Minha Conta</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -53,34 +94,37 @@ require_once('conexao/conexao.php');
             </div>
 
             <div class="profile-main-card">
-                <img src="img/download.png" class="profile-avatar-large">
-                <h2>ADMINISTRADOR</h2>
-                <span class="badge-admin">Nível 1</span>
+                <img src="img/download.png" class="profile-avatar-large" alt="Avatar">
+                <h2><?= htmlspecialchars($nome) ?></h2>
+                <span class="badge-admin"><?= htmlspecialchars($nivel) ?></span>
             </div>
 
             <div class="data-table-section">
                 <div class="data-row">
                     <div class="data-label">USUÁRIO</div>
-                    <div class="data-value">Aphonsa Nunes</div>
+                    <div class="data-value"><?= htmlspecialchars($nome) ?></div>
                 </div>
                 <div class="data-row">
-                    <div class="data-label">E-MAIL PRINCIPAL</div>
-                    <div class="data-value">aphonsa@autorepair.com</div>
+                    <div class="data-label">E-MAIL</div>
+                    <div class="data-value"><?= htmlspecialchars($email) ?></div>
                 </div>
                 <div class="data-row">
                     <div class="data-label">CARGO</div>
-                    <div class="data-value">ADMIN</div>
+                    <div class="data-value"><?= htmlspecialchars(strtoupper($perfil)) ?></div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">STATUS</div>
+                    <div class="data-value" style="color: #2ecc71; font-weight: bold;">✔ Ativo</div>
                 </div>
             </div>
 
-            <a href="configuracoes.php" class="btn-show-modal" style="text-decoration: none; display: block; text-align: center;">
+            <a href="<?= $perfil === 'Admin' ? 'configuracoes.php' : ($perfil === 'Mecanico' ? 'configuracoes-mecan.php' : 'configuracoes-recep.php') ?>" class="btn-show-modal" style="text-decoration: none; display: block; text-align: center;">
                 ⚙️ CONFIGURAÇÕES DA CONTA
             </a>
         </div>
     </main>
 
     <script>
-        // Mantemos apenas a lógica do Menu Lateral
         const btnMobile = document.querySelector('.hamburger-btn');
         const sidebar = document.querySelector('#sidebar');
         
@@ -88,7 +132,10 @@ require_once('conexao/conexao.php');
             btnMobile.addEventListener('click', () => sidebar.classList.toggle('open'));
         }
 
-        // Removi a lógica do modal, pois agora você vai navegar para outra página!
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => sidebar.classList.remove('open'));
+        });
     </script>
 </body>
 </html>

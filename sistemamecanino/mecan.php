@@ -42,7 +42,7 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Mecanico
             <li><a href="servicos.php">Serviços</a></li>
             <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
             <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-mecan.php">Minha conta</a></li>
+            <li><a href="minha-conta.php">Minha conta</a></li>
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>

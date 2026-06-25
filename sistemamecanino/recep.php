@@ -41,7 +41,7 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Recepcio
             <li><a href="ordens.php">Ordens de Serviços</a></li>
             <li><a href="servicos.php">Serviços</a></li>
             <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.php">Minha conta</a></li> 
+            <li><a href="minha-conta.php">Minha conta</a></li> 
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>

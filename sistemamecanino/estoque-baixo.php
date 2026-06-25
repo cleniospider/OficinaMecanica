@@ -73,10 +73,14 @@ try {
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="admin.php">Painel de Gestão</a></li>
+            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : ($_SESSION['usuario_perfil'] === 'Mecanico' ? 'mecan.php' : 'recep.php') ?>">Painel de Gestão</a></li>
+            <?php if ($_SESSION['usuario_perfil'] === 'Admin'): ?>
+                <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
+            <?php endif; ?>
             <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
             <li><a href="ordens.php">Ordens de Serviços</a></li>
+            <li><a href="servicos.php">Serviços</a></li>
             <li><a href="estoque-critico.php" class="active">Estoque de Peças</a></li>
             <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
             <li><a href="financeiro.php">Financeiro</a></li>
