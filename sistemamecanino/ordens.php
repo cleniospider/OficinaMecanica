@@ -1,27 +1,28 @@
 <?php 
+session_start();
 require_once('conexao/conexao.php');
 
-// Proteção de sessão
+
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: index.php");
     exit;
 }
 
-// Buscar todas as Ordens de Serviço
+
+// Buscar todas as Ordens de Serviço cadastradas
 try {
     $stmt = $pdo->query("
         SELECT o.*, v.placa, v.`marca/modelo` AS veiculo_modelo, c.`nome completo` AS cliente_nome 
         FROM OS o
-        JOIN veiculo v ON o.veiculo_id1 = v.id
-        JOIN clientes c ON o.clientes_cpf = c.cpf
+        LEFT JOIN veiculo v ON o.veiculo_id1 = v.id
+        LEFT JOIN clientes c ON o.clientes_cpf = c.cpf
         ORDER BY o.id DESC
     ");
-    $ordens = $stmt->fetchAll();
+    $ordens = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    die("Erro ao buscar ordens de serviço: " . $e->getMessage());
+    die("Erro ao carregar as ordens de serviço: " . $e->getMessage());
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
