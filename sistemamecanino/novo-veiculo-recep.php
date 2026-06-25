@@ -1,3 +1,21 @@
+<?php 
+require_once('conexao/conexao.php');
+
+// Proteção de sessão
+if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_perfil'], ['Admin', 'Recepcionista'])) {
+    header("Location: index.php");
+    exit;
+}
+
+// Buscar clientes para o dropdown
+try {
+    $stmt_cli = $pdo->query("SELECT cpf, `nome completo` FROM clientes ORDER BY `nome completo` ASC");
+    $clientes_lista = $stmt_cli->fetchAll();
+} catch (PDOException $e) {
+    die("Erro ao carregar proprietários: " . $e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -32,7 +50,7 @@
             <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
             <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
             <li><a href="minha-conta-recep.php">Minha conta</a></li>
-            <li><a href="index.php" class="logout-link">Sair</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -43,10 +61,10 @@
             </div>
 
             <div class="caixa-formulario">
-                <form action="cadastroveiculo-recep.php" class="form-estilizado">
+                <form action="cadastroveiculo-recep.php" method="POST" class="form-estilizado">
                     <div class="grupo-input">
                         <label for="marcas-veiculo">Marca do veículo:</label>
-                        <select name="marcas" id="marcas-veiculo">
+                        <select name="marca" id="marcas-veiculo" required>
                             <option value="">Selecione uma marca</option>
                             <option value="Acura">Acura</option>
                             <option value="Agrale">Agrale</option>
@@ -96,30 +114,31 @@
                     </div>
                     <div class="grupo-input">
                         <label>Modelo</label>
-                        <input type="text" placeholder="Ex: CBR 600RR" required>
+                        <input type="text" name="modelo" placeholder="Ex: CBR 600RR" required>
                     </div>
 
                     <div class="grupo-input">
                         <label>Placa</label>
-                        <input type="text" placeholder="Ex: ABC-1234" required style="text-transform: uppercase;">
+                        <input type="text" name="placa" placeholder="Ex: ABC-1234" required style="text-transform: uppercase;">
                     </div>
 
                     <div class="grupo-input">
                         <label for="ano-veiculo">Ano</label>
-                        <input type="tel" id="ano-veiculo" placeholder="Ex: 2024" required>
+                        <input type="tel" id="ano-veiculo" name="ano" placeholder="Ex: 2024" required>
                     </div>
 
                     <div class="grupo-input">
                         <label>Cor</label>
-                        <input type="text" placeholder="Ex: Prata" required>
+                        <input type="text" name="cor" placeholder="Ex: Prata" required>
                     </div>
 
                     <div class="grupo-input">
                         <label>Proprietário</label>
-                        <select required>
+                        <select name="clientes_cpf" required>
                             <option value="" disabled selected>Selecione um cliente</option>
-                            <option value="1">Marcos Silva</option>
-                            <option value="2">José Costa</option>
+                            <?php foreach ($clientes_lista as $cli): ?>
+                                <option value="<?= htmlspecialchars($cli['cpf']) ?>"><?= htmlspecialchars($cli['nome completo']) ?> (CPF: <?= htmlspecialchars($cli['cpf']) ?>)</option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     
@@ -137,6 +156,8 @@
             <span class="close-btn">&times;</span>
             <h2>Minha Conta</h2>
             <div class="conta-dados">
+                <p><strong>Nome:</strong> <?= htmlspecialchars($_SESSION['usuario_nome'] ?? '') ?></p>
+                <p><strong>Perfil:</strong> <?= htmlspecialchars($_SESSION['usuario_perfil'] ?? '') ?></p>
                 <p><strong>Status:</strong> <span style="color: #00cc44;">Ativo ✔️</span></p>
             </div>
             <button class="btn-fechar-modal">Fechar</button>
@@ -148,9 +169,11 @@
         const sidebar = document.querySelector('#sidebar');
 
         // Abre e fecha o menu lateral
-        btnMobile.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-        });
+        if (btnMobile) {
+            btnMobile.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        }
 
         // Fecha o menu ao clicar em um link
         const links = document.querySelectorAll('.nav-links a');
@@ -161,7 +184,7 @@
         });
 
         // Lógica do Modal de Conta
-        const linkConta = document.querySelector('a[style*="cursor:pointer"]'); 
+        const linkConta = document.querySelector('a[href="minha-conta-recep.php"]'); 
         const modal = document.querySelector('#modal-conta');
         const btnFechar = document.querySelector('.btn-fechar-modal');
         const btnX = document.querySelector('.close-btn');

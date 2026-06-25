@@ -1,3 +1,20 @@
+<?php 
+require_once('conexao/conexao.php');
+
+// Proteção de sessão
+if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_perfil'], ['Admin', 'Mecanico'])) {
+    header("Location: index.php");
+    exit;
+}
+
+try {
+    $stmt = $pdo->query("SELECT * FROM pecas WHERE estoque_atual > estoque_minimo ORDER BY nome ASC");
+    $pecas = $stmt->fetchAll();
+} catch (PDOException $e) {
+    die("Erro ao carregar estoque OK: " . $e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,6 +24,36 @@
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/ordens.css">
     <link rel="stylesheet" href="css/estoque.css">
+    <style>
+        .peca-card-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .acoes-peca {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-peca-edit {
+            background-color: #2ecc71;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .btn-peca-del {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
@@ -31,7 +78,7 @@
             <li><a href="estoque-critico-mecan.php" class="active">Estoque de Peças</a></li>
             <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
             <li><a href="minha-conta-mecan.php">Minha conta</a></li>
-            <li><a href="index.php" class="logout-link">Sair</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -50,110 +97,52 @@
                     </div>
 
                     <div class="busca-acoes">
-                        <input type="text" class="input-busca" placeholder=" Pesquisar por nome...">
+                        <input type="text" id="searchPeca" class="input-busca" placeholder=" Pesquisar por nome...">
                         <a href="nova-peca-mecan.php" class="btn-nova-peca">+ NOVA PEÇA</a>
                     </div>
                 </div>
 
-                <div class="lista-pecas">
-                    <div class="peca-card">
-                        <div class="peca-info-esquerda">
-                            <div class="peca-img-caixa"><img src="img/bombadgua.webp"></div>
-                            <div class="peca-texto">
-                                <h4>Bomba D'água (Palio)</h4>
-                                <p>R$ 150,00</p>
+                <div class="lista-pecas" id="listaPecasContainer">
+                    <?php if (empty($pecas)): ?>
+                        <p style="text-align: center; color: #aaa; width: 100%; margin-top: 20px;">Nenhuma peça no estoque OK.</p>
+                    <?php else: ?>
+                        <?php foreach ($pecas as $p): 
+                            $img = !empty($p['url_imagem']) ? $p['url_imagem'] : 'img/pastilha.jpg'; // fallback
+                        ?>
+                            <div class="peca-card">
+                                <div class="peca-card-flex">
+                                    <div class="peca-info-esquerda">
+                                        <div class="peca-img-caixa"><img src="<?= htmlspecialchars($img) ?>" alt="Imagem da peça"></div>
+                                        <div class="peca-texto">
+                                            <h4><?= htmlspecialchars($p['nome']) ?></h4>
+                                            <p>R$ <?= number_format($p['preco_venda'], 2, ',', '.') ?></p>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div class="peca-qtd-direita" style="margin-bottom: 5px;"><?= htmlspecialchars($p['estoque_atual']) ?> un.</div>
+                                        <div class="acoes-peca">
+                                            <a href="editar-peca-mecan.php?id=<?= $p['id'] ?>" class="btn-peca-edit">EDITAR</a>
+                                            <a href="excluir-peca.php?id=<?= $p['id'] ?>" class="btn-peca-del" onclick="return confirm('Deseja realmente excluir esta peça do estoque?')">EXCLUIR</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="peca-qtd-direita">15 un.</div>
-                    </div>
-
-                    <div class="peca-card">
-                        <div class="peca-info-esquerda">
-                            <div class="peca-img-caixa"><img src="img/correiamecanica.jpg"></div>
-                            <div class="peca-texto">
-                                <h4>Correia Multi-V (Alternador)</h4>
-                                <p>R$ 50,00</p>
-                            </div>
-                        </div>
-                        <div class="peca-qtd-direita">20 un.</div>
-                    </div>
-
-                    <div class="peca-card">
-                        <div class="peca-info-esquerda">
-                            <div class="peca-img-caixa"><img src="img/filtrodeoleo.png"></div>
-                            <div class="peca-texto">
-                                <h4>Filtro de Óleo</h4>
-                                <p>R$ 45,00</p>
-                            </div>
-                        </div>
-                        <div class="peca-qtd-direita">35 un.</div>
-                    </div>
-
-                    <div class="peca-card">
-                        <div class="peca-info-esquerda">
-                            <div class="peca-img-caixa"><img src="img/anilha.webp"></div>
-                            <div class="peca-texto">
-                                <h4>Anilha de Vedação do Cárter (Alumínio)</h4>
-                                <p>R$ 15,00</p>
-                            </div>
-                        </div>
-                        <div class="peca-qtd-direita">50 un.</div>
-                    </div>
-
-                    <div class="peca-card">
-                        <div class="peca-info-esquerda">
-                            <div class="peca-img-caixa"><img src="img/lampada.webp"></div>
-                            <div class="peca-texto">
-                                <h4>Lâmpada de Farol H7 (Extra White)</h4>
-                                <p>R$ 160,00</p>
-                            </div>
-                        </div>
-                        <div class="peca-qtd-direita">18 un.</div>
-                    </div>
-
-                    <div class="peca-card">
-                        <div class="peca-info-esquerda">
-                            <div class="peca-img-caixa"><img src="img/coxim.webp"></div>
-                            <div class="peca-texto">
-                                <h4>Kit Coxim Amortecedor Dianteiro golf GTI</h4>
-                                <p>R$ 1.600,00</p>
-                            </div>
-                        </div>
-                        <div class="peca-qtd-direita">12 un.</div>
-                    </div>
-
-                    <div class="peca-card">
-                        <div class="peca-info-esquerda">
-                            <div class="peca-img-caixa"><img src="img/liquido.webp"></div>
-                            <div class="peca-texto">
-                                <h4>Líquido de Arrefecimento</h4>
-                                <p>R$ 20,00</p>
-                            </div>
-                        </div>
-                        <div class="peca-qtd-direita">25 un.</div>
-                    </div>
-
-                    <div class="peca-card">
-                        <div class="peca-info-esquerda">
-                            <div class="peca-img-caixa"><img src="img/cabosdevela.webp"></div>
-                            <div class="peca-texto">
-                                <h4>Cabos de Velas</h4>
-                                <p>R$ 90,00</p>
-                            </div>
-                        </div>
-                        <div class="peca-qtd-direita">12 un.</div>
-                    </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </main>
+
     <script>
         const btnMobile = document.querySelector('.hamburger-btn');
         const sidebar = document.querySelector('#sidebar');
 
-        btnMobile.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-        });
+        if(btnMobile) {
+            btnMobile.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        }
 
         const links = document.querySelectorAll('.nav-links a');
         links.forEach(link => {
@@ -161,6 +150,27 @@
                 sidebar.classList.remove('open');
             });
         });
+
+        // Filtro em tempo real
+        const searchPeca = document.getElementById('searchPeca');
+        if (searchPeca) {
+            searchPeca.addEventListener('input', function() {
+                const filter = this.value.toLowerCase();
+                const cards = document.querySelectorAll('.peca-card');
+                
+                cards.forEach(card => {
+                    const titleNode = card.querySelector('.peca-texto h4');
+                    if (titleNode) {
+                        const title = titleNode.textContent.toLowerCase();
+                        if (title.includes(filter)) {
+                            card.style.display = "";
+                        } else {
+                            card.style.display = "none";
+                        }
+                    }
+                });
+            });
+        }
     </script>
 </body>
 </html>

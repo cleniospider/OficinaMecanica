@@ -1,18 +1,63 @@
 <?php 
 require_once('conexao/conexao.php');
 
+// Proteção de sessão
+if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_perfil'], ['Admin', 'Mecanico'])) {
+    header("Location: index.php");
+    exit;
+}
+
+$erro = "";
+$sucesso = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nome'])) {
+    $nome = trim($_POST['nome']);
+    $estoque_atual = filter_var($_POST['estoque_atual'], FILTER_VALIDATE_INT);
+    $estoque_minimo = filter_var($_POST['estoque_minimo'], FILTER_VALIDATE_INT);
+    $url_imagem = trim($_POST['url_imagem'] ?? '');
+
+    // Limpar preco_venda
+    $valor_str = $_POST['preco_venda'];
+    $valor_clean = str_replace(['R$', ' ', '.', ','], ['', '', '', '.'], $valor_str);
+    $preco_venda = floatval($valor_clean);
+
+    if (!empty($nome) && $preco_venda >= 0 && $estoque_atual !== false && $estoque_minimo !== false) {
+        try {
+            $stmt = $pdo->prepare("
+                INSERT INTO pecas (nome, preco_venda, estoque_atual, estoque_minimo, url_imagem) 
+                VALUES (?, ?, ?, ?, ?)
+            ");
+            $stmt->execute([$nome, $preco_venda, $estoque_atual, $estoque_minimo, $url_imagem]);
+            $sucesso = "Peça cadastrada com sucesso!";
+            header("Location: estoque-critico.php");
+            exit;
+        } catch (PDOException $e) {
+            $erro = "Erro ao cadastrar peça: " . $e->getMessage();
+        }
+    } else {
+        $erro = "Preencha todos os campos obrigatórios corretamente!";
+    }
+}
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Repair - Novo Cliente</title>
+    <title>Auto Repair - Nova Peça</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/novo-cliente.css">
+    <style>
+        .alert-error {
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
 
@@ -28,7 +73,7 @@ require_once('conexao/conexao.php');
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text">ADMINISTRADOR</span>
+                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'])) ?></span>
             </div>
         </div>
         <ul class="nav-links">
@@ -41,37 +86,46 @@ require_once('conexao/conexao.php');
             <li><a href="financeiro.php">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
             <li><a href="minha-conta.php">Minha conta</a></li>
-            <li><a href="index.php" class="logout-link">Sair</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
     <main class="main-content">
         <div class="container-form-dark">
-            <h2 class="titulo-sessao">CADASTRAR NOVO CLIENTE </span></h2>
+            <h2 class="titulo-sessao">CADASTRAR NOVA PEÇA NO ESTOQUE</h2>
             
+            <?php if (!empty($erro)): ?>
+                <div class="alert-error"><?= htmlspecialchars($erro) ?></div>
+            <?php endif; ?>
+
             <div class="card-dark">
-                <form action="cadastrocliente.php" method="POST">
+                <form method="POST">
                     
                     <div class="form-row">
                         <div class="grupo-input-dark flex-3">
-                            <label>NOME COMPLETO</label>
-                            <input type="text" placeholder="Ex: João Silva" required>
+                            <label>NOME DA PEÇA</label>
+                            <input type="text" name="nome" placeholder="Ex: Pastilha de Freio" required>
                         </div>
                         <div class="grupo-input-dark flex-1">
-                            <label>CPF / CNPJ</label>
-                            <input type="text" id="cpf" name = "cpf" placeholder="000.000.000-00" maxlength="18" required>
+                            <label>PREÇO DE VENDA</label>
+                            <input type="text" id="preco_venda" name="preco_venda" placeholder="R$ 0,00" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="grupo-input-dark flex-1">
-                            <label>TELEFONE / WHATSAPP</label>
-                            <input type="text" id="telefone" name ="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
+                            <label>ESTOQUE ATUAL</label>
+                            <input type="number" name="estoque_atual" placeholder="Ex: 10" min="0" required>
                         </div>
-                        <div class="grupo-input-dark flex-2">
-                            <label>E-MAIL</label>
-                            <input type="email" placeholder="cliente@email.com">
+                        <div class="grupo-input-dark flex-1">
+                            <label>ESTOQUE MÍNIMO DE ALERTA</label>
+                            <input type="number" name="estoque_minimo" placeholder="Ex: 5" min="0" required>
                         </div>
+                    </div>
+
+                    <div class="grupo-input-dark">
+                        <label>URL DA IMAGEM DA PEÇA (OPCIONAL)</label>
+                        <input type="text" name="url_imagem" placeholder="Ex: img/pastilha.jpg">
                     </div>
 
                     <div class="footer-acoes">
@@ -84,38 +138,15 @@ require_once('conexao/conexao.php');
     </main>
 
     <script>
-        // Mantive seus scripts de máscara aqui...
-        const inputCpf = document.getElementById('cpf');
-        const inputTelefone = document.getElementById('telefone');
-
-        inputCpf.addEventListener('input', () => {
-            let valor = inputCpf.value.replace(/\D/g, ''); 
-            if (valor.length <= 11) {
-                valor = valor.replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-            } else {
-                valor = valor.substring(0, 14).replace(/^(\d{2})(\d)/, '$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3').replace(/\.(\d{3})(\d)/, '.$1/$2').replace(/(\d{4})(\d)/, '$1-$2');
-            }
-            inputCpf.value = valor;
-        });
-
-        inputTelefone.addEventListener('input', () => {
-            let valor = inputTelefone.value.replace(/\D/g, '');
-            valor = valor.replace(/^(\d{2})(\d)/g, '($1) $2');
-            if (valor.length > 13) valor = valor.replace(/(\d{5})(\d)/, '$1-$2');
-            else valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
-            inputTelefone.value = valor;
-        });
-    </script>
-    <script>
         const btnMobile = document.querySelector('.hamburger-btn');
         const sidebar = document.querySelector('#sidebar');
 
-        // Abre e fecha o menu lateral
-        btnMobile.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-        });
+        if(btnMobile) {
+            btnMobile.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        }
 
-        // Fecha o menu ao clicar em um link (essencial para mobile)
         const links = document.querySelectorAll('.nav-links a');
         links.forEach(link => {
             link.addEventListener('click', () => {
@@ -123,34 +154,17 @@ require_once('conexao/conexao.php');
             });
         });
 
-        // Lógica do Modal de Conta
-        const linkConta = document.querySelector('a[style*="cursor:pointer"]'); 
-        const modal = document.querySelector('#modal-conta');
-        const btnFechar = document.querySelector('.btn-fechar-modal');
-        const btnX = document.querySelector('.close-btn');
-
-        if(linkConta) {
-            linkConta.addEventListener('click', (e) => {
-                e.preventDefault();
-                modal.style.display = 'flex';
+        // Formatação simples do campo de preço
+        const precoInput = document.getElementById('preco_venda');
+        if (precoInput) {
+            precoInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, "");
+                value = (value / 100).toFixed(2) + "";
+                value = value.replace(".", ",");
+                value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+                e.target.value = "R$ " + value;
             });
         }
-
-        [btnFechar, btnX].forEach(btn => {
-            if(btn) {
-                btn.addEventListener('click', () => {
-                    modal.style.display = 'none';
-                });
-            }
-        });
-
-        // Fecha o modal se clicar fora dele
-        window.addEventListener('click', (e) => {
-            if (e.target == modal) {
-                modal.style.display = 'none';
-            }
-        });
     </script>
-</body> </html>
 </body>
 </html>
