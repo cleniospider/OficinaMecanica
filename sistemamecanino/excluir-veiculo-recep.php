@@ -110,6 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="aviso-texto">Esta ação removerá permanentemente o veículo do sistema.</p>
                 
                 <form method="POST" class="form-exclusao">
+                    <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? $_GET['id']) ?>">
                     <div class="botoes-acao-excluir">
                         <a href="cadastroveiculo-recep.php" class="btn-cancelar-exclusao">CANCELAR</a>
                         <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>

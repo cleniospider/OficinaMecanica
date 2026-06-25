@@ -108,6 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="aviso-texto">Esta ação removerá o serviço do catálogo do sistema. Você não poderá excluir caso ele já tenha sido vinculado a alguma Ordem de Serviço.</p>
                 
                 <form method="POST" class="form-exclusao">
+                    <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? $_GET['id']) ?>">
                     <div class="botoes-acao-excluir">
                         <a href="servicos.php" class="btn-cancelar-exclusao">CANCELAR</a>
                         <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>

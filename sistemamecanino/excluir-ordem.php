@@ -38,6 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt_del_fin->execute([$id]);
 
         // 2. Excluir relacionamentos (peças e serviços)
+        $pdo->prepare("DELETE FROM estoque_pecas_has_OS WHERE OS_id = ?")->execute([$id]);
+        $pdo->prepare("DELETE FROM estoque_pecas_has_OS1 WHERE OS_id = ?")->execute([$id]);
         $pdo->prepare("DELETE FROM servicos_has_OS WHERE OS_id = ?")->execute([$id]);
         $pdo->prepare("DELETE FROM pecas_na_OS WHERE OS_id = ?")->execute([$id]);
 
@@ -127,6 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="aviso-texto">Esta ação não poderá ser desfeita e os dados do serviço e lançamentos financeiros associados serão perdidos.</p>
                 
                 <form method="POST" class="form-exclusao">
+                    <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? $_GET['id']) ?>">
                     <div class="botoes-acao-excluir">
                         <a href="ordens.php" class="btn-cancelar-exclusao">CANCELAR</a>
                         <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>
