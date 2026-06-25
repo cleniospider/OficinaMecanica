@@ -38,7 +38,8 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Mecanico
 
         <ul class="nav-links">
             <li><a href="mecan.php" class="active">Painel de Gestão</a></li>
-            <li><a href="ordens-mecanico.php">Ordens de Serviços</a></li>
+            <li><a href="ordens.php">Ordens de Serviços</a></li>
+            <li><a href="servicos.php">Serviços</a></li>
             <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
             <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
             <li><a href="minha-conta-mecan.php">Minha conta</a></li>
@@ -57,7 +58,8 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Mecanico
         </div>
 
         <div class="dashboard-grid">
-            <a href="ordens-mecanico.php" class="grid-card">ORDENS DE SERVIÇOS</a>
+            <a href="ordens.php" class="grid-card">ORDENS DE SERVIÇOS</a>
+            <a href="servicos.php" class="grid-card">SERVIÇOS</a>
             <a href="estoque-critico-mecan.php" class="grid-card">ESTOQUE DE PEÇAS</a>
             <a href="historico-veiculos-mecan.php" class="grid-card">HISTÓRICO DE VEÍCULOS</a>
         </div>

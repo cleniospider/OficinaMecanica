@@ -38,24 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nome_completo'])) {
     }
 }
 
-// 2. Processar Exclusão via GET
-if (isset($_GET['excluir'])) {
-    $cpf_excluir = preg_replace('/\D/', '', $_GET['excluir']);
-    try {
-        // Verificar se o cliente possui veículos cadastrados para evitar erros de chave estrangeira
-        $stmt_check_veic = $pdo->prepare("SELECT id FROM veiculo WHERE clientes_cpf = ?");
-        $stmt_check_veic->execute([$cpf_excluir]);
-        if ($stmt_check_veic->fetch()) {
-            $erro = "Erro: Não é possível excluir o cliente porque ele possui veículos vinculados!";
-        } else {
-            $stmt = $pdo->prepare("DELETE FROM clientes WHERE cpf = ?");
-            $stmt->execute([$cpf_excluir]);
-            $sucesso = "Cliente excluído com sucesso!";
-        }
-    } catch (PDOException $e) {
-        $erro = "Erro ao excluir cliente: " . $e->getMessage();
-    }
-}
+// 2. Processar Exclusão transferido para excluir-cliente.php
 
 // 3. Buscar todos os clientes
 $stmt_clientes = $pdo->query("SELECT * FROM clientes ORDER BY `nome completo` ASC");
@@ -164,7 +147,7 @@ $clientes = $stmt_clientes->fetchAll();
                                     <div class="acoes-flex">
                                         <a href="cadastroveiculo.php?cliente_cpf=<?= $c['cpf'] ?>" class="btn-editar" style="background-color: #3498db; margin-right: 5px;">VEÍCULOS</a>
                                         <a href="editar-cliente.php?cpf=<?= $c['cpf'] ?>" class="btn-editar" style="background-color: #2ecc71; margin-right: 5px;">EDITAR</a>
-                                        <a href="cadastrocliente.php?excluir=<?= $c['cpf'] ?>" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">EXCLUIR</a>
+                                        <a href="excluir-cliente.php?cpf=<?= $c['cpf'] ?>" class="btn-excluir">EXCLUIR</a>
                                     </div>
                                 </td>
                             </tr>

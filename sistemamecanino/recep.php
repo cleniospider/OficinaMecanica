@@ -38,7 +38,8 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Recepcio
             <li><a href="recep.php"class="active">Painel de Gestão</a></li>
             <li><a href="cadastrocliente-recep.php">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo-recep.php">Cadastro Veículo</a></li>
-            <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
+            <li><a href="ordens.php">Ordens de Serviços</a></li>
+            <li><a href="servicos.php">Serviços</a></li>
             <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
             <li><a href="minha-conta-recep.php">Minha conta</a></li> 
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
@@ -58,7 +59,8 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Recepcio
         <div class="dashboard-grid">
             <a href="cadastrocliente-recep.php" class="grid-card">CADASTRO CLIENTE</a>
             <a href="cadastroveiculo-recep.php" class="grid-card">CADASTRO VEÍCULO</a>
-            <a href="ordens-recep.php" class="grid-card">ORDENS DE SERVIÇOS</a>
+            <a href="ordens.php" class="grid-card">ORDENS DE SERVIÇOS</a>
+            <a href="servicos.php" class="grid-card">SERVIÇOS</a>
             <a href="historico-veiculos-recep.php" class="grid-card">HISTÓRICO DE VEÍCULOS</a>
         </div>
     </main>

@@ -33,11 +33,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $pdo->beginTransaction();
 
-        // 1. Excluir lançamentos relacionados no Financeiro primeiro devido à restrição FK
+        // 1. Excluir lançamentos relacionados no Financeiro primeiro
         $stmt_del_fin = $pdo->prepare("DELETE FROM Financeiro WHERE OS_id = ?");
         $stmt_del_fin->execute([$id]);
 
-        // 2. Excluir a OS
+        // 2. Excluir relacionamentos (peças e serviços)
+        $pdo->prepare("DELETE FROM servicos_has_OS WHERE OS_id = ?")->execute([$id]);
+        $pdo->prepare("DELETE FROM pecas_na_OS WHERE OS_id = ?")->execute([$id]);
+
+        // 3. Excluir a OS
         $stmt_del_os = $pdo->prepare("DELETE FROM OS WHERE id = ?");
         $stmt_del_os->execute([$id]);
 

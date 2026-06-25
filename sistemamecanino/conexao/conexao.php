@@ -610,6 +610,12 @@ try {
             ADD COLUMN `status` VARCHAR(20) NOT NULL DEFAULT 'ativo'
         ");
     }
+
+    // MIGRATION AUTOMÁTICA DA TABELA servicos (add AUTO_INCREMENT)
+    $check_serv = $pdo->query("SHOW COLUMNS FROM `servicos` LIKE 'idservicos'")->fetch();
+    if ($check_serv && strpos(strtolower($check_serv['Extra']), 'auto_increment') === false) {
+        $pdo->exec("ALTER TABLE `servicos` MODIFY `idservicos` INT NOT NULL AUTO_INCREMENT");
+    }
 } catch (PDOException $e) {
     die("Erro de conexão PDO crítico: " . $e->getMessage());
 }

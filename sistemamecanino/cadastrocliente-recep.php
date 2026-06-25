@@ -38,23 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nome_completo'])) {
 }
 
 
-// Processar Exclusão via GET
-if (isset($_GET['excluir'])) {
-    $cpf_excluir = preg_replace('/\D/', '', $_GET['excluir']);
-    try {
-        $stmt_check_veic = $pdo->prepare("SELECT id FROM veiculo WHERE clientes_cpf = ?");
-        $stmt_check_veic->execute([$cpf_excluir]);
-        if ($stmt_check_veic->fetch()) {
-            $erro = "Erro: Não é possível excluir o cliente porque ele possui veículos vinculados!";
-        } else {
-            $stmt = $pdo->prepare("DELETE FROM clientes WHERE cpf = ?");
-            $stmt->execute([$cpf_excluir]);
-            $sucesso = "Cliente excluído com sucesso!";
-        }
-    } catch (PDOException $e) {
-        $erro = "Erro ao excluir cliente: " . $e->getMessage();
-    }
-}
+// Processar Exclusão transferido para excluir-cliente-recep.php
 
 // Buscar todos os clientes
 $stmt_clientes = $pdo->query("SELECT * FROM clientes ORDER BY `nome completo` ASC");
@@ -165,7 +149,7 @@ $clientes = $stmt_clientes->fetchAll();
                                     <div class="acoes-flex">
                                         <a href="cadastroveiculo-recep.php?cliente_cpf=<?= $c['cpf'] ?>" class="btn-editar" style="background-color: #3498db;">VEÍCULOS</a>
                                         <a href="editar-cliente-recep.php?cpf=<?= $c['cpf'] ?>" class="btn-editar">EDITAR</a>
-                                        <a href="cadastrocliente-recep.php?excluir=<?= $c['cpf'] ?>" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">EXCLUIR</a>
+                                        <a href="excluir-cliente-recep.php?cpf=<?= $c['cpf'] ?>" class="btn-excluir">EXCLUIR</a>
                                     </div>
                                 </td>
                             </tr>

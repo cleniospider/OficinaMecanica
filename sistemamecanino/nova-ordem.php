@@ -18,6 +18,14 @@ try {
     // Buscar mecânicos
     $stmt_mec = $pdo->query("SELECT id, nome_completo FROM usuarios WHERE perfil = 'Mecanico' ORDER BY nome_completo ASC");
     $mecanicos = $stmt_mec->fetchAll();
+
+    // Buscar pecas
+    $stmt_pecas = $pdo->query("SELECT id, nome, preco_venda, estoque_atual FROM pecas WHERE estoque_atual > 0 ORDER BY nome ASC");
+    $lista_pecas = $stmt_pecas->fetchAll();
+
+    // Buscar servicos
+    $stmt_serv = $pdo->query("SELECT idservicos, nome, preco FROM servicos ORDER BY nome ASC");
+    $lista_servicos = $stmt_serv->fetchAll();
 } catch (PDOException $e) {
     $erro = "Erro ao carregar dados do banco: " . $e->getMessage();
 }
@@ -27,9 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
     $veiculo_id = filter_var($_POST['veiculo_id'], FILTER_VALIDATE_INT);
     $mecanico_id = filter_var($_POST['mecanico_id'], FILTER_VALIDATE_INT);
     $problema = trim($_POST['problema']);
-    $servicos = trim($_POST['servicos']);
-    $pecas_usadas = trim($_POST['pecas_usadas']);
     $status = $_POST['status'];
+
+    $pecas_selecionadas = $_POST['pecas_ids'] ?? [];
+    $servicos_selecionados = $_POST['servicos_ids'] ?? [];
 
     // Limpar valor_total para formato float
     $valor_str = $_POST['valor_total'];
@@ -48,18 +57,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
                 $veiculo_modelo = $veiculo['marca/modelo'];
                 $data_entrada = date('Y-m-d H:i:s');
 
+                // Concatenar os nomes para salvar como texto (histórico legível)
+                $txt_servicos = "";
+                $txt_pecas = "";
+
+                if (!empty($servicos_selecionados)) {
+                    $in_s = str_repeat('?,', count($servicos_selecionados) - 1) . '?';
+                    $stmt_s = $pdo->prepare("SELECT nome FROM servicos WHERE idservicos IN ($in_s)");
+                    $stmt_s->execute($servicos_selecionados);
+                    $txt_servicos = implode(', ', $stmt_s->fetchAll(PDO::FETCH_COLUMN));
+                }
+
+                if (!empty($pecas_selecionadas)) {
+                    $in_p = str_repeat('?,', count($pecas_selecionadas) - 1) . '?';
+                    $stmt_p = $pdo->prepare("SELECT nome FROM pecas WHERE id IN ($in_p)");
+                    $stmt_p->execute($pecas_selecionadas);
+                    $txt_pecas = implode(', ', $stmt_p->fetchAll(PDO::FETCH_COLUMN));
+                }
+
                 // Iniciar transação para garantir que OS e Financeiro sejam criados juntos
                 $pdo->beginTransaction();
 
                 // Inserir OS
-                // Nota: o schema pede veiculo_id, mecanico_id, data_entrada, veiculo_id1, clientes_cpf
                 $stmt_os = $pdo->prepare("
                     INSERT INTO OS (veiculo_id, mecanico_id, data_entrada, veiculo_id1, clientes_cpf, problema, servicos, pecas_usadas, valor_total, status)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ");
-                // veiculo_id e veiculo_id1 recebem o mesmo ID de veiculo
-                $stmt_os->execute([$veiculo_id, $mecanico_id, $data_entrada, $veiculo_id, $clientes_cpf, $problema, $servicos, $pecas_usadas, $valor_total, $status]);
+                $stmt_os->execute([$veiculo_id, $mecanico_id, $data_entrada, $veiculo_id, $clientes_cpf, $problema, $txt_servicos, $txt_pecas, $valor_total, $status]);
                 $os_id = $pdo->lastInsertId();
+
+                // Salvar relacionamentos
+                foreach ($servicos_selecionados as $s_id) {
+                    $stmt_s_os = $pdo->prepare("INSERT INTO servicos_has_OS (servicos_idservicos, OS_id) VALUES (?, ?)");
+                    $stmt_s_os->execute([$s_id, $os_id]);
+                }
+
+                foreach ($pecas_selecionadas as $p_id) {
+                    $stmt_p_os = $pdo->prepare("INSERT INTO pecas_na_OS (pecas_id, OS_id) VALUES (?, ?)");
+                    $stmt_p_os->execute([$p_id, $os_id]);
+                    
+                    // Se for finalizado, dá baixa no estoque
+                    if ($status === 'finalizado') {
+                        $pdo->prepare("UPDATE pecas SET estoque_atual = estoque_atual - 1 WHERE id = ? AND estoque_atual > 0")->execute([$p_id]);
+                    }
+                }
 
                 // Inserir registro financeiro
                 $fin_desc = "OS #$os_id - " . $veiculo_modelo;
@@ -124,6 +165,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
             font-size: 0.9rem;
             width: 100%;
         }
+        .checkbox-group {
+            background: #121212;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 150px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ccc;
+            font-size: 14px;
+        }
+        .checkbox-item input {
+            cursor: pointer;
+        }
+        .item-preco {
+            color: #2ecc71;
+            font-weight: bold;
+            margin-left: auto;
+        }
     </style>
 </head>
 <body class="dark-theme">
@@ -151,6 +218,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
             <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
             <li><a href="ordens.php" class="active">Ordens de Serviços</a></li>
+            <li><a href="servicos.php">Serviços</a></li>
             <li><a href="estoque-critico.php">Estoque de Peças</a></li>
             <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
             <li><a href="financeiro.php">Financeiro</a></li>
@@ -196,36 +264,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
                 <div class="form-corpo-ordem" style="margin-top: 20px;">
                     
                     <div class="grupo-input-dark">
-                        <label>Problema:</label>
+                        <label>Problema Constatado:</label>
                         <textarea name="problema" rows="3" placeholder="Descreva o problema constatado..." required></textarea>
                     </div>
 
-                    <div class="grupo-input-dark">
-                        <label>Serviços:</label>
-                        <textarea name="servicos" rows="3" placeholder="Serviços a realizar..."></textarea>
-                    </div>
-            
-                    <div class="grupo-input-dark">
-                        <label>Peças usadas:</label>
-                        <textarea name="pecas_usadas" rows="2" placeholder="Lista de peças e componentes..."></textarea>
+                    <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="grupo-input-dark">
+                            <label>Serviços a realizar:</label>
+                            <div class="checkbox-group">
+                                <?php if (empty($lista_servicos)): ?>
+                                    <span style="color: #666; font-size: 13px;">Nenhum serviço cadastrado.</span>
+                                <?php endif; ?>
+                                <?php foreach ($lista_servicos as $s): ?>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="servicos_ids[]" value="<?= $s['idservicos'] ?>" data-preco="<?= $s['preco'] ?>" class="calc-item">
+                                        <?= htmlspecialchars($s['nome']) ?>
+                                        <span class="item-preco">+ R$ <?= number_format($s['preco'], 2, ',', '.') ?></span>
+                                    </label>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+
+                        <div class="grupo-input-dark">
+                            <label>Peças a utilizar:</label>
+                            <div class="checkbox-group">
+                                <?php if (empty($lista_pecas)): ?>
+                                    <span style="color: #666; font-size: 13px;">Nenhuma peça com estoque disponível.</span>
+                                <?php endif; ?>
+                                <?php foreach ($lista_pecas as $p): ?>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="pecas_ids[]" value="<?= $p['id'] ?>" data-preco="<?= $p['preco_venda'] ?>" class="calc-item">
+                                        <?= htmlspecialchars($p['nome']) ?> (Estoque: <?= $p['estoque_atual'] ?>)
+                                        <span class="item-preco">+ R$ <?= number_format($p['preco_venda'], 2, ',', '.') ?></span>
+                                    </label>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="flex-row">
-                        <div class="grupo-input-dark">
-                            <label>Valor total:</label>
-                            <input type="text" name="valor_total" id="valor_total" class="input-valor-dark" placeholder="R$ 0,00" required>
+                    <div class="flex-row" style="display: flex; gap: 20px; margin-top: 15px;">
+                        <div class="grupo-input-dark" style="flex: 1;">
+                            <label>Valor total calculado:</label>
+                            <input type="text" name="valor_total" id="valor_total" class="input-valor-dark" value="R$ 0,00" required readonly style="background-color: #222; border-color: #555; color: #2ecc71; font-weight: bold;">
                         </div>
-                        <div class="grupo-input-dark">
-                            <label>Status:</label>
+                        <div class="grupo-input-dark" style="flex: 1;">
+                            <label>Status da OS:</label>
                             <select name="status" class="select-dark">
-                                <option value="ativo" selected>Ativo</option>
-                                <option value="finalizado">Finalizado</option>
-                                <option value="parado">Parado</option>
+                                <option value="ativo" selected>Em andamento (Ativo)</option>
+                                <option value="parado">Aguardando Aprovação (Parado)</option>
+                                <option value="finalizado">Finalizado / Entregue</option>
                             </select>
+                            <small style="color: #888; font-size: 12px; margin-top: 5px; display: block;">Marcar como 'Finalizado' dará baixa no estoque das peças selecionadas.</small>
                         </div>
                     </div>
             
-                    <div class="botoes-acao">
+                    <div class="botoes-acao" style="margin-top: 25px;">
                         <button type="submit" class="btn-os btn-salvar-red">SALVAR ORDEM</button>
                         <a href="ordens.php" class="btn-os btn-voltar-dark">CANCELAR</a>
                     </div>
@@ -249,14 +342,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
             });
         });
 
-        // Formatação simples do campo de valor
+        // Cálculo Automático de Valor
+        const checkboxes = document.querySelectorAll('.calc-item');
         const valorInput = document.getElementById('valor_total');
-        valorInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, "");
-            value = (value / 100).toFixed(2) + "";
-            value = value.replace(".", ",");
-            value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-            e.target.value = "R$ " + value;
+
+        function calcularTotal() {
+            let total = 0;
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    total += parseFloat(cb.getAttribute('data-preco'));
+                }
+            });
+            // Formatar para Moeda BR
+            let valorBR = total.toFixed(2).replace('.', ',');
+            valorBR = valorBR.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+            valorInput.value = "R$ " + valorBR;
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', calcularTotal);
         });
     </script>
 </body>

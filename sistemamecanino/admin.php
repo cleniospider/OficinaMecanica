@@ -41,6 +41,7 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Admin') 
             <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
             <li><a href="ordens.php">Ordens de Serviços</a></li>
+            <li><a href="servicos.php">Serviços</a></li>
             <li><a href="estoque-critico.php">Estoque de Peças</a></li>
             <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
             <li><a href="financeiro.php">Financeiro</a></li>
@@ -65,6 +66,7 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Admin') 
             <a href="cadastrocliente.php" class="grid-card">CADASTRO CLIENTE</a>
             <a href="cadastroveiculo.php" class="grid-card">CADASTRO VEÍCULO</a>
             <a href="ordens.php" class="grid-card">ORDENS DE SERVIÇOS</a>
+            <a href="servicos.php" class="grid-card">SERVIÇOS</a>
             <a href="estoque-critico.php" class="grid-card">ESTOQUE DE PEÇAS</a>
             <a href="historico-veiculos.php" class="grid-card">HISTÓRICO DE VEÍCULOS</a>
             <a href="financeiro.php" class="grid-card">FINANCEIRO</a>

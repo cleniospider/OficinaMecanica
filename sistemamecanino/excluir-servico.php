@@ -2,7 +2,7 @@
 require_once('conexao/conexao.php');
 
 // Proteção de sessão
-if (!isset($_SESSION['usuario_id'])) {
+if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_perfil'], ['Admin', 'Mecanico', 'Recepcionista'])) {
     header("Location: index.php");
     exit;
 }
@@ -10,49 +10,34 @@ if (!isset($_SESSION['usuario_id'])) {
 $erro = "";
 $id = filter_var($_GET['id'] ?? null, FILTER_VALIDATE_INT);
 if (!$id) {
-    header("Location: historico-veiculos.php");
+    header("Location: servicos.php");
     exit;
 }
 
-// Verificar se OS existe
-try {
-    $stmt = $pdo->prepare("SELECT id FROM OS WHERE id = ? AND status = 'finalizado'");
-    $stmt->execute([$id]);
-    $os = $stmt->fetch();
+// Buscar dados do serviço
+$stmt = $pdo->prepare("SELECT * FROM servicos WHERE idservicos = ?");
+$stmt->execute([$id]);
+$servico = $stmt->fetch();
 
-    if (!$os) {
-        header("Location: historico-veiculos.php");
-        exit;
-    }
-} catch (PDOException $e) {
-    die("Erro ao buscar dados do banco: " . $e->getMessage());
+if (!$servico) {
+    header("Location: servicos.php");
+    exit;
 }
 
-// Processar POST de exclusão
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        $pdo->beginTransaction();
-
-        // 1. Excluir lançamentos relacionados no Financeiro primeiro
-        $stmt_del_fin = $pdo->prepare("DELETE FROM Financeiro WHERE OS_id = ?");
-        $stmt_del_fin->execute([$id]);
-
-        // 2. Excluir relacionamentos (peças e serviços)
-        $pdo->prepare("DELETE FROM servicos_has_OS WHERE OS_id = ?")->execute([$id]);
-        $pdo->prepare("DELETE FROM pecas_na_OS WHERE OS_id = ?")->execute([$id]);
-
-        // 3. Excluir a OS
-        $stmt_del_os = $pdo->prepare("DELETE FROM OS WHERE id = ?");
-        $stmt_del_os->execute([$id]);
-
-        $pdo->commit();
-        header("Location: historico-veiculos.php");
-        exit;
-    } catch (PDOException $e) {
-        if ($pdo->inTransaction()) {
-            $pdo->rollBack();
+        $stmt_check = $pdo->prepare("SELECT servicos_idservicos FROM servicos_has_OS WHERE servicos_idservicos = ? LIMIT 1");
+        $stmt_check->execute([$id]);
+        if ($stmt_check->fetch()) {
+            $erro = "Não é possível excluir este serviço pois ele já foi vinculado a Ordens de Serviço.";
+        } else {
+            $stmt_del = $pdo->prepare("DELETE FROM servicos WHERE idservicos = ?");
+            $stmt_del->execute([$id]);
+            header("Location: servicos.php");
+            exit;
         }
-        $erro = "Erro ao excluir o registro de histórico: " . $e->getMessage();
+    } catch (PDOException $e) {
+        $erro = "Erro ao excluir serviço: " . $e->getMessage();
     }
 }
 ?>
@@ -62,19 +47,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Repair - Excluir Histórico</title>
+    <title>Auto Repair - Excluir Serviço</title>
     <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/excluir-historico.css">
+    <link rel="stylesheet" href="css/excluir-cliente.css">
     <style>
         .alert-error {
-            background-color: rgba(231, 76, 60, 0.2);
-            color: #e74c3c;
-            border: 1px solid #e74c3c;
+            background-color: #e74c3c;
+            color: white;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 5px;
             margin-bottom: 20px;
-            font-size: 0.9rem;
-            width: 100%;
+            font-size: 14px;
             text-align: center;
         }
     </style>
@@ -93,19 +76,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'] ?? 'ADMINISTRADOR')) ?></span>
+                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'])) ?></span>
             </div>
         </div>
         <ul class="nav-links">
             <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : ($_SESSION['usuario_perfil'] === 'Mecanico' ? 'mecan.php' : 'recep.php') ?>">Painel de Gestão</a></li>
-            <?php if ($_SESSION['usuario_perfil'] === 'Admin'): ?>
-                <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
-            <?php endif; ?>
             <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
             <li><a href="ordens.php">Ordens de Serviços</a></li>
             <li><a href="estoque-critico.php">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos.php" class="active">Histórico de Veículos</a></li>
+            <li><a href="servicos.php" class="active">Serviços</a></li>
+            <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
             <li><a href="financeiro.php">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
             <li><a href="minha-conta.php">Minha conta</a></li>
@@ -114,8 +95,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </aside>
 
     <main class="main-content">
-        <div class="historico-container">
-            <h2 class="titulo-sessao">EXCLUIR HISTÓRICO</h2>
+        <div class="cliente-exclusao-container">
+            <h2 class="titulo-sessao">EXCLUIR SERVIÇO</h2>
 
             <?php if (!empty($erro)): ?>
                 <div class="alert-error"><?= htmlspecialchars($erro) ?></div>
@@ -123,12 +104,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="caixa-exclusao">
                 <div class="icone-alerta">⚠️</div>
-                <h3>Tem certeza que deseja excluir o histórico da OS #<?= htmlspecialchars($id) ?>?</h3>
-                <p class="aviso-texto">Esta ação removerá permanentemente os dados desta manutenção e lançamentos financeiros relacionados.</p>
+                <h3>Tem certeza que deseja excluir o serviço "<?= htmlspecialchars($servico['nome']) ?>"?</h3>
+                <p class="aviso-texto">Esta ação removerá o serviço do catálogo do sistema. Você não poderá excluir caso ele já tenha sido vinculado a alguma Ordem de Serviço.</p>
                 
                 <form method="POST" class="form-exclusao">
                     <div class="botoes-acao-excluir">
-                        <a href="historico-veiculos.php" class="btn-cancelar-exclusao">CANCELAR</a>
+                        <a href="servicos.php" class="btn-cancelar-exclusao">CANCELAR</a>
                         <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>
                     </div>
                 </form>
@@ -139,9 +120,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script>
         const btnMobile = document.querySelector('.hamburger-btn');
         const sidebar = document.querySelector('#sidebar');
-        if(btnMobile && sidebar) {
-            btnMobile.addEventListener('click', () => sidebar.classList.toggle('open'));
+
+        if(btnMobile) {
+            btnMobile.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
         }
+
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
     </script>
 </body>
 </html>
