@@ -19,10 +19,18 @@ SET time_zone = "+00:00";
 
 --
 -- Banco de dados: `oficinamecanica`
+<<<<<<< HEAD
 
  create database oficinamecanica;
   use oficinamecanica;
 -- --------------------------------------------------------
+=======
+--
+
+ create database oficinamecanica;
+  use oficinamecanica;
+
+>>>>>>> 819658054694eb9a6e76de6f4428eb332571dab0
 
 --
 -- Estrutura para tabela `clientes`
