@@ -21,8 +21,8 @@ SET time_zone = "+00:00";
 -- Banco de dados: `oficinamecanica`
 --
 
--- create database oficinamecanica;
--- use oficinamecanica;
+ create database oficinamecanica;
+  use oficinamecanica;
 
 
 --
