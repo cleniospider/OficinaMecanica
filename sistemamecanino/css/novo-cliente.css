@@ -1,0 +1,116 @@
+/* Estilo Base inspirado na imagem */
+.container-form-dark {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.titulo-sessao {
+    color: #fff;
+    font-size: 24px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.destaque-red {
+    color: #ff0000;
+}
+
+/* Card Principal */
+.card-dark {
+    background-color: #1e1e1e; /* Cinza bem escuro da foto */
+    border-radius: 8px;
+    padding: 30px;
+    border: 1px solid #333;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Labels e Inputs */
+.grupo-input-dark {
+    margin-bottom: 20px;
+}
+
+.grupo-input-dark label {
+    display: block;
+    color: white; /* Vermelho da foto */
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.grupo-input-dark input, 
+.grupo-input-dark textarea {
+    width: 100%;
+    background-color: #2a2a2a; /* Cor do fundo do input na foto */
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 12px;
+    color: #fff;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.grupo-input-dark input:focus {
+    border-color: #ff0000;
+    outline: none;
+}
+
+/* Alinhamento em linhas */
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.flex-1 { flex: 1; }
+.flex-2 { flex: 2; }
+.flex-3 { flex: 3; }
+
+/* Botões do Rodapé */
+.footer-acoes {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-acao {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.btn-salvar-os {
+    background-color: #ff0000;
+    border: none;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.btn-voltar-os {
+    background: #444;
+    color: #fff;
+}
+
+.btn-voltar-os:hover {
+    background: #555;
+}
+
+/* Ajuste mobile */
+@media (max-width: 768px) {
+    .form-row { flex-direction: column; gap: 0; }
+    .footer-acoes { flex-direction: column; }
+}

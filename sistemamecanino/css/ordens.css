@@ -1,0 +1,408 @@
+/* Container */
+.orders-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.orders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.orders-header h2 { font-size: 20px; }
+
+/* Busca */
+.search-box input {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    padding: 8px 15px;
+    border-radius: 6px;
+    color: white;
+    width: 250px;
+}
+
+/* Tabela */
+.table-responsive {
+    background: #121212;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #222;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th {
+    background: #1a1a1a;
+    color: #888;
+    text-align: left;
+    padding: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #222;
+    vertical-align: middle;
+}
+
+.vazio-msg {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+    font-style: italic;
+}
+
+/* Status dots */
+.status-dot {
+    height: 10px; width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.dot-pronto { background: #00cc44; }
+.dot-ativo { background: #ffcc00; }
+.dot-parado { background: #ff4444; }
+
+/* Botões de Ação */
+.acoes-flex {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-editar { 
+    background: #ff0000; 
+    color: white; 
+    border: none; 
+    padding: 6px 12px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    font-size: 11px; 
+}
+
+.btn-excluir { 
+    background: #440000; 
+    color: white; 
+    border: none; 
+    padding: 6px 12px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    font-size: 11px; 
+    transition: 0.2s;
+}
+
+.btn-excluir:hover { background: #ff0000; }
+
+/* Legenda */
+.legend-area {
+    margin: 15px 0;
+    font-size: 12px;
+    color: #aaa;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.pronto { background: #00cc44; }
+.ativo { background: #ffcc00; }
+.parado { background: #ff4444; }
+
+.btn-nova-ordem {
+    width: 100%;
+    background: #ff0000;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Modal */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 3000;
+    align-items: center; justify-content: center;
+}
+
+.modal-content {
+    background: #1e1e1e;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    border: 1px solid #333;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #888;
+}
+
+#formOrdem input, #formOrdem select,
+#formEditar input, #formEditar select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    background: #121212;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: white;
+    box-sizing: border-box;
+}
+
+.btn-fechar-modal {
+    width: 100%;
+    background: #ff0000;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* --- Correções da Tabela de Ordens --- */
+.placa-texto {
+    color: #666; 
+}
+
+a.btn-editar {
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+
+/* --- Correção do botão EXCLUIR para quando ele for um link (tag <a>) --- */
+a.btn-excluir {
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+/* --- Estilos da Tela de Exclusão --- */
+.caixa-exclusao {
+    background: #1e1e1e;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin-top: 20px;
+    text-align: center;
+    border-top: 4px solid #cc0000; 
+}
+
+.icone-alerta {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.caixa-exclusao h3 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.caixa-exclusao p {
+    color: #ccc;
+    font-size: 14px;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.form-exclusao {
+    display: flex;
+    justify-content: center;
+}
+
+.botoes-acao-excluir {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.btn-cancelar-exclusao {
+    background: #444;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 12px;
+    border-radius: 5px;
+    flex: 1;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.btn-confirmar-exclusao {
+    background: #cc0000;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+a.btn-nova-ordem {
+    text-decoration: none;
+    text-align: center;
+    display: block; 
+    box-sizing: border-box;
+
+}
+
+/* --- Estilos da Tela de Nova Ordem --- */
+.caixa-nova-ordem {
+    background: #1e1e1e; 
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin-top: 20px;
+}
+
+.form-nova-ordem {
+    display: flex;
+    flex-direction: column;
+}
+
+.area-botao-novo {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-start; 
+}
+
+.btn-espacado {
+    margin-top: 0; 
+}
+
+@media (max-width: 768px) {
+    /* --- CABEÇALHO: TÍTULO EM CIMA E LUPA EMBAIXO --- */
+    .orders-header {
+        display: flex;
+        flex-direction: column; /* Empilha os elementos */
+        align-items: center;    /* Centraliza tudo */
+        gap: 15px;              /* Espaço entre o título e a lupa */
+        margin-bottom: 25px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .orders-header h2 {
+        color: #ffffff;
+        font-size: 1.4rem;
+        margin: 0;
+        width: 100%;
+    }
+
+    .search-box {
+        width: 100%; /* Lupa ocupa a largura total no mobile */
+    }
+
+    .search-box input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 5px;
+        box-sizing: border-box; /* Evita que a borda passe da tela */
+    }
+
+    /* --- MANTENDO SEU ESTILO DE CARDS --- */
+    .table-responsive table, 
+    .table-responsive thead, 
+    .table-responsive tbody, 
+    .table-responsive th, 
+    .table-responsive td, 
+    .table-responsive tr { 
+        display: block; 
+    }
+
+    .table-responsive thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .table-responsive tr {
+        border: 1px solid #333;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #1a1a1a;
+    }
+
+    .table-responsive td { 
+        border: none;
+        position: relative;
+        padding: 12px 10px 12px 130px; 
+        text-align: left;
+        font-size: 14px;
+        border-bottom: 1px solid #222;
+        min-height: 45px;
+        display: flex;
+        align-items: center;
+        color: #ffffff;
+    }
+
+    /* --- AJUSTE DAS AÇÕES --- */
+    .table-responsive td[data-label="AÇÕES"] {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 10px;
+        border-bottom: none;
+    }
+
+    .table-responsive td[data-label="AÇÕES"]:before {
+        position: static;
+        transform: none;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .table-responsive td:before { 
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 110px; 
+        font-weight: bold;
+        color: #ff0000; 
+        content: attr(data-label);
+        font-size: 11px;
+        text-transform: uppercase;
+    }
+
+    .acoes-flex {
+        display: flex;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .btn-editar, .btn-excluir {
+        flex: 1;
+        padding: 12px;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+}

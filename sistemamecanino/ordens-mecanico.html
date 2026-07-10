@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair - Ordens de Serviço (Mecânico)</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/ordens.css">
+    <style>
+        /* Cores baseadas na sua nova lógica de OS */
+        .dot-finalizado { background-color: #2ecc71; } /* Verde */
+        .dot-ativo { background-color: #f1c40f; }      /* Amarelo */
+        .dot-parado { background-color: #ff0000; }     /* Vermelho */
+
+        /* Estilo para a placa dentro da tabela */
+        .placa-badge {
+            background: #eee;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-header">
+        <button class="hamburger-btn">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="header-logo-text">AUTO REPAIR</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="profile-area">
+            <img src="img/download.png" alt="Avatar" class="avatar"> 
+            <div class="mobile-profile-text">
+                AUTO REPAIR<br>
+                <span class="role-text" style="color: #ffaa00;">MECÂNICO</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="mecan.html">Painel de Gestão</a></li>
+            <li><a href="ordens-mecanico.html" class="active">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico-mecan.html">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos-mecan.html">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-mecan.html">Minha conta</a></li>
+            <li><a href="index.html" class="logout-link">Sair</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="orders-container">
+            <div class="orders-header">
+                <h2>Controle de Ordens de Serviço (OS)</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Pesquisar veículo, cliente ou Nº OS...">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>Nº OS</th>
+                            <th>STATUS</th>
+                            <th>VEÍCULO</th>
+                            <th>PLACA</th>
+                            <th>PROPRIETÁRIO</th>
+                            <th>PROBLEMA</th>
+                            <th>SERVIÇOS</th>
+                            <th>PEÇAS</th>
+                            <th>VALOR (R$)</th>
+                            <th>AÇÕES</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td data-label="Nº OS">#1025</td>
+                            <td data-label="STATUS"><span class="status-dot dot-ativo" title="Ativo"></span></td>
+                            <td data-label="VEÍCULO"><strong>CBR 600RR</strong></td>
+                            <td data-label="PLACA"><span class="placa-badge">ABC-1234</span></td>
+                            <td data-label="PROPRIETÁRIO">Marcos Silva</td>
+                            <td data-label="PROBLEMA"><small>Vazamento de óleo na suspensão</small></td>
+                            <td data-label="SERVIÇOS"><small>Troca de retentores e fluido</small></td>
+                            <td data-label="PEÇAS"><small>Retentores Honda, Óleo Motul</small></td>
+                            <td data-label="VALOR (R$)"><strong style="color: #2ecc71;">R$ 450,00</strong></td>
+                            <td data-label="AÇÕES">
+                                <div class="acoes-flex">
+                                    <a href="editar-ordem-mecan.html" class="btn-editar">GERENCIAR</a>
+                                    <a href="excluir-ordem-mecan.html" class="btn-excluir">EXCLUIR</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Nº OS">#1026</td>
+                            <td data-label="STATUS"><span class="status-dot dot-parado" title="Parado"></span></td>
+                            <td data-label="VEÍCULO"><strong>TOYOTA COROLLA</strong></td>
+                            <td data-label="PLACA"><span class="placa-badge">DEF-5678</span></td>
+                            <td data-label="PROPRIETÁRIO">José Costa</td>
+                            <td data-label="PROBLEMA"><small>Barulho ao frear</small></td>
+                            <td data-label="SERVIÇOS"><small>Revisão de freios dianteiros</small></td>
+                            <td data-label="PEÇAS"><small>Pastilhas de freio Cobreq</small></td>
+                            <td data-label="VALOR (R$)"><strong style="color: #2ecc71;">R$ 320,00</strong></td>
+                            <td data-label="AÇÕES">
+                                <div class="acoes-flex">
+                                    <a href="editar-ordem-mecan.html" class="btn-editar">GERENCIAR</a>
+                                    <a href="excluir-ordem-mecan.html" class="btn-excluir">EXCLUIR</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="legend-area">
+                <span class="dot dot-finalizado"></span> Finalizado
+                <span class="dot dot-ativo"></span> Ativo
+                <span class="dot dot-parado"></span> Parado
+            </div>
+
+            <div class="area-botao-novo">
+                <a href="nova-ordem-mecan.html" class="btn-nova-ordem">+ ABRIR NOVA ORDEM DE SERVIÇO</a>
+            </div>
+        </div>
+    </main>
+
+    <div id="modal-conta" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Minha Conta</h2>
+            <div class="conta-dados">
+                <p><strong>Status:</strong> <span style="color: #00cc44;">Ativo </span></p>
+            </div>
+            <button class="btn-fechar-modal">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        const btnMobile = document.querySelector('.hamburger-btn');
+        const sidebar = document.querySelector('#sidebar');
+
+        if(btnMobile) {
+            btnMobile.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        }
+
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
+
+        // Script para abrir o modal ao clicar em "Minha Conta" no menu lateral
+        const linksMenu = document.querySelectorAll('.nav-links a');
+        let linkConta = null;
+        
+        linksMenu.forEach(link => {
+            if(link.textContent.trim() === "Minha Conta") {
+                linkConta = link;
+                link.style.cursor = "pointer";
+            }
+        });
+
+        const modal = document.querySelector('#modal-conta');
+        const btnFechar = document.querySelector('.btn-fechar-modal');
+        const btnX = document.querySelector('.close-btn');
+
+        if(linkConta) {
+            linkConta.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+        }
+
+        [btnFechar, btnX].forEach(btn => {
+            if(btn) {
+                btn.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body> 
+</html>
