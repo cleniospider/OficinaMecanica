@@ -1,0 +1,152 @@
+/* Container Escuro */
+.estoque-wrapper {
+    background-color: #121212;
+    padding: 30px;
+    border-radius: 15px;
+    min-height: 80vh;
+}
+
+/* Layout do Topo */
+.estoque-controles {
+    display: flex;
+    justify-content: space-between; /* Filtros na esquerda, Busca na direita */
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* Grupos */
+.filtros-grupo { display: flex; gap: 12px; }
+.busca-acoes { display: flex; gap: 10px; align-items: center; }
+
+/* Botões de Filtro (Base) */
+.btn-f {
+    padding: 10px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+/* Cores e Estados (Borda vs Preenchido) */
+.b-critico { border: 2px solid #ff0000; color: white; }
+.b-critico.ativo { background-color: #ff0000; color: white; }
+
+.b-baixo { border: 2px solid #f1c40f; color: white; }
+.b-baixo.ativo { background-color: #f1c40f; color: white; }
+
+.b-ok { border: 2px solid #2ecc71; color: white; }
+.b-ok.ativo { background-color: #2ecc71; color: white; }
+
+/* Pesquisa e Botão Novo */
+.input-busca {
+    background-color: #252525;
+    border: 1px solid #333;
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: white;
+    width: 200px;
+}
+
+.btn-nova-peca {
+    background-color: #ff0000;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+/* Cards Horizontais */
+.lista-pecas { display: flex; flex-direction: column; gap: 12px; }
+
+.peca-card {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    border: 1px solid #2a2a2a;
+}
+
+.peca-info-esquerda { display: flex; align-items: center; gap: 20px; }
+
+.peca-img-caixa {
+    width: 80px; height: 65px;
+    background: white; border-radius: 8px;
+    display: flex; justify-content: center; align-items: center; padding: 5px;
+}
+
+.peca-img-caixa img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+.peca-texto h4 { margin: 0; font-size: 16px; }
+.peca-texto p { margin: 5px 0 0; font-size: 14px; color: #888; }
+.peca-qtd-direita { font-size: 22px; font-weight: bold; }
+
+/* --- RESPONSIVIDADE (MOBILE) --- */
+@media (max-width: 768px) {
+    .estoque-wrapper {
+        padding: 15px; /* Menos recuo no mobile */
+    }
+
+    /* Faz os controles (filtros e busca) ficarem um embaixo do outro */
+    .estoque-controles {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    /* Filtros ocupando a largura toda ou quebrando linha */
+    .filtros-grupo {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr; /* Três colunas iguais */
+        gap: 8px;
+    }
+
+    .btn-f {
+        padding: 10px 5px;
+        font-size: 11px;
+        text-align: center;
+    }
+
+    /* Busca e Botão Nova Peça */
+    .busca-acoes {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .input-busca {
+        width: 100%; /* Busca ocupa tudo */
+    }
+
+    .btn-nova-peca {
+        text-align: center;
+    }
+
+    /* Ajuste nos Cards de Peças */
+    .peca-card {
+        padding: 15px;
+        position: relative;
+    }
+
+    .peca-info-esquerda {
+        gap: 12px;
+    }
+
+    .peca-img-caixa {
+        width: 60px; /* Reduz um pouco a imagem no mobile */
+        height: 50px;
+    }
+
+    .peca-texto h4 {
+        font-size: 14px;
+    }
+
+    .peca-qtd-direita {
+        font-size: 18px; /* Número da quantidade um pouco menor */
+    }
+}

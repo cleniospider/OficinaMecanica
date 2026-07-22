@@ -1,0 +1,214 @@
+/* --- FUNDO PRETO E RESET --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #080808; 
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container-central {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; 
+    width: 100%;
+    max-width: 1200px; 
+}
+
+/* === ÁREA DA LOGO === */
+.logo-area {
+    flex: 1.2;
+    display: flex;
+    justify-content: center; 
+}
+
+.logo-area img {
+    max-width: 100%;
+    height: auto;
+    width: 600px; 
+}
+
+/* === ÁREA DO FORMULÁRIO === */
+.forms-area {
+    flex: 1;
+    width: 100%;
+    max-width: 450px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+.title-register {
+    font-size: 22px;
+}
+
+.form-group {
+    margin-bottom: 15px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.half-width {
+    flex: 1;
+}
+
+.form-group label {
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #cccccc;
+}
+
+.label-cargo {
+    font-size: 13px; 
+    color: #ffffff; 
+    display: block;
+}
+
+.form-group input {
+    background-color: #2a2a2a; 
+    border: none;
+    border-radius: 20px; 
+    padding: 14px 20px; 
+    color: #ffffff;
+    outline: none;
+    font-size: 14px;
+    width: 100%;
+}
+
+/* === BOTÕES DE CARGO === */
+.roles-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 15px 0 30px;
+}
+
+.roles-register {
+    margin: 10px 0 20px;
+}
+
+.roles-container input[type="radio"] {
+    display: none;
+}
+
+.roles-container label {
+    flex: 1;
+    text-align: center;
+    background-color: #2a2a2a; 
+    padding: 10px 5px;
+    border-radius: 20px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+    color: #aaaaaa;
+}
+
+.roles-container input[type="radio"]:checked + label {
+    background-color: #ff0000; 
+    color: white;
+}
+
+/* === LINKS E BOTÃO === */
+.link-container {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #aaaaaa;
+}
+
+.link-back-container {
+    margin-top: 15px;
+}
+
+.link-container a {
+    color: #ff0000; 
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#link-ir-login {
+    color: #ffffff;
+}
+
+.btn-submit {
+    background-color: #ff0000; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%; 
+    max-width: 200px;
+    transition: background 0.3s;
+}
+
+/* ===========================================
+    MEDIA QUERY - RESPONSIVIDADE MOBILE
+   =========================================== */
+@media (max-width: 900px) {
+    body {
+        align-items: flex-start; 
+    }
+
+    .container-central {
+        flex-direction: column; 
+        gap: 20px;
+        padding-top: 20px;
+    }
+
+    .logo-area {
+        justify-content: center;
+        flex: none;
+    }
+
+    .logo-area img {
+        width: 200px; 
+    }
+
+    .forms-area {
+        max-width: 100%;
+    }
+
+    .form-row {
+        flex-direction: column; 
+        gap: 0;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 24px;
+    }
+
+    .btn-submit {
+        max-width: 100%; 
+    }
+
+    .roles-container label {
+        font-size: 10px; 
+    }
+}

@@ -1,0 +1,107 @@
+<?php 
+require_once('conexao/conexao.php');
+
+if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Admin') {
+    header("Location: index.php");
+    exit;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair - Painel</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <button class="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="header-logo-text">AUTO REPAIR</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="profile-area">
+            <img src="img/download.png" alt="Avatar" class="avatar"> 
+            <div class="mobile-profile-text">
+                AUTO REPAIR<br>
+                <span class="role-text">ADMINISTRADOR</span>
+            </div>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="admin.php" class="active">Painel de Gestão</a></li>
+            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
+            <li><a href="ordens.php">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico.php">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
+            <li><a href="financeiro.php">Financeiro</a></li>
+            <li><a href="relatorios.php">Relatórios</a></li>
+            <li><a href="minha-conta.php">Minha Conta</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content" id="main-content">
+        <div class="banner-area">
+            <img src="img/CARRO.jpg" alt="Carro Banner" class="banner-image">
+        </div>
+
+        <div class="header-titles">
+            <h1>Painel de Gestão</h1>
+            <p>Controle total da sua oficina.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <a href="cadastrocliente.php" class="grid-card">CADASTRO CLIENTE</a>
+            <a href="cadastroveiculo.php" class="grid-card">CADASTRO VEÍCULO</a>
+            <a href="ordens.php" class="grid-card">ORDENS DE SERVIÇOS</a>
+            <a href="estoque-critico.php" class="grid-card">ESTOQUE DE PEÇAS</a>
+            <a href="historico-veiculos.php" class="grid-card">HISTÓRICO DE VEÍCULOS</a>
+            <a href="financeiro.php" class="grid-card">FINANCEIRO</a>
+            <a href="relatorios.php" class="grid-cardRel">RELATÓRIOS</a>
+            <a href="minha-conta.php" class="grid-cardRel">MINHA CONTA</a>
+        </div>
+    </main>
+    <script>
+        const btnMobile = document.querySelector('.hamburger-btn');
+        const sidebar = document.querySelector('#sidebar');
+    
+        // Função para abrir/fechar menu
+        btnMobile.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+    
+        // Fecha o menu se clicar em qualquer link (bom para mobile)
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
+    
+        // Lógica simples do Modal de Conta
+        const linkConta = document.querySelector('a[style*="cursor:pointer"]'); // Seleciona o link "Minha Conta"
+        const modal = document.querySelector('#modal-conta');
+        const btnFechar = document.querySelector('.btn-fechar-modal');
+        const btnX = document.querySelector('.close-btn');
+    
+        linkConta.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+    
+        [btnFechar, btnX].forEach(btn => {
+            btn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

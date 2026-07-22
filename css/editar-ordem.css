@@ -1,0 +1,211 @@
+/* Definições de Cores e Reset */
+:root {
+    --bg-dark: #121212;         /* Fundo da página */
+    --card-bg: #1a1a1a;         /* Fundo do formulário */
+    --input-bg: #222222;        /* Fundo dos campos de texto */
+    --input-border: #333333;    /* Borda dos campos */
+    --primary-red: #ff0000;     /* Vermelho vibrante */
+    --btn-gray: #3d3d3d;        /* Cinza do botão voltar */
+    --text-white: #ffffff;
+    --text-label: #cccccc;
+}
+
+body.dark-theme {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+/* Container do Conteúdo */
+.orders-container {
+    max-width: 750px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Cabeçalho da OS */
+.os-header-detalhe h2 {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-red);
+    color: var(--text-white);
+}
+
+.text-red {
+    color: var(--primary-red);
+}
+
+/* --- Seção de Informações do Topo (Cliente, Veículo e Placa) --- */
+.form-header-info {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; 
+    gap: 20px;
+    background-color: var(--card-bg);
+    padding: 20px 30px; 
+    border-radius: 12px 12px 0 0; 
+    border: 1px solid var(--input-border);
+    border-bottom: none; 
+}
+
+.label-padrao {
+    display: block;
+    color: #888888; 
+    font-size: 0.8rem;
+    font-weight: 500; 
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+}
+
+.form-header-info .grupo-input input {
+    width: 100%;
+    background-color: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid var(--input-border) !important;
+    padding: 6px 0;
+    color: #e0e0e0 !important; 
+    font-family: 'Inter', sans-serif;    
+    font-size: 0.95rem; 
+    font-weight: 400;  
+    outline: none;
+    transition: border-color 0.3s, color 0.3s;
+}
+
+/* NOVO: Efeito ao clicar para preencher os campos do topo (acende em vermelho) */
+.form-header-info .grupo-input input:focus {
+    border-bottom-color: var(--primary-red) !important;
+    color: #fff !important;
+}
+
+.placa-field {
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif !important; 
+    letter-spacing: 0.5px; 
+}
+
+/* --- Card Principal do Formulário --- */
+.form-gerenciar {
+    background-color: var(--card-bg);
+    padding: 30px 40px; 
+    border-radius: 0 0 12px 12px; 
+    border: 1px solid var(--input-border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Estilização dos Inputs e Textareas do Corpo */
+.grupo-input-dark {
+    margin-bottom: 20px;
+}
+
+.grupo-input-dark label {
+    display: block;
+    color: var(--text-label);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.grupo-input-dark textarea,
+.grupo-input-dark .input-valor-dark,
+.select-dark {
+    width: 100%;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    padding: 12px;
+    color: #fff;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    transition: border 0.3s;
+}
+
+.grupo-input-dark textarea:focus,
+.grupo-input-dark .input-valor-dark:focus,
+.select-dark:focus {
+    outline: none;
+    border-color: var(--primary-red);
+}
+
+/* Valor específico em Verde */
+.input-valor-dark {
+    color: #00ff88 !important;
+    font-weight: bold;
+}
+
+/* Grid de Status e Valor */
+.flex-row {
+    display: flex;
+    gap: 20px;
+}
+
+.flex-row .grupo-input-dark {
+    flex: 1;
+}
+
+/* Botões de Ação */
+.acoes-os-dark {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.btn-os {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.1s, background 0.3s;
+}
+
+.btn-salvar-red {
+    background-color: var(--primary-red);
+    color: white;
+}
+
+.btn-salvar-red:hover {
+    background-color: #cc0000;
+}
+
+.btn-voltar-dark {
+    background-color: var(--btn-gray);
+    color: white;
+}
+
+.btn-voltar-dark:hover {
+    background-color: #4d4d4d;
+}
+
+.btn-os:active {
+    transform: scale(0.98);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .form-header-info {
+        grid-template-columns: 1fr;
+        border-radius: 12px;
+        border-bottom: 1px solid var(--input-border);
+        margin-bottom: 10px;
+    }
+    
+    .form-gerenciar {
+        border-radius: 12px;
+        padding: 20px;
+    }
+
+    .flex-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}

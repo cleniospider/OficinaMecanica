@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair - Gerenciar OS</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/ordens.css">
+    <link rel="stylesheet" href="css/editar-ordem.css">
+</head>
+<body class="dark-theme">
+
+    <header class="top-header">
+        <button class="hamburger-btn">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="header-logo-text">AUTO REPAIR</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="profile-area">
+            <img src="img/download.png" alt="Avatar" class="avatar"> 
+            <div class="mobile-profile-text">
+                AUTO REPAIR<br>
+                <span class="role-text">ADMINISTRADOR</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin.html">Painel de Gestão</a></li>
+            <li><a href="cadastrocliente.html">Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.html">Cadastro Veículo</a></li>
+            <li><a href="ordens.html" class="active">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico.html">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos.html">Histórico de Veículos</a></li>
+            <li><a href="financeiro.html">Financeiro</a></li>
+            <li><a href="relatorios.html">Relatórios</a></li>
+            <li><a href="minha-conta.html">Minha conta</a></li>
+            <li><a href="index.html" class="logout-link">Sair</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="orders-container">
+            <div class="os-header-detalhe">
+                <h2>ORDEM DE SERVIÇO <span class="text-red">#1025</span></h2>
+            </div>
+
+            <div class="form-header-info">
+                <div class="grupo-input">
+                    <label class="label-padrao">Cliente:</label>
+                    <input type="text" value="Marcos Silva" required>
+                </div>
+                <div class="grupo-input">
+                    <label class="label-padrao">Veículo:</label>
+                    <input type="text" value="CBR 600RR" required>
+                </div>
+                <div class="grupo-input">
+                    <label class="label-padrao">Placa:</label>
+                    <input type="text" class="placa-field" value="ABC-1234" required style="text-transform: uppercase;">
+                </div>
+            </div>
+
+            <form class="form-gerenciar" action="ordens.html">
+                <div class="grupo-input-dark">
+                    <label>Problema:</label>
+                    <textarea rows="3">Vazamento de óleo na suspensão</textarea>
+                </div>
+
+                <div class="grupo-input-dark">
+                    <label>Serviços:</label>
+                    <textarea rows="3">Troca de retentores e fluido</textarea>
+                </div>
+
+                <div class="grupo-input-dark">
+                    <label>Peças usadas:</label>
+                    <textarea rows="2">Retentores Honda, Óleo Motul</textarea>
+                </div>
+
+                <div class="flex-row">
+                    <div class="grupo-input-dark">
+                        <label>Valor total:</label>
+                        <input type="text" value="R$ 450,00" class="input-valor-dark money-mask">
+                    </div>
+
+                    <div class="grupo-input-dark">
+                        <label>Status:</label>
+                        <select class="select-dark">
+                            <option value="ativo" selected>Ativo</option>
+                            <option value="parado">Parado</option>
+                            <option value="finalizado">Finalizado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="acoes-os-dark">
+                    <button type="submit" class="btn-os btn-salvar-red">SALVAR ALTERAÇÕES</button>
+                    <a href="ordens.html" class="btn-os btn-voltar-dark">VOLTAR</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // --- SCRIPT DO MENU LATERAL (SEU CÓDIGO ORIGINAL) ---
+        const btnMobile = document.querySelector('.hamburger-btn');
+        const sidebar = document.querySelector('#sidebar');
+
+        btnMobile.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
+
+        // --- NOVO SCRIPT: MÁSCARA DE MOEDA (APENAS NÚMEROS E FORMATAÇÃO) ---
+        const inputValor = document.querySelector('.money-mask');
+
+        if (inputValor) {
+            inputValor.addEventListener('input', (e) => {
+                let value = e.target.value;
+
+                // 1. Remove tudo o que não for número
+                value = value.replace(/\D/g, '');
+
+                // 2. Se o campo for limpo, define como zero para não quebrar a lógica
+                if (!value) {
+                    e.target.value = '';
+                    return;
+                }
+
+                // 3. Transforma o número em formato de centavos (ex: 45000 vira 450.00)
+                value = (parseInt(value) / 100).toFixed(2);
+
+                // 4. Formata para a moeda brasileira (R$)
+                let valorFormatado = parseFloat(value).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                });
+
+                // 5. Devolve o valor bonitinho para o input
+                e.target.value = valorFormatado;
+            });
+        }
+    </script>
+</body>
+</html>
