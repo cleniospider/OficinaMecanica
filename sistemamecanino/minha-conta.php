@@ -60,28 +60,19 @@ $nivel = match($perfil) {
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text"><?= htmlspecialchars(strtoupper($perfil)) ?></span>
+                <span class="role-text">ADMINISTRADOR</span>
             </div>
         </div>
+
         <ul class="nav-links">
-            <li><a href="<?= $painel ?>">Painel de Gestão</a></li>
-            <?php if ($perfil === 'Admin'): ?>
-                <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
-            <?php endif; ?>
-            <?php if ($perfil !== 'Mecanico'): ?>
-                <li><a href="<?= $perfil === 'Recepcionista' ? 'cadastrocliente-recep.php' : 'cadastrocliente.php' ?>">Cadastro Cliente</a></li>
-                <li><a href="<?= $perfil === 'Recepcionista' ? 'cadastroveiculo-recep.php' : 'cadastroveiculo.php' ?>">Cadastro Veículo</a></li>
-            <?php endif; ?>
-            <li><a href="ordens.php">Ordens de Serviços</a></li>
-            <li><a href="servicos.php">Serviços</a></li>
-            <?php if ($perfil !== 'Recepcionista'): ?>
-                <li><a href="estoque-critico.php">Estoque de Peças</a></li>
-            <?php endif; ?>
-            <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
-            <?php if ($perfil === 'Admin'): ?>
-                <li><a href="financeiro.php">Financeiro</a></li>
-                <li><a href="relatorios.php">Relatórios</a></li>
-            <?php endif; ?>
+            <li><a href="admin.php" >Painel de Gestão</a></li>
+            <li><a href="cadastrocliente.php" >Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.php" >Cadastro Veículo</a></li>
+            <li><a href="ordens.php" >Ordens de Serviços</a></li>
+            <li><a href="estoque-critico.php" >Estoque de Peças</a></li>
+            <li><a href="historico-veiculos.php" >Histórico de Veículos</a></li>
+            <li><a href="financeiro.php" >Financeiro</a></li>
+            <li><a href="relatorios.php" >Relatórios</a></li>
             <li><a href="minha-conta.php" class="active">Minha Conta</a></li>
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>

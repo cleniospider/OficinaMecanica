@@ -69,23 +69,20 @@ try {
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'])) ?></span>
+                <span class="role-text">ADMINISTRADOR</span>
             </div>
         </div>
+
         <ul class="nav-links">
-            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : ($_SESSION['usuario_perfil'] === 'Mecanico' ? 'mecan.php' : 'recep.php') ?>">Painel de Gestão</a></li>
-            <?php if ($_SESSION['usuario_perfil'] === 'Admin'): ?>
-                <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
-            <?php endif; ?>
-            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
-            <li><a href="ordens.php">Ordens de Serviços</a></li>
-            <li><a href="servicos.php">Serviços</a></li>
+            <li><a href="admin.php" >Painel de Gestão</a></li>
+            <li><a href="cadastrocliente.php" >Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.php" >Cadastro Veículo</a></li>
+            <li><a href="ordens.php" >Ordens de Serviços</a></li>
             <li><a href="estoque-critico.php" class="active">Estoque de Peças</a></li>
             <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
             <li><a href="financeiro.php">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
-            <li><a href="minha-conta.php">Minha conta</a></li>
+            <li><a href="minha-conta.php">Minha Conta</a></li>
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
@@ -130,7 +127,7 @@ try {
                                         <div class="peca-qtd-direita" style="margin-bottom: 5px;"><?= htmlspecialchars($p['estoque_atual']) ?> un.</div>
                                         <div class="acoes-peca">
                                             <a href="editar-peca.php?id=<?= $p['id'] ?>" class="btn-peca-edit">EDITAR</a>
-                                            <a href="excluir-peca.php?id=<?= $p['id'] ?>" class="btn-peca-del" onclick="return confirm('Deseja realmente excluir esta peça do estoque?')">EXCLUIR</a>
+                                            <a href="excluir-peca.php?id=<?= $p['id'] ?>" class="btn-peca-del">EXCLUIR</a>
                                         </div>
                                     </div>
                                 </div>

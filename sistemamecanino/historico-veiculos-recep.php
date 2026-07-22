@@ -1,8 +1,9 @@
 <?php 
+session_start(); // Inicia a sessão para validar o perfil da recepção
 require_once('conexao/conexao.php');
 
-// Proteção de sessão
-if (!isset($_SESSION['usuario_id'])) {
+// Proteção de sessão para Recepcionista e Admin
+if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_perfil'], ['Admin', 'Recepcionista'])) {
     header("Location: index.php");
     exit;
 }
@@ -28,7 +29,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Repair - Histórico (Recepcionista)</title>
+    <title>Auto Repair - Histórico (Recepção)</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/historico-veiculo.css">
     <style>.dot-finalizado { background-color: #2ecc71; }</style>
@@ -54,12 +55,8 @@ try {
             <li><a href="recep.php">Painel de Gestão</a></li>
             <li><a href="cadastrocliente-recep.php">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo-recep.php">Cadastro Veículo</a></li>
-            <li><a href="ordens.php">Ordens de Serviços</a></li>
-            <li><a href="servicos.php">Serviços</a></li>
-            <li><a href="historico-veiculos-recep.php" class="active">Histórico de Veículos</a></li>
-            <li><a href="minha-conta.php">Minha conta</a></li>
-            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
-        </ul>
+            <li><a href="ordens-recep.php">Ordens de Serviços</a></li> <li><a href="historico-veiculos-recep.php" class="active">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-recep.php">Minha Conta</a></li> <li><a href="index.php" class="logout-link">Sair</a></li> </ul>
     </aside>
 
     <main class="main-content">
@@ -99,7 +96,6 @@ try {
                                 <td data-label="AÇÕES">
                                     <div class="acoes-flex">
                                         <a href="detalhes-historico-recep.php?id=<?= $h['id'] ?>" class="btn-editar">ANALISAR</a>
-                                        <a href="excluir-historico-recep.php?id=<?= $h['id'] ?>" class="btn-excluir-vinho">EXCLUIR</a>
                                     </div>
                                 </td>
                             </tr>

@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li><a href="cadastroveiculo-recep.php">Cadastro Veículo</a></li>
             <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
             <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.php">Minha conta</a></li> 
+            <li><a href="minha-conta-recep.php">Minha Conta</a></li> 
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="aviso-texto">Esta ação removerá permanentemente os dados do cliente. Você não poderá excluir caso existam veículos vinculados.</p>
                 
                 <form method="POST" class="form-exclusao">
-                    <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? $_GET['id']) ?>">
+                <input type="hidden" name="cpf" value="<?= htmlspecialchars($cpf_limpo) ?>">
                     <div class="botoes-acao-excluir">
                         <a href="cadastrocliente-recep.php" class="btn-cancelar-exclusao">CANCELAR</a>
                         <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>

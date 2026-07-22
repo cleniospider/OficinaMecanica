@@ -114,26 +114,23 @@ $est_critico= intval($estoque_stats['critico'] ?? 0);
 
     <aside class="sidebar" id="sidebar">
         <div class="profile-area">
-            <img src="img/download.png" alt="Avatar" class="avatar">
+            <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'] ?? 'ADMINISTRADOR')) ?></span>
+                <span class="role-text">ADMINISTRADOR</span>
             </div>
         </div>
+
         <ul class="nav-links">
-            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : ($_SESSION['usuario_perfil'] === 'Mecanico' ? 'mecan.php' : 'recep.php') ?>">Painel de Gestão</a></li>
-            <?php if ($_SESSION['usuario_perfil'] === 'Admin'): ?>
-                <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
-            <?php endif; ?>
-            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
-            <li><a href="ordens.php">Ordens de Serviços</a></li>
-            <li><a href="servicos.php">Serviços</a></li>
-            <li><a href="estoque-critico.php">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
-            <li><a href="financeiro.php">Financeiro</a></li>
+            <li><a href="admin.php" >Painel de Gestão</a></li>
+            <li><a href="cadastrocliente.php" >Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.php" >Cadastro Veículo</a></li>
+            <li><a href="ordens.php" >Ordens de Serviços</a></li>
+            <li><a href="estoque-critico.php" >Estoque de Peças</a></li>
+            <li><a href="historico-veiculos.php" >Histórico de Veículos</a></li>
+            <li><a href="financeiro.php" >Financeiro</a></li>
             <li><a href="relatorios.php" class="active">Relatórios</a></li>
-            <li><a href="minha-conta.php">Minha conta</a></li>
+            <li><a href="minha-conta.php">Minha Conta</a></li>
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>

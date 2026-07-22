@@ -38,7 +38,7 @@ if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_perfil'], ['
             <li><a href="cadastroveiculo-recep.php">Cadastro Veículo</a></li>
             <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
             <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.php">Minha conta</a></li> 
+            <li><a href="minha-conta-recep.php">Minha Conta</a></li> 
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>

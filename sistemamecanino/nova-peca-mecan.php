@@ -1,4 +1,5 @@
 <?php 
+session_start(); // Inicializa a sessão para ler o perfil do usuário logado
 require_once('conexao/conexao.php');
 
 // Proteção de sessão
@@ -73,19 +74,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nome'])) {
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'])) ?></span>
+                <span class="role-text" style="color: #ffaa00;">MECÂNICO</span>
             </div>
         </div>
+        
         <ul class="nav-links">
-            <li><a href="admin.php">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
-            <li><a href="ordens.php">Ordens de Serviços</a></li>
+            <li><a href="mecan.php">Painel de Gestão</a></li>
+            <li><a href="ordens-mecanico.php">Ordens de Serviços</a></li>
             <li><a href="estoque-critico-mecan.php" class="active">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
-            <li><a href="financeiro.php">Financeiro</a></li>
-            <li><a href="relatorios.php">Relatórios</a></li>
-            <li><a href="minha-conta.php">Minha conta</a></li>
+            <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-mecan.php">Minha Conta</a></li>
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>

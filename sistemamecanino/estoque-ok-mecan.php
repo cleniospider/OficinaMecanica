@@ -77,7 +77,7 @@ try {
             <li><a href="ordens-mecanico.php">Ordens de Serviços</a></li>
             <li><a href="estoque-critico-mecan.php" class="active">Estoque de Peças</a></li>
             <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-mecan.php">Minha conta</a></li>
+            <li><a href="minha-conta-mecan.php">Minha Conta</a></li>
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
@@ -122,7 +122,8 @@ try {
                                         <div class="peca-qtd-direita" style="margin-bottom: 5px;"><?= htmlspecialchars($p['estoque_atual']) ?> un.</div>
                                         <div class="acoes-peca">
                                             <a href="editar-peca-mecan.php?id=<?= $p['id'] ?>" class="btn-peca-edit">EDITAR</a>
-                                            <a href="excluir-peca.php?id=<?= $p['id'] ?>" class="btn-peca-del" onclick="return confirm('Deseja realmente excluir esta peça do estoque?')">EXCLUIR</a>
+                                            <!-- Atualizado para mandar para a tela certa do mecânico, sem gerar o balão nativo do navegador -->
+                                            <a href="excluir-peca-mecan.php?id=<?= $p['id'] ?>" class="btn-peca-del">EXCLUIR</a>
                                         </div>
                                     </div>
                                 </div>

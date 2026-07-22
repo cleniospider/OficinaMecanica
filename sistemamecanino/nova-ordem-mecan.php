@@ -1,7 +1,8 @@
 <?php 
+session_start(); // Garante o controle correto de sessão do mecânico
 require_once('conexao/conexao.php');
 
-// Proteção de sessão
+// Proteção de sessão para Mecânico e Admin
 if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_perfil'], ['Admin', 'Mecanico'])) {
     header("Location: index.php");
     exit;
@@ -15,17 +16,13 @@ try {
     $stmt_veic = $pdo->query("SELECT id, placa, `marca/modelo` as modelo, cliente, clientes_cpf FROM veiculo ORDER BY `marca/modelo` ASC");
     $veiculos = $stmt_veic->fetchAll();
 
-    // Buscar mecânicos
-    $stmt_mec = $pdo->query("SELECT id, nome_completo FROM usuarios WHERE perfil = 'Mecanico' ORDER BY nome_completo ASC");
-    $mecanicos = $stmt_mec->fetchAll();
+    // REMOVIDO: Busca de mecânicos do banco (Mecânico cria a OS diretamente)
 
     // Buscar pecas
     $stmt_pecas = $pdo->query("SELECT id, nome, preco_venda, estoque_atual FROM pecas WHERE estoque_atual > 0 ORDER BY nome ASC");
     $lista_pecas = $stmt_pecas->fetchAll();
 
-    // Buscar servicos
-    $stmt_serv = $pdo->query("SELECT idservicos, nome, preco FROM servicos ORDER BY nome ASC");
-    $lista_servicos = $stmt_serv->fetchAll();
+    // REMOVIDO: Busca de serviços pré-definidos do banco
 } catch (PDOException $e) {
     $erro = "Erro ao carregar dados do banco: " . $e->getMessage();
 }
@@ -33,19 +30,23 @@ try {
 // Processar POST
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
     $veiculo_id = filter_var($_POST['veiculo_id'], FILTER_VALIDATE_INT);
-    $mecanico_id = filter_var($_POST['mecanico_id'], FILTER_VALIDATE_INT);
+    // Vincula automaticamente ao ID do mecânico logado na sessão ou mantém 1 se preferir
+    $mecanico_id = $_SESSION['usuario_id'] ?? 1; 
     $problema = trim($_POST['problema']);
     $status = $_POST['status'];
 
     $pecas_selecionadas = $_POST['pecas_ids'] ?? [];
-    $servicos_selecionados = $_POST['servicos_ids'] ?? [];
+    
+    // Captura o texto digitado livremente no textarea de serviços
+    $txt_servicos = trim($_POST['servicos_texto']); 
 
     // Limpar valor_total para formato float
     $valor_str = $_POST['valor_total'];
     $valor_clean = str_replace(['R$', ' ', '.', ','], ['', '', '', '.'], $valor_str);
     $valor_total = floatval($valor_clean);
 
-    if ($veiculo_id && $mecanico_id) {
+    // Validação exige apenas o veículo
+    if ($veiculo_id) {
         try {
             // Obter CPF do proprietário a partir do veículo selecionado
             $stmt_v = $pdo->prepare("SELECT clientes_cpf, `marca/modelo` FROM veiculo WHERE id = ?");
@@ -55,18 +56,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
             if ($veiculo) {
                 $clientes_cpf = $veiculo['clientes_cpf'];
                 $veiculo_modelo = $veiculo['marca/modelo'];
-                $data_entrada = date('Y-m-d H:i:s');
+                $data_entrada = date('Y-m-d H:i:s'); 
 
-                // Concatenar os nomes para salvar como texto (histórico legível)
-                $txt_servicos = "";
                 $txt_pecas = "";
-
-                if (!empty($servicos_selecionados)) {
-                    $in_s = str_repeat('?,', count($servicos_selecionados) - 1) . '?';
-                    $stmt_s = $pdo->prepare("SELECT nome FROM servicos WHERE idservicos IN ($in_s)");
-                    $stmt_s->execute($servicos_selecionados);
-                    $txt_servicos = implode(', ', $stmt_s->fetchAll(PDO::FETCH_COLUMN));
-                }
 
                 if (!empty($pecas_selecionadas)) {
                     $in_p = str_repeat('?,', count($pecas_selecionadas) - 1) . '?';
@@ -85,12 +77,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
                 ");
                 $stmt_os->execute([$veiculo_id, $mecanico_id, $data_entrada, $veiculo_id, $clientes_cpf, $problema, $txt_servicos, $txt_pecas, $valor_total, $status]);
                 $os_id = $pdo->lastInsertId();
-
-                // Salvar relacionamentos
-                foreach ($servicos_selecionados as $s_id) {
-                    $stmt_s_os = $pdo->prepare("INSERT INTO servicos_has_OS (servicos_idservicos, OS_id) VALUES (?, ?)");
-                    $stmt_s_os->execute([$s_id, $os_id]);
-                }
 
                 foreach ($pecas_selecionadas as $p_id) {
                     $stmt_p_os = $pdo->prepare("INSERT INTO pecas_na_OS (pecas_id, OS_id) VALUES (?, ?)");
@@ -114,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
                 $stmt_fin->execute([$fin_desc, $valor_total, $fin_tipo, $fin_status, $os_id]);
 
                 $pdo->commit();
-                header("Location: ordens-mecan.php");
+                header("Location: ordens-mecanico.php"); // Redireciona para ordens do mecânico
                 exit;
             } else {
                 $erro = "Veículo selecionado inválido!";
@@ -126,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
             $erro = "Erro ao salvar Ordem de Serviço: " . $e->getMessage();
         }
     } else {
-        $erro = "Selecione um veículo e um mecânico válidos!";
+        $erro = "Selecione um veículo válido!";
     }
 }
 ?>
@@ -141,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
     <link rel="stylesheet" href="css/ordens.css">
     <link rel="stylesheet" href="css/nova-ordem.css">
     <style>
-        .select-dark {
+        .select-dark, .textarea-dark {
             width: 100%;
             background-color: #121212;
             border: 1px solid #333;
@@ -152,8 +138,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
             outline: none;
             transition: border-color 0.3s;
         }
-        .select-dark:focus {
+        .select-dark:focus, .textarea-dark:focus {
             border-color: #ff0000;
+        }
+        .textarea-dark {
+            resize: vertical;
+            font-family: inherit;
         }
         .alert-error {
             background-color: rgba(231, 76, 60, 0.2);
@@ -207,24 +197,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'] ?? 'ADMINISTRADOR')) ?></span>
+                <span class="role-text" style="color: #ffaa00;">MECÂNICO</span>
             </div>
         </div>
+
         <ul class="nav-links">
-            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : ($_SESSION['usuario_perfil'] === 'Mecanico' ? 'mecan.php' : 'recep.php') ?>">Painel de Gestão</a></li>
-            <?php if ($_SESSION['usuario_perfil'] === 'Admin'): ?>
-                <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
-            <?php endif; ?>
-            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
-            <li><a href="ordens-mecan.php" class="active">Ordens de Serviços</a></li>
-            <li><a href="servicos.php">Serviços</a></li>
-            <li><a href="estoque-critico.php">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
-            <li><a href="financeiro.php">Financeiro</a></li>
-            <li><a href="relatorios.php">Relatórios</a></li>
-            <li><a href="minha-conta.php">Minha conta</a></li>
-            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
+            <li><a href="mecan.php">Painel de Gestão</a></li>
+            <li><a href="ordens-mecanico.php" class="active">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-mecan.php">Minha Conta</a></li>
+            <li><a href="index.php" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -240,7 +223,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
 
             <form method="POST" class="form-nova-ordem">
                 
-                <div class="form-header-info" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-header-info" style="display: grid; grid-template-columns: 1fr; gap: 20px;">
                     <div class="grupo-input">
                         <label class="label-padrao">Veículo / Proprietário:</label>
                         <select name="veiculo_id" class="select-dark" required>
@@ -250,44 +233,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="grupo-input">
-                        <label class="label-padrao">Mecânico Responsável:</label>
-                        <select name="mecanico_id" class="select-dark" required>
-                            <option value="">Selecione o Mecânico</option>
-                            <?php foreach ($mecanicos as $m): ?>
-                                <option value="<?= $m['id'] ?>"><?= htmlspecialchars($m['nome_completo']) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
                 </div>
         
                 <div class="form-corpo-ordem" style="margin-top: 20px;">
                     
                     <div class="grupo-input-dark">
                         <label>Problema Constatado:</label>
-                        <textarea name="problema" rows="3" placeholder="Descreva o problema constatado..." required></textarea>
+                        <textarea name="problema" class="textarea-dark" rows="3" placeholder="Descreva o problema constatado..." required></textarea>
                     </div>
 
                     <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                         <div class="grupo-input-dark">
-                            <label>Serviços a realizar:</label>
-                            <div class="checkbox-group">
-                                <?php if (empty($lista_servicos)): ?>
-                                    <span style="color: #666; font-size: 13px;">Nenhum serviço cadastrado.</span>
-                                <?php endif; ?>
-                                <?php foreach ($lista_servicos as $s): ?>
-                                    <label class="checkbox-item">
-                                        <input type="checkbox" name="servicos_ids[]" value="<?= $s['idservicos'] ?>" data-preco="<?= $s['preco'] ?>" class="calc-item">
-                                        <?= htmlspecialchars($s['nome']) ?>
-                                        <span class="item-preco">+ R$ <?= number_format($s['preco'], 2, ',', '.') ?></span>
-                                    </label>
-                                <?php endforeach; ?>
-                            </div>
+                            <label>Serviços a realizar (Descreva livremente):</label>
+                            <textarea name="servicos_texto" class="textarea-dark" rows="6" placeholder="Digite os serviços realizados aqui..." required></textarea>
                         </div>
 
                         <div class="grupo-input-dark">
                             <label>Peças a utilizar:</label>
-                            <div class="checkbox-group">
+                            <div class="checkbox-group" style="height: 148px;">
                                 <?php if (empty($lista_pecas)): ?>
                                     <span style="color: #666; font-size: 13px;">Nenhuma peça com estoque disponível.</span>
                                 <?php endif; ?>
@@ -304,8 +267,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
 
                     <div class="flex-row" style="display: flex; gap: 20px; margin-top: 15px;">
                         <div class="grupo-input-dark" style="flex: 1;">
-                            <label>Valor total calculado:</label>
-                            <input type="text" name="valor_total" id="valor_total" class="input-valor-dark" value="R$ 0,00" required readonly style="background-color: #222; border-color: #555; color: #2ecc71; font-weight: bold;">
+                            <label>Valor total da OS (R$):</label>
+                            <input type="text" name="valor_total" id="valor_total" class="input-valor-dark" value="R$ 0,00" required style="background-color: #121212; border-color: #333; color: #2ecc71; font-weight: bold; width: 100%; padding: 12px; border-radius: 8px;">
                         </div>
                         <div class="grupo-input-dark" style="flex: 1;">
                             <label>Status da OS:</label>
@@ -320,8 +283,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
             
                     <div class="botoes-acao" style="margin-top: 25px;">
                         <button type="submit" class="btn-os btn-salvar-red">SALVAR ORDEM</button>
-                        <a href="ordens-mecan.php" class="btn-os btn-voltar-dark">CANCELAR</a>
-                    </div>
+                        <a href="ordens-mecanico.php" class="btn-os btn-voltar-dark">CANCELAR</a> </div>
                 </div>
             </form>
         </div>
@@ -331,9 +293,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
         const btnMobile = document.querySelector('.hamburger-btn');
         const sidebar = document.querySelector('#sidebar');
 
-        btnMobile.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-        });
+        if(btnMobile && sidebar) {
+            btnMobile.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        }
 
         const links = document.querySelectorAll('.nav-links a');
         links.forEach(link => {
@@ -342,7 +306,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
             });
         });
 
-        // Cálculo Automático de Valor
+        // Cálculo automático soma as peças, mas permite que o mecânico mude ou adicione o valor manualmente
         const checkboxes = document.querySelectorAll('.calc-item');
         const valorInput = document.getElementById('valor_total');
 
@@ -353,7 +317,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
                     total += parseFloat(cb.getAttribute('data-preco'));
                 }
             });
-            // Formatar para Moeda BR
             let valorBR = total.toFixed(2).replace('.', ',');
             valorBR = valorBR.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
             valorInput.value = "R$ " + valorBR;
@@ -361,6 +324,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['veiculo_id'])) {
 
         checkboxes.forEach(cb => {
             cb.addEventListener('change', calcularTotal);
+        });
+
+        valorInput.addEventListener('focus', function() {
+            if(this.value === 'R$ 0,00') this.value = '';
         });
     </script>
 </body>

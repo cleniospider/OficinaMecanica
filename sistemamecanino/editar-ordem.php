@@ -33,23 +33,17 @@ try {
         exit;
     }
 
-    // Buscar mecânicos
-    $stmt_mec = $pdo->query("SELECT id, nome_completo FROM usuarios WHERE perfil = 'Mecanico' ORDER BY nome_completo ASC");
-    $mecanicos = $stmt_mec->fetchAll();
+    // REMOVIDO: Busca de mecânicos do banco
 
     // Buscar pecas
     $stmt_pecas = $pdo->query("SELECT id, nome, preco_venda, estoque_atual FROM pecas ORDER BY nome ASC");
     $lista_pecas = $stmt_pecas->fetchAll();
 
-    // Buscar servicos
-    $stmt_serv = $pdo->query("SELECT idservicos, nome, preco FROM servicos ORDER BY nome ASC");
-    $lista_servicos = $stmt_serv->fetchAll();
+    // REMOVIDO: Busca de serviços pré-definidos do banco
 
-    // Buscar relacoes atuais
-    $stmt_rel_s = $pdo->prepare("SELECT servicos_idservicos FROM servicos_has_OS WHERE OS_id = ?");
-    $stmt_rel_s->execute([$id]);
-    $servicos_atuais = $stmt_rel_s->fetchAll(PDO::FETCH_COLUMN);
+    // REMOVIDO: Busca de relações da tabela pivô servicos_has_OS
 
+    // Buscar relacoes atuais das peças
     $stmt_rel_p = $pdo->prepare("SELECT pecas_id FROM pecas_na_OS WHERE OS_id = ?");
     $stmt_rel_p->execute([$id]);
     $pecas_atuais = $stmt_rel_p->fetchAll(PDO::FETCH_COLUMN);
@@ -60,106 +54,91 @@ try {
 
 // Processar POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $mecanico_id = filter_var($_POST['mecanico_id'], FILTER_VALIDATE_INT);
+    // MODIFICADO: Mecânico agora passa como nulo para evitar o erro de Constraint
+    $mecanico_id = null; 
     $problema = trim($_POST['problema']);
     $status = $_POST['status'];
     $status_anterior = $os['status'];
 
     $pecas_selecionadas = $_POST['pecas_ids'] ?? [];
-    $servicos_selecionados = $_POST['servicos_ids'] ?? [];
+    
+    // MODIFICADO: Captura o texto livre do textarea de serviços
+    $txt_servicos = trim($_POST['servicos_texto']); 
 
     // Limpar valor_total para formato float
     $valor_str = $_POST['valor_total'];
     $valor_clean = str_replace(['R$', ' ', '.', ','], ['', '', '', '.'], $valor_str);
     $valor_total = floatval($valor_clean);
 
-    if ($mecanico_id) {
-        try {
-            // Concatenar os nomes para salvar como texto
-            $txt_servicos = "";
-            $txt_pecas = "";
+    try {
+        $txt_pecas = "";
 
-            if (!empty($servicos_selecionados)) {
-                $in_s = str_repeat('?,', count($servicos_selecionados) - 1) . '?';
-                $stmt_s = $pdo->prepare("SELECT nome FROM servicos WHERE idservicos IN ($in_s)");
-                $stmt_s->execute($servicos_selecionados);
-                $txt_servicos = implode(', ', $stmt_s->fetchAll(PDO::FETCH_COLUMN));
-            }
-
-            if (!empty($pecas_selecionadas)) {
-                $in_p = str_repeat('?,', count($pecas_selecionadas) - 1) . '?';
-                $stmt_p = $pdo->prepare("SELECT nome FROM pecas WHERE id IN ($in_p)");
-                $stmt_p->execute($pecas_selecionadas);
-                $txt_pecas = implode(', ', $stmt_p->fetchAll(PDO::FETCH_COLUMN));
-            }
-
-            $pdo->beginTransaction();
-
-            // Atualizar OS
-            $stmt_update = $pdo->prepare("
-                UPDATE OS 
-                SET mecanico_id = ?, problema = ?, servicos = ?, pecas_usadas = ?, valor_total = ?, status = ? 
-                WHERE id = ?
-            ");
-            $stmt_update->execute([$mecanico_id, $problema, $txt_servicos, $txt_pecas, $valor_total, $status, $id]);
-
-            // Atualizar relacionamentos Servicos
-            $pdo->prepare("DELETE FROM servicos_has_OS WHERE OS_id = ?")->execute([$id]);
-            foreach ($servicos_selecionados as $s_id) {
-                $stmt_s_os = $pdo->prepare("INSERT INTO servicos_has_OS (servicos_idservicos, OS_id) VALUES (?, ?)");
-                $stmt_s_os->execute([$s_id, $id]);
-            }
-
-            // Atualizar relacionamentos Pecas
-            $pdo->prepare("DELETE FROM pecas_na_OS WHERE OS_id = ?")->execute([$id]);
-            foreach ($pecas_selecionadas as $p_id) {
-                $stmt_p_os = $pdo->prepare("INSERT INTO pecas_na_OS (pecas_id, OS_id) VALUES (?, ?)");
-                $stmt_p_os->execute([$p_id, $id]);
-                
-                // Se mudou para finalizado e antes não era, baixa o estoque
-                if ($status === 'finalizado' && $status_anterior !== 'finalizado') {
-                    $pdo->prepare("UPDATE pecas SET estoque_atual = estoque_atual - 1 WHERE id = ? AND estoque_atual > 0")->execute([$p_id]);
-                }
-            }
-
-            // Atualizar registro financeiro correspondente
-            $fin_desc = "OS #$id - " . $os['veiculo_modelo'];
-            $fin_status = ($status === 'finalizado') ? 'PAGO' : 'Aguardando';
-
-            // Verificar se o lançamento existe no financeiro
-            $stmt_check_fin = $pdo->prepare("SELECT id FROM Financeiro WHERE OS_id = ?");
-            $stmt_check_fin->execute([$id]);
-            $financeiro_rec = $stmt_check_fin->fetch();
-
-            if ($financeiro_rec) {
-                // Atualizar lançamento existente
-                $stmt_up_fin = $pdo->prepare("
-                    UPDATE Financeiro 
-                    SET descricao = ?, valor = ?, status = ? 
-                    WHERE OS_id = ?
-                ");
-                $stmt_up_fin->execute([$fin_desc, $valor_total, $fin_status, $id]);
-            } else {
-                // Criar novo lançamento se por acaso não existia
-                $fin_tipo = '1: Receita';
-                $stmt_in_fin = $pdo->prepare("
-                    INSERT INTO Financeiro (descricao, valor, tipo, status, OS_id) 
-                    VALUES (?, ?, ?, ?, ?)
-                ");
-                $stmt_in_fin->execute([$fin_desc, $valor_total, $fin_tipo, $fin_status, $id]);
-            }
-
-            $pdo->commit();
-            header("Location: ordens.php");
-            exit;
-        } catch (PDOException $e) {
-            if ($pdo->inTransaction()) {
-                $pdo->rollBack();
-            }
-            $erro = "Erro ao atualizar a Ordem de Serviço: " . $e->getMessage();
+        if (!empty($pecas_selecionadas)) {
+            $in_p = str_repeat('?,', count($pecas_selecionadas) - 1) . '?';
+            $stmt_p = $pdo->prepare("SELECT nome FROM pecas WHERE id IN ($in_p)");
+            $stmt_p->execute($pecas_selecionadas);
+            $txt_pecas = implode(', ', $stmt_p->fetchAll(PDO::FETCH_COLUMN));
         }
-    } else {
-        $erro = "Selecione um mecânico válido!";
+
+        $pdo->beginTransaction();
+
+        // Atualizar OS (mecanico_id será atualizado para NULL ou mantenha se sua coluna permitir null)
+        $stmt_update = $pdo->prepare("
+            UPDATE OS 
+            SET mecanico_id = ?, problema = ?, servicos = ?, pecas_usadas = ?, valor_total = ?, status = ? 
+            WHERE id = ?
+        ");
+        $stmt_update->execute([$mecanico_id, $problema, $txt_servicos, $txt_pecas, $valor_total, $status, $id]);
+
+        // REMOVIDO: Atualização da tabela pivô servicos_has_OS
+
+        // Atualizar relacionamentos Pecas
+        $pdo->prepare("DELETE FROM pecas_na_OS WHERE OS_id = ?")->execute([$id]);
+        foreach ($pecas_selecionadas as $p_id) {
+            $stmt_p_os = $pdo->prepare("INSERT INTO pecas_na_OS (pecas_id, OS_id) VALUES (?, ?)");
+            $stmt_p_os->execute([$p_id, $id]);
+            
+            // Se mudou para finalizado e antes não era, baixa o estoque
+            if ($status === 'finalizado' && $status_anterior !== 'finalizado') {
+                $pdo->prepare("UPDATE pecas SET estoque_atual = estoque_atual - 1 WHERE id = ? AND estoque_atual > 0")->execute([$p_id]);
+            }
+        }
+
+        // Atualizar registro financeiro correspondente
+        $fin_desc = "OS #$id - " . $os['veiculo_modelo'];
+        $fin_status = ($status === 'finalizado') ? 'PAGO' : 'Aguardando';
+
+        // Verificar se o lançamento existe no financeiro
+        $stmt_check_fin = $pdo->prepare("SELECT id FROM Financeiro WHERE OS_id = ?");
+        $stmt_check_fin->execute([$id]);
+        $financeiro_rec = $stmt_check_fin->fetch();
+
+        if ($financeiro_rec) {
+            // Atualizar lançamento existente
+            $stmt_up_fin = $pdo->prepare("
+                UPDATE Financeiro 
+                SET descricao = ?, valor = ?, status = ? 
+                WHERE OS_id = ?
+            ");
+            $stmt_up_fin->execute([$fin_desc, $valor_total, $fin_status, $id]);
+        } else {
+            // Criar novo lançamento se por acaso não existia
+            $fin_tipo = '1: Receita';
+            $stmt_in_fin = $pdo->prepare("
+                INSERT INTO Financeiro (descricao, valor, tipo, status, OS_id) 
+                VALUES (?, ?, ?, ?, ?)
+            ");
+            $stmt_in_fin->execute([$fin_desc, $valor_total, $fin_tipo, $fin_status, $id]);
+        }
+
+        $pdo->commit();
+        header("Location: ordens.php");
+        exit;
+    } catch (PDOException $e) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+        $erro = "Erro ao atualizar a Ordem de Serviço: " . $e->getMessage();
     }
 }
 ?>
@@ -174,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/ordens.css">
     <link rel="stylesheet" href="css/editar-ordem.css">
     <style>
-        .select-dark {
+        .select-dark, .textarea-dark {
             width: 100%;
             background-color: #121212;
             border: 1px solid #333;
@@ -185,8 +164,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             outline: none;
             transition: border-color 0.3s;
         }
-        .select-dark:focus {
+        .select-dark:focus, .textarea-dark:focus {    
             border-color: #ff0000;
+        }
+        .textarea-dark {
+            resize: vertical;
+            font-family: inherit;
         }
         .alert-error {
             background-color: rgba(231, 76, 60, 0.2);
@@ -240,23 +223,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'] ?? 'ADMINISTRADOR')) ?></span>
+                <span class="role-text">ADMINISTRADOR</span>
             </div>
         </div>
+
         <ul class="nav-links">
-            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : ($_SESSION['usuario_perfil'] === 'Mecanico' ? 'mecan.php' : 'recep.php') ?>">Painel de Gestão</a></li>
-            <?php if ($_SESSION['usuario_perfil'] === 'Admin'): ?>
-                <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
-            <?php endif; ?>
-            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
+            <li><a href="admin.php" >Painel de Gestão</a></li>
+            <li><a href="cadastrocliente.php" >Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.php" >Cadastro Veículo</a></li>
             <li><a href="ordens.php" class="active">Ordens de Serviços</a></li>
-            <li><a href="servicos.php">Serviços</a></li>
             <li><a href="estoque-critico.php">Estoque de Peças</a></li>
             <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
             <li><a href="financeiro.php">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
-            <li><a href="minha-conta.php">Minha conta</a></li>
+            <li><a href="minha-conta.php">Minha Conta</a></li>
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
@@ -287,42 +267,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
 
-                <div class="grupo-input-dark">
-                    <label>Mecânico Responsável:</label>
-                    <select name="mecanico_id" class="select-dark" required>
-                        <option value="">Selecione o Mecânico</option>
-                        <?php foreach ($mecanicos as $m): ?>
-                            <option value="<?= $m['id'] ?>" <?= ($os['mecanico_id'] == $m['id']) ? 'selected' : '' ?>><?= htmlspecialchars($m['nome_completo']) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+                <!-- REMOVIDO: Caixa de seleção do mecânico responsável -->
 
                 <div class="grupo-input-dark">
                     <label>Problema Constatado:</label>
-                    <textarea name="problema" rows="3" required><?= htmlspecialchars($os['problema']) ?></textarea>
+                    <textarea name="problema" class="textarea-dark" rows="3" required><?= htmlspecialchars($os['problema']) ?></textarea>
                 </div>
 
                 <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                    <!-- MODIFICADO: Campo mudou de checkboxes para campo de digitação livre, trazendo o texto já salvo -->
                     <div class="grupo-input-dark">
-                        <label>Serviços realizados:</label>
-                        <div class="checkbox-group">
-                            <?php if (empty($lista_servicos)): ?>
-                                <span style="color: #666; font-size: 13px;">Nenhum serviço cadastrado.</span>
-                            <?php endif; ?>
-                            <?php foreach ($lista_servicos as $s): ?>
-                                <?php $checked = in_array($s['idservicos'], $servicos_atuais) ? 'checked' : ''; ?>
-                                <label class="checkbox-item">
-                                    <input type="checkbox" name="servicos_ids[]" value="<?= $s['idservicos'] ?>" data-preco="<?= $s['preco'] ?>" class="calc-item" <?= $checked ?>>
-                                    <?= htmlspecialchars($s['nome']) ?>
-                                    <span class="item-preco">+ R$ <?= number_format($s['preco'], 2, ',', '.') ?></span>
-                                </label>
-                            <?php endforeach; ?>
-                        </div>
+                        <label>Serviços realizados (Descreva livremente):</label>
+                        <textarea name="servicos_texto" class="textarea-dark" rows="6" placeholder="Digite os serviços realizados aqui..." required><?= htmlspecialchars($os['servicos']) ?></textarea>
                     </div>
 
                     <div class="grupo-input-dark">
                         <label>Peças utilizadas:</label>
-                        <div class="checkbox-group">
+                        <div class="checkbox-group" style="height: 148px;">
                             <?php if (empty($lista_pecas)): ?>
                                 <span style="color: #666; font-size: 13px;">Nenhuma peça cadastrada.</span>
                             <?php endif; ?>
@@ -339,9 +300,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="flex-row" style="display: flex; gap: 20px; margin-top: 15px;">
+                    <!-- MODIFICADO: Retirado o 'readonly' para que o valor total possa ser modificado livremente -->
                     <div class="grupo-input-dark" style="flex: 1;">
-                        <label>Valor total calculado:</label>
-                        <input type="text" name="valor_total" id="valor_total" value="R$ <?= number_format($os['valor_total'], 2, ',', '.') ?>" class="input-valor-dark" required readonly style="background-color: #222; border-color: #555; color: #2ecc71; font-weight: bold;">
+                        <label>Valor total da OS (R$):</label>
+                        <input type="text" name="valor_total" id="valor_total" value="R$ <?= number_format($os['valor_total'], 2, ',', '.') ?>" class="input-valor-dark" required style="background-color: #121212; border-color: #333; color: #2ecc71; font-weight: bold; width: 100%; padding: 12px; border-radius: 8px;">
                     </div>
 
                     <div class="grupo-input-dark" style="flex: 1;">
@@ -378,7 +340,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
         });
 
-        // Cálculo Automático de Valor
+        // Cálculo Automático de Valor baseado nas peças selecionadas
         const checkboxes = document.querySelectorAll('.calc-item');
         const valorInput = document.getElementById('valor_total');
 
@@ -389,7 +351,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     total += parseFloat(cb.getAttribute('data-preco'));
                 }
             });
-            // Formatar para Moeda BR
             let valorBR = total.toFixed(2).replace('.', ',');
             valorBR = valorBR.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
             valorInput.value = "R$ " + valorBR;
@@ -399,8 +360,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             cb.addEventListener('change', calcularTotal);
         });
 
-        // Uncomment the line below if you want to force recalculation on page load
-        // calcularTotal(); 
+        // Permite limpar o campo para digitação livre sem travar no valor zerado
+        valorInput.addEventListener('focus', function() {
+            if(this.value === 'R$ 0,00') this.value = '';
+        });
     </script>
 </body>
 </html>

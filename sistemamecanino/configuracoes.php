@@ -30,17 +30,18 @@ require_once('conexao/conexao.php');
                 <span class="role-text">ADMINISTRADOR</span>
             </div>
         </div>
+
         <ul class="nav-links">
-            <li><a href="admin.php">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
-            <li><a href="ordens.php">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico.php">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
-            <li><a href="financeiro.php">Financeiro</a></li>
-            <li><a href="relatorios.php">Relatórios</a></li>
-            <li><a href="minha-conta.php" class="active">Minha conta</a></li>
-            <li><a href="index.php" class="logout-link">Sair</a></li>
+            <li><a href="admin.php" >Painel de Gestão</a></li>
+            <li><a href="cadastrocliente.php" >Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.php" >Cadastro Veículo</a></li>
+            <li><a href="ordens.php" >Ordens de Serviços</a></li>
+            <li><a href="estoque-critico.php" >Estoque de Peças</a></li>
+            <li><a href="historico-veiculos.php" >Histórico de Veículos</a></li>
+            <li><a href="financeiro.php" >Financeiro</a></li>
+            <li><a href="relatorios.php" >Relatórios</a></li>
+            <li><a href="minha-conta.php" class="active">Minha Conta</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 

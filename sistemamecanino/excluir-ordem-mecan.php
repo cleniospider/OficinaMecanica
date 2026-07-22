@@ -1,8 +1,9 @@
 <?php 
+session_start(); // Garante o controle correto de sessão
 require_once('conexao/conexao.php');
 
-// Proteção de sessão
-if (!isset($_SESSION['usuario_id'])) {
+// Proteção de sessão: garante que apenas Mecânicos (ou Administradores) acessem
+if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_perfil'], ['Admin', 'Mecanico'])) {
     header("Location: index.php");
     exit;
 }
@@ -65,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto Repair - Excluir Ordem</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <link class="dark-theme" rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/excluir-ordem.css"> 
     <style>
         .alert-error {
@@ -85,7 +86,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <header class="top-header">
         <button class="hamburger-btn">
-            <span></span><span></span><span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
         <div class="header-logo-text">AUTO REPAIR</div>
     </header>
@@ -95,29 +98,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'] ?? 'ADMINISTRADOR')) ?></span>
+                <span class="role-text" style="color: #ffaa00;">MECÂNICO</span>
             </div>
         </div>
+
         <ul class="nav-links">
-            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : ($_SESSION['usuario_perfil'] === 'Mecanico' ? 'mecan.php' : 'recep.php') ?>">Painel de Gestão</a></li>
-            <?php if ($_SESSION['usuario_perfil'] === 'Admin'): ?>
-                <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
-            <?php endif; ?>
-            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
+            <li><a href="mecan.php">Painel de Gestão</a></li>
             <li><a href="ordens-mecanico.php" class="active">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico.php">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
-            <li><a href="financeiro.php">Financeiro</a></li>
-            <li><a href="relatorios.php">Relatórios</a></li>
-            <li><a href="minha-conta.php">Minha conta</a></li>
+            <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
+            <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
+            <li><a href="minha-conta-mecan.php">Minha Conta</a></li>
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
-    <main class="main-content">
+    <main class="main-content" id="main-content">
         <div class="ordem-exclusao-container">
-            <h2 class="titulo-sessao">EXCLUIR ORDEM DE SERVIÇO - MECÂNICO</h2>
+            <h2 class="titulo-sessao">EXCLUIR ORDEM DE SERVIÇO</h2>
 
             <?php if (!empty($erro)): ?>
                 <div class="alert-error"><?= htmlspecialchars($erro) ?></div>
@@ -129,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="aviso-texto">Esta ação não poderá ser desfeita e os dados do serviço e lançamentos financeiros associados serão perdidos.</p>
                 
                 <form method="POST" class="form-exclusao">
-                    <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? $_GET['id']) ?>">
+                    <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
                     <div class="botoes-acao-excluir">
                         <a href="ordens-mecanico.php" class="btn-cancelar-exclusao">CANCELAR</a>
                         <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>
@@ -142,9 +139,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script>
         const btnMobile = document.querySelector('.hamburger-btn');
         const sidebar = document.querySelector('#sidebar');
-        if(btnMobile && sidebar) {
-            btnMobile.addEventListener('click', () => sidebar.classList.toggle('open'));
+    
+        if(btnMobile) {
+            btnMobile.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
         }
+    
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
     </script>
 </body>
 </html>

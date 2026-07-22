@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto Repair - Excluir Registro Financeiro</title>
     <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/excluir-financeiro.css">
+    <link rel="stylesheet" href="css/excluir-cliente.css">
     <style>
         .alert-error {
             background-color: rgba(231, 76, 60, 0.2);
@@ -78,29 +78,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'] ?? 'ADMINISTRADOR')) ?></span>
+                <span class="role-text">ADMINISTRADOR</span>
             </div>
         </div>
+
         <ul class="nav-links">
-            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : ($_SESSION['usuario_perfil'] === 'Mecanico' ? 'mecan.php' : 'recep.php') ?>">Painel de Gestão</a></li>
-            <?php if ($_SESSION['usuario_perfil'] === 'Admin'): ?>
-                <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
-            <?php endif; ?>
-            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
-            <li><a href="ordens.php">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico.php">Estoque de Peças</a></li>
-            <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
+            <li><a href="admin.php" >Painel de Gestão</a></li>
+            <li><a href="cadastrocliente.php" >Cadastro Cliente</a></li>
+            <li><a href="cadastroveiculo.php" >Cadastro Veículo</a></li>
+            <li><a href="ordens.php" >Ordens de Serviços</a></li>
+            <li><a href="estoque-critico.php" >Estoque de Peças</a></li>
+            <li><a href="historico-veiculos.php" >Histórico de Veículos</a></li>
             <li><a href="financeiro.php" class="active">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
-            <li><a href="minha-conta.php">Minha conta</a></li>
+            <li><a href="minha-conta.php">Minha Conta</a></li>
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
     <main class="main-content">
-        <div class="financeiro-container">
-            <h2 class="titulo-sessao-esquerda">EXCLUIR LANÇAMENTO</h2>
+        <div class="cliente-exclusao-container">
+            <h2 class="titulo-sessao">EXCLUIR LANÇAMENTO</h2>
 
             <?php if (!empty($erro)): ?>
                 <div class="alert-error"><?= htmlspecialchars($erro) ?></div>
@@ -108,11 +106,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="caixa-exclusao">
                 <div class="icone-alerta">⚠️</div>
-                <h3>Tem certeza que deseja excluir o registro "<?= htmlspecialchars($trans['descricao']) ?>"?</h3>
+                <h3>Tem certeza que deseja excluir o registro "<?= htmlspecialchars($trans['descricao'] ?? '') ?>"?</h3>
                 <p class="aviso-texto">Esta ação removerá permanentemente o lançamento do fluxo de caixa.</p>
                 
                 <form method="POST" class="form-exclusao">
-                    <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? $_GET['id']) ?>">
+                    <input type="hidden" name="id" value="<?= htmlspecialchars(($id ?? $_GET['id'] ?? '')) ?>">
                     <div class="botoes-acao-excluir">
                         <a href="financeiro.php" class="btn-cancelar-exclusao">CANCELAR</a>
                         <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>

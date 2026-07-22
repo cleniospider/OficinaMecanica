@@ -128,7 +128,7 @@ $veiculos = $stmt_veiculos->fetchAll();
             <li><a href="cadastroveiculo-recep.php" class="active">Cadastro Veículo</a></li>
             <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
             <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.php">Minha conta</a></li> 
+            <li><a href="minha-conta-recep.php">Minha Conta</a></li> 
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
@@ -183,7 +183,7 @@ $veiculos = $stmt_veiculos->fetchAll();
                                 <td data-label="PROPRIETÁRIO"><?= htmlspecialchars($v['cliente']) ?></td>
                                 <td data-label="AÇÕES">
                                     <div class="acoes-flex">
-                                        <a href="editar-veiculo-recep.php?id=<?= $v['id'] ?>" class="btn-editar" style="background-color: #2ecc71; margin-right: 5px;">EDITAR</a>
+                                        <a href="editar-veiculo-recep.php?id=<?= $v['id'] ?>" class="btn-editar" style="background-color: #ff0000; margin-right: 5px;">EDITAR</a>
                                         <a href="excluir-veiculo-recep.php?id=<?= $v['id'] ?>" class="btn-excluir">EXCLUIR</a>
                                     </div>
                                 </td>
@@ -199,19 +199,6 @@ $veiculos = $stmt_veiculos->fetchAll();
             </div>
         </div>
     </main>
-
-    <div id="modal-conta" class="modal-overlay" style="display: none;">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Minha Conta</h2>
-            <div class="conta-dados">
-                <p><strong>Nome:</strong> <?= htmlspecialchars($_SESSION['usuario_nome'] ?? '') ?></p>
-                <p><strong>Perfil:</strong> <?= htmlspecialchars($_SESSION['usuario_perfil'] ?? '') ?></p>
-                <p><strong>Status:</strong> <span style="color: #00cc44;">Ativo ✔️</span></p>
-            </div>
-            <button class="btn-fechar-modal">Fechar</button>
-        </div>
-    </div>
 
     <script>
         const btnMobile = document.querySelector('.hamburger-btn');
@@ -230,31 +217,6 @@ $veiculos = $stmt_veiculos->fetchAll();
             });
         });
 
-        const linkConta = document.querySelector('a[href="minha-conta-recep.php"]'); 
-        const modal = document.querySelector('#modal-conta');
-        const btnFechar = document.querySelector('.btn-fechar-modal');
-        const btnX = document.querySelector('.close-btn');
-
-        if(linkConta) {
-            linkConta.addEventListener('click', (e) => {
-                e.preventDefault();
-                modal.style.display = 'flex';
-            });
-        }
-
-        [btnFechar, btnX].forEach(btn => {
-            if(btn) {
-                btn.addEventListener('click', () => {
-                    modal.style.display = 'none';
-                });
-            }
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target == modal) {
-                modal.style.display = 'none';
-            }
-        });
 
         // Filtro de pesquisa em tempo real
         const searchInput = document.getElementById('searchVeiculo');

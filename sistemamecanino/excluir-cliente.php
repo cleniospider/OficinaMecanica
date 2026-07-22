@@ -74,11 +74,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'])) ?></span>
+                <span class="role-text">ADMINISTRADOR</span>
             </div>
         </div>
+
         <ul class="nav-links">
-            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : 'recep.php' ?>">Painel de Gestão</a></li>
+            <li><a href="admin.php" >Painel de Gestão</a></li>
             <li><a href="cadastrocliente.php" class="active">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
             <li><a href="ordens.php">Ordens de Serviços</a></li>
@@ -86,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
             <li><a href="financeiro.php">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
-            <li><a href="minha-conta.php">Minha conta</a></li>
+            <li><a href="minha-conta.php">Minha Conta</a></li>
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
@@ -105,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="aviso-texto">Esta ação removerá permanentemente os dados do cliente. Você não poderá excluir caso existam veículos vinculados.</p>
                 
                 <form method="POST" class="form-exclusao">
-                    <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? $_GET['id']) ?>">
+                <input type="hidden" name="id" value="<?= htmlspecialchars(($id ?? $_GET['id'] ?? '')) ?>">
                     <div class="botoes-acao-excluir">
                         <a href="cadastrocliente.php" class="btn-cancelar-exclusao">CANCELAR</a>
                         <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>

@@ -1,10 +1,27 @@
 <?php 
+session_start();
 require_once('conexao/conexao.php');
 
+// Proteção de sessão rigorosa para o Mecânico
+if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Mecanico') {
+    header("Location: index.php");
+    exit;
+}
+
+// Buscar dados reais e atualizados do mecânico no banco de dados
+$usuario = null;
+try {
+    $stmt = $pdo->prepare("SELECT id, nome_completo, email FROM usuarios WHERE id = ?");
+    $stmt->execute([$_SESSION['usuario_id']]);
+    $usuario = $stmt->fetch();
+} catch (PDOException $e) {
+    // Fallback caso ocorra erro no banco
+}
+
+// Definição das variáveis com dados do banco ou da sessão atual
+$nome  = $usuario['nome_completo'] ?? $_SESSION['usuario_nome'] ?? '';
+$email = $usuario['email']         ?? 'Não informado';
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -15,7 +32,7 @@ require_once('conexao/conexao.php');
     <link rel="stylesheet" href="css/admin.css"> 
     <link rel="stylesheet" href="css/configuracoes.css"> 
 </head>
-<body>
+<body class="dark-theme">
 
     <header class="top-header">
         <button class="hamburger-btn" id="btn-mobile">
@@ -32,13 +49,14 @@ require_once('conexao/conexao.php');
                 <span class="role-text" style="color: #ffaa00;">MECÂNICO</span>
             </div>
         </div>
+
         <ul class="nav-links">
             <li><a href="mecan.php">Painel de Gestão</a></li>
             <li><a href="ordens-mecanico.php">Ordens de Serviços</a></li>
             <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
             <li><a href="historico-veiculos-mecan.php">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-mecan.php" class="active">Minha conta</a></li>
-            <li><a href="index.php" class="logout-link">Sair</a></li>
+            <li><a href="minha-conta-mecan.php" class="active">Minha Conta</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -46,7 +64,7 @@ require_once('conexao/conexao.php');
         <div class="config-container">
             <div class="config-header">
                 <h2>⚙️ Configurações da Conta</h2>
-                <p>Gerencie seus dados pessoais e preferências de acesso.</p>
+                <p>Gerencie seus dados e preferências de acesso.</p>
             </div>
 
             <section class="config-section">
@@ -54,15 +72,15 @@ require_once('conexao/conexao.php');
                 <div class="config-form">
                     <div class="input-group">
                         <label>Nome Completo</label>
-                        <input type="text" value="Carlos Souza">
+                        <input type="text" value="<?= htmlspecialchars($nome) ?>">
                     </div>
                     <div class="input-group">
                         <label>E-mail de Contato</label>
-                        <input type="email" value="carlos.mecanico@autorepair.com">
+                        <input type="email" value="<?= htmlspecialchars($email) ?>">
                     </div>
                     <div class="input-group">
                         <label>Telefone / WhatsApp</label>
-                        <input type="text" id="whatsapp" value="(11) 98888-8888" maxlength="15">
+                        <input type="text" id="whatsapp" name="telefone" value="(11) 99999-9999" maxlength="15">
                     </div>
                 </div>
             </section>
@@ -72,11 +90,11 @@ require_once('conexao/conexao.php');
                 <div class="config-form">
                     <div class="input-group">
                         <label>Senha Atual</label>
-                        <input type="password" id="senha-atual" placeholder="********" minlength="6" maxlength="10">
+                        <input type="password" id="senha-atual" name="senha" placeholder="********" minlength="6" maxlength="10">
                     </div>
                     <div class="input-group">
                         <label>Nova Senha</label>
-                        <input type="password" id="nova-senha" placeholder="Digite a nova senha" minlength="6" maxlength="10">
+                        <input type="password" id="nova-senha" name="senha" placeholder="Digite a nova senha" minlength="6" maxlength="10">
                     </div>
                 </div>
             </section>
@@ -90,10 +108,12 @@ require_once('conexao/conexao.php');
                             <option>Português (Brasil)</option>
                             <option>Inglês (English)</option>
                             <option>Espanhol (Español)</option>
+                            <option>Francês (Français)</option>
+                            <option>Alemão (Deutsch)</option>
                         </select>
                     </div>
                     <div class="input-group">
-                        <label>Receber Alertas de Estoque Crítico</label>
+                        <label>Receber Alertas de Estoque</label>
                         <select>
                             <option>Sim, sempre</option>
                             <option>Não</option>
@@ -119,14 +139,6 @@ require_once('conexao/conexao.php');
                 sidebar.classList.toggle('open');
             });
         }
-
-        // Fecha a sidebar ao clicar nos links (essencial para responsividade mobile)
-        const links = document.querySelectorAll('.nav-links a');
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                sidebar.classList.remove('open');
-            });
-        });
 
         // Script de Máscara de Digitação para o WhatsApp
         const inputWhatsapp = document.getElementById('whatsapp');

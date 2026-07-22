@@ -119,19 +119,20 @@ $veiculos = $stmt_veiculos->fetchAll();
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'])) ?></span>
+                <span class="role-text">ADMINISTRADOR</span>
             </div>
         </div>
+
         <ul class="nav-links">
-            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : 'recep.php' ?>">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
+            <li><a href="admin.php" >Painel de Gestão</a></li>
+            <li><a href="cadastrocliente.php" >Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo.php" class="active">Cadastro Veículo</a></li>
             <li><a href="ordens.php">Ordens de Serviços</a></li>
             <li><a href="estoque-critico.php">Estoque de Peças</a></li>
             <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
             <li><a href="financeiro.php">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
-            <li><a href="minha-conta.php">Minha conta</a></li>
+            <li><a href="minha-conta.php">Minha Conta</a></li>
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
@@ -186,8 +187,8 @@ $veiculos = $stmt_veiculos->fetchAll();
                                 <td data-label="PROPRIETÁRIO"><?= htmlspecialchars($v['cliente']) ?></td>
                                 <td data-label="AÇÕES">
                                     <div class="acoes-flex">
-                                        <a href="editar-veiculo.php?id=<?= $v['id'] ?>" class="btn-editar" style="background-color: #2ecc71; margin-right: 5px;">EDITAR</a>
-                                        <a href="cadastroveiculo.php?excluir=<?= $v['id'] ?>" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir este veículo?')">EXCLUIR</a>
+                                        <a href="editar-veiculo.php?id=<?= $v['id'] ?>" class="btn-editar" style="background-color: #ff0000; margin-right: 5px;">EDITAR</a>
+                                        <a href="excluir-veiculo.php?id=<?= $v['id'] ?>" class="btn-excluir">EXCLUIR</a>
                                     </div>
                                 </td>
                             </tr>
@@ -202,19 +203,6 @@ $veiculos = $stmt_veiculos->fetchAll();
             </div>
         </div>
     </main>
-
-    <div id="modal-conta" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Minha Conta</h2>
-            <div class="conta-dados">
-                <p><strong>Status:</strong> <span style="color: #00cc44;">Ativo ✔️</span></p>
-                <p><strong>Nome:</strong> <?= htmlspecialchars($_SESSION['usuario_nome']) ?></p>
-                <p><strong>Perfil:</strong> <?= htmlspecialchars($_SESSION['usuario_perfil']) ?></p>
-            </div>
-            <button class="btn-fechar-modal">Fechar</button>
-        </div>
-    </div>
 
     <script>
         const btnMobile = document.querySelector('.hamburger-btn');
@@ -233,31 +221,6 @@ $veiculos = $stmt_veiculos->fetchAll();
             });
         });
 
-        const linkConta = document.querySelector('a[href="minha-conta.php"]'); 
-        const modal = document.querySelector('#modal-conta');
-        const btnFechar = document.querySelector('.btn-fechar-modal');
-        const btnX = document.querySelector('.close-btn');
-
-        if(linkConta) {
-            linkConta.addEventListener('click', (e) => {
-                e.preventDefault();
-                modal.style.display = 'flex';
-            });
-        }
-
-        [btnFechar, btnX].forEach(btn => {
-            if(btn) {
-                btn.addEventListener('click', () => {
-                    modal.style.display = 'none';
-                });
-            }
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target == modal) {
-                modal.style.display = 'none';
-            }
-        });
 
         // Filtro de pesquisa em tempo real
         const searchInput = document.getElementById('searchVeiculo');

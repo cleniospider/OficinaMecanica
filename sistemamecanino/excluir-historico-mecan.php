@@ -1,8 +1,9 @@
 <?php 
+session_start(); // Inicializa a sessão para ler as variáveis do usuário logado
 require_once('conexao/conexao.php');
 
-// Proteção de sessão
-if (!isset($_SESSION['usuario_id'])) {
+// Proteção de sessão — Garante que apenas usuários válidos acessem
+if (!isset($_SESSION['usuario_id']) || !in_array($_SESSION['usuario_perfil'], ['Admin', 'Mecanico'])) {
     header("Location: index.php");
     exit;
 }
@@ -64,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Repair - Excluir Histórico</title>
+    <title>Auto Repair - Excluir Histórico (Mecânico)</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/excluir-historico.css">
     <style>
@@ -95,22 +96,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'] ?? 'ADMINISTRADOR')) ?></span>
+                <span class="role-text" style="color: #ffaa00;">MECÂNICO</span>
             </div>
         </div>
         <ul class="nav-links">
-            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : ($_SESSION['usuario_perfil'] === 'Mecanico' ? 'mecan.php' : 'recep.php') ?>">Painel de Gestão</a></li>
-            <?php if ($_SESSION['usuario_perfil'] === 'Admin'): ?>
-                <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
-            <?php endif; ?>
-            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
-            <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
-            <li><a href="ordens.php">Ordens de Serviços</a></li>
-            <li><a href="estoque-critico.php">Estoque de Peças</a></li>
+            <li><a href="mecan.php">Painel de Gestão</a></li>
+            <li><a href="ordens-mecanico.php">Ordens de Serviços</a></li>
+            <li><a href="estoque-critico-mecan.php">Estoque de Peças</a></li>
             <li><a href="historico-veiculos-mecan.php" class="active">Histórico de Veículos</a></li>
-            <li><a href="financeiro.php">Financeiro</a></li>
-            <li><a href="relatorios.php">Relatórios</a></li>
-            <li><a href="minha-conta.php">Minha conta</a></li>
+            <li><a href="minha-conta-mecan.php">Minha Conta</a></li>
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
@@ -129,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="aviso-texto">Esta ação removerá permanentemente os dados desta manutenção e lançamentos financeiros relacionados.</p>
                 
                 <form method="POST" class="form-exclusao">
-                    <input type="hidden" name="id" value="<?= htmlspecialchars($id ?? $_GET['id']) ?>">
+                    <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
                     <div class="botoes-acao-excluir">
                         <a href="historico-veiculos-mecan.php" class="btn-cancelar-exclusao">CANCELAR</a>
                         <button type="submit" class="btn-confirmar-exclusao">SIM, EXCLUIR</button>

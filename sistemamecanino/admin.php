@@ -37,17 +37,15 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Admin') 
 
         <ul class="nav-links">
             <li><a href="admin.php" class="active">Painel de Gestão</a></li>
-            <li><a href="bd/lista.php">Gerenciar Usuários</a></li>
             <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo.php">Cadastro Veículo</a></li>
             <li><a href="ordens.php">Ordens de Serviços</a></li>
-            <li><a href="servicos.php">Serviços</a></li>
             <li><a href="estoque-critico.php">Estoque de Peças</a></li>
             <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
             <li><a href="financeiro.php">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
             <li><a href="minha-conta.php">Minha Conta</a></li>
-            <li><a href="index.php?logout=1" class="logout-php">Sair</a></li>
+            <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
 
@@ -62,11 +60,9 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_perfil'] !== 'Admin') 
         </div>
 
         <div class="dashboard-grid">
-            <a href="bd/lista.php" class="grid-card">GERENCIAR USUÁRIOS</a>
             <a href="cadastrocliente.php" class="grid-card">CADASTRO CLIENTE</a>
             <a href="cadastroveiculo.php" class="grid-card">CADASTRO VEÍCULO</a>
             <a href="ordens.php" class="grid-card">ORDENS DE SERVIÇOS</a>
-            <a href="servicos.php" class="grid-card">SERVIÇOS</a>
             <a href="estoque-critico.php" class="grid-card">ESTOQUE DE PEÇAS</a>
             <a href="historico-veiculos.php" class="grid-card">HISTÓRICO DE VEÍCULOS</a>
             <a href="financeiro.php" class="grid-card">FINANCEIRO</a>

@@ -34,22 +34,24 @@ $clientes_lista = $stmt_cli->fetchAll();
             <img src="img/download.png" alt="Avatar" class="avatar"> 
             <div class="mobile-profile-text">
                 AUTO REPAIR<br>
-                <span class="role-text"><?= htmlspecialchars(strtoupper($_SESSION['usuario_perfil'])) ?></span>
+                <span class="role-text">ADMINISTRADOR</span>
             </div>
         </div>
+
         <ul class="nav-links">
-            <li><a href="<?= $_SESSION['usuario_perfil'] === 'Admin' ? 'admin.php' : 'recep.php' ?>">Painel de Gestão</a></li>
-            <li><a href="cadastrocliente.php">Cadastro Cliente</a></li>
+            <li><a href="admin.php" >Painel de Gestão</a></li>
+            <li><a href="cadastrocliente.php" >Cadastro Cliente</a></li>
             <li><a href="cadastroveiculo.php" class="active">Cadastro Veículo</a></li>
             <li><a href="ordens.php">Ordens de Serviços</a></li>
             <li><a href="estoque-critico.php">Estoque de Peças</a></li>
             <li><a href="historico-veiculos.php">Histórico de Veículos</a></li>
             <li><a href="financeiro.php">Financeiro</a></li>
             <li><a href="relatorios.php">Relatórios</a></li>
-            <li><a href="minha-conta.php">Minha conta</a></li>
+            <li><a href="minha-conta.php">Minha Conta</a></li>
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
+    
     <main class="main-content">
         <div class="orders-container">
             <div class="orders-header">

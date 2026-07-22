@@ -99,7 +99,7 @@ $clientes = $stmt_clientes->fetchAll();
             <li><a href="cadastroveiculo-recep.php">Cadastro Veículo</a></li>
             <li><a href="ordens-recep.php">Ordens de Serviços</a></li> 
             <li><a href="historico-veiculos-recep.php">Histórico de Veículos</a></li>
-            <li><a href="minha-conta-recep.php">Minha conta</a></li> 
+            <li><a href="minha-conta-recep.php">Minha Conta</a></li> 
             <li><a href="index.php?logout=1" class="logout-link">Sair</a></li>
         </ul>
     </aside>
@@ -155,15 +155,13 @@ $clientes = $stmt_clientes->fetchAll();
                             </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
-                    </tbody>
+                        </tbody>
                 </table>
-            </div>        </div>
-
-            <div class="area-botao-novo">
-                <a href="novo-cliente-recep.php" class="btn-novo-cliente">+ NOVO CLIENTE</a>
+            </div> <div class="area-botao-novo" style="margin-top: 20px; display: flex; width: 100%;">
+                <a href="novo-cliente-recep.php" class="btn-novo-cliente" style="width: 100%; background: #ff0000; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; text-decoration: none; text-align: center; display: block; box-sizing: border-box; font-size: 14px;">+ NOVO CLIENTE</a>
             </div>
-        </div>
-    </main>
+
+        </div> </main>
 
     <div id="modal-conta" class="modal-overlay" style="display: none;">
         <div class="modal-content">
@@ -221,3 +219,4 @@ $clientes = $stmt_clientes->fetchAll();
     </script>
 </body>
 </html>
+
