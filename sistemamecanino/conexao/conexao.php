@@ -620,5 +620,5 @@ try {
     die("Erro de conexão PDO crítico: " . $e->getMessage());
 }
 
-define('BASE_URL', 'http://localhost/sistemamecanino/index.php');
+define('BASE_URL', 'http://localhost/OficinaMecanica/sistemamecanino/index.php');
 ?>
